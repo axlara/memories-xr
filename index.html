@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Mural Cósmico</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <!-- Céu 360° como fundo -->
+      <a-sky src="/images/qwantani_night.jpg" rotation="0 -90 0"></a-sky>
+
+      <!-- Música de fundo -->
+      <a-entity sound="src: url(musica.mp3); autoplay: true; loop: true"></a-entity>
+
+      <!-- Câmera e controle -->
+      <a-entity camera look-controls wasd-controls position="0 1.6 0"></a-entity>
+
+      <!-- Exemplo de imagem flutuante -->
+      <a-image src="/images/imagelarasf.jpeg" position="-2 1.5 -4" width="1.5" height="1"></a-image>
+
+      <!-- Exemplo de frase flutuante -->
+      <a-text value="Era uma vez o início..." position="-2 2.5 -4" color="#FFF" align="center" width="4"></a-text>
+
+      <!-- Adicione mais imagens e textos abaixo -->
+    </a-scene>
+  </body>
+</html>
