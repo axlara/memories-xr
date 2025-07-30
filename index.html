@@ -2,29 +2,55 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Mural Cósmico</title>
+    <title>Memórias</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
     <base href="/memories-xr/">
   </head>
   <body>
     <a-scene>
+
       <!-- Céu 360° como fundo -->
-      <a-sky src="./rogland_clear_night.jpg" rotation="0 -90 0"></a-sky>
+      <a-sky src="./qwantani_night.jpg" rotation="0 -90 0"></a-sky>
 
       <!-- Música de fundo -->
       <a-entity sound="src: url(musica.mp3); autoplay: true; loop: true"></a-entity>
 
-      <!-- Câmera e controle -->
+      <!-- Câmera -->
       <a-entity camera look-controls wasd-controls position="0 1.6 0"></a-entity>
 
-      <!-- Exemplo de imagem flutuante -->
-      <a-image src="imagelarasf.jpeg" position="-2 1.5 -4" width="1.7" height="1.2"></a-image>
+      <!-- Título e introdução -->
+      <a-text value="Mural Cósmico" position="0 3 -2" align="center" color="#FFD700" width="6"></a-text>
+      <a-text value="Uma jornada visual pelas memórias da sua vida" position="0 2.5 -2" align="center" color="#FFF" width="5"></a-text>
 
-      <!-- Exemplo de frase flutuante -->
-      <a-text value="Era uma vez o início..." position="-2 2.5 -4" color="#FFF" align="center" width="4"></a-text>
+      <!-- Década de 60 -->
+      <a-image src="imagelarasf.jpeg" position="-4 2 -6" width="1.7" height="1.2"></a-image>
+      <a-text value="1960s - O começo" position="-4 3 -6" align="center" color="#FFF" width="4"></a-text>
 
-      <!-- Adicione mais imagens e textos abaixo -->
+      <!-- Década de 70 -->
+      <a-image src="img70.jpg" position="-2 1.7 -5" width="1.7" height="1.2"></a-image>
+      <a-text value="1970s - Infância e descobertas" position="-2 2.7 -5" align="center" color="#FFF" width="4"></a-text>
+
+      <!-- Década de 80 -->
+      <a-image src="img80.jpg" position="0 2.2 -4.5" width="1.7" height="1.2"></a-image>
+      <a-text value="1980s - Juventude e alegria" position="0 3.2 -4.5" align="center" color="#FFF" width="4"></a-text>
+
+      <!-- Década de 90 -->
+      <a-image src="img90.jpg" position="2 1.8 -5" width="1.7" height="1.2"></a-image>
+      <a-text value="1990s - Amor e família" position="2 2.8 -5" align="center" color="#FFF" width="4"></a-text>
+
+      <!-- Anos 2000 -->
+      <a-image src="img2000.jpg" position="4 2.3 -6" width="1.7" height="1.2"></a-image>
+      <a-text value="2000s - Laços e conquistas" position="4 3.3 -6" align="center" color="#FFF" width="4"></a-text>
+
+      <!-- Anos 2010 -->
+      <a-image src="img2010.jpg" position="-1 2 -8" width="1.7" height="1.2"></a-image>
+      <a-text value="2010s - Caminhos abertos" position="-1 3 -8" align="center" color="#FFF" width="4"></a-text>
+
+      <!-- Anos 2020 -->
+      <a-image src="img2020.jpg" position="1 2.2 -8.5" width="1.7" height="1.2"></a-image>
+      <a-text value="2020s - Presente e plenitude" position="1 3.2 -8.5" align="center" color="#FFF" width="4"></a-text>
+
     </a-scene>
   </body>
 </html>
