@@ -2,54 +2,67 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Memórias</title>
+    <title>Mural Cósmico</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-    <base href="/memories-xr/">
+    <!-- <base href="/memories-xr/"> REMOVIDO para uso local -->
   </head>
   <body>
     <a-scene>
-
-      <!-- Céu 360° como fundo -->
-      <a-sky src="./qwantani_night.jpg" rotation="0 -90 0"></a-sky>
+      <!-- Fundo 360º estrelado -->
+      <a-sky src="qwantani_night.jpg" rotation="0 -90 0"></a-sky>
 
       <!-- Música de fundo -->
       <a-entity sound="src: url(musica.mp3); autoplay: true; loop: true"></a-entity>
 
-      <!-- Câmera -->
+      <!-- Câmera central -->
       <a-entity camera look-controls wasd-controls position="0 1.6 0"></a-entity>
 
-      <!-- Título e introdução -->
-      <a-text value="Mural Cósmico" position="0 3 -2" align="center" color="#FFD700" width="6"></a-text>
-      <a-text value="Uma jornada visual pelas memórias da sua vida" position="0 2.5 -2" align="center" color="#FFF" width="5"></a-text>
+      <!-- Título reflexivo -->
+      <a-text 
+        value="Este é um espaço feito de memória. " 
+        position="0 4 -2" 
+        align="center" 
+        color="#FFD700" 
+        width="5">
+      </a-text>
+      <a-text 
+        value="Um céu de lembranças que brilha para te lembrar de onde veio, de quem já foi, e da beleza do caminho até aqui. Olhe em volta e veja a sua linda jornada nesta vida." 
+        position="0 3.5 -2" 
+        align="center" 
+        color="#FFF" 
+        width="4.0">
+      </a-text>
 
-      <!-- Década de 60 -->
-      <a-image src="imagelarasf.jpeg" position="-4 2 -6" width="1.7" height="1.2"></a-image>
-      <a-text value="1960s - O começo" position="-4 3 -6" align="center" color="#FFF" width="4"></a-text>
+      <!-- Memórias em 360° - posições circulares -->
 
-      <!-- Década de 70 -->
-      <a-image src="img70.jpg" position="-2 1.7 -5" width="1.7" height="1.2"></a-image>
-      <a-text value="1970s - Infância e descobertas" position="-2 2.7 -5" align="center" color="#FFF" width="4"></a-text>
+      <!-- 1960s -->
+      <a-image src="imagelarasf.jpeg" position="6 2 -2" width="1.7" height="1.2"></a-image>
+      <a-text value="1960s - O começo" position="6 3 -2" align="center" color="#FFF" width="4"></a-text>
 
-      <!-- Década de 80 -->
-      <a-image src="img80.jpg" position="0 2.2 -4.5" width="1.7" height="1.2"></a-image>
-      <a-text value="1980s - Juventude e alegria" position="0 3.2 -4.5" align="center" color="#FFF" width="4"></a-text>
+      <!-- 1970s -->
+      <a-image src="img70.jpg" position="4.2 2.2 4.2" width="1.7" height="1.2"></a-image>
+      <a-text value="1970s - Infância e descobertas" position="4.2 3.2 4.2" align="center" color="#FFF" width="4"></a-text>
 
-      <!-- Década de 90 -->
-      <a-image src="img90.jpg" position="2 1.8 -5" width="1.7" height="1.2"></a-image>
-      <a-text value="1990s - Amor e família" position="2 2.8 -5" align="center" color="#FFF" width="4"></a-text>
+      <!-- 1980s -->
+      <a-image src="img80.jpg" position="0 2.5 6" width="1.7" height="1.2"></a-image>
+      <a-text value="1980s - Juventude e alegria" position="0 3.5 6" align="center" color="#FFF" width="4"></a-text>
 
-      <!-- Anos 2000 -->
-      <a-image src="img2000.jpg" position="4 2.3 -6" width="1.7" height="1.2"></a-image>
-      <a-text value="2000s - Laços e conquistas" position="4 3.3 -6" align="center" color="#FFF" width="4"></a-text>
+      <!-- 1990s -->
+      <a-image src="img90.jpg" position="-4.2 3 4.2" width="1.7" height="1.2"></a-image>
+      <a-text value="1990s - Amor e recomeços" position="-4.2 3.1 4.2" align="center" color="#FFF" width="4"></a-text>
 
-      <!-- Anos 2010 -->
-      <a-image src="img2010.jpg" position="-1 2 -8" width="1.7" height="1.2"></a-image>
-      <a-text value="2010s - Caminhos abertos" position="-1 3 -8" align="center" color="#FFF" width="4"></a-text>
+      <!-- 2000s -->
+      <a-image src="img2000.jpg" position="-6 4 -2" width="1.7" height="1.2"></a-image>
+      <a-text value="2000s - Construção e raízes" position="-6 3 -2" align="center" color="#FFF" width="4"></a-text>
 
-      <!-- Anos 2020 -->
-      <a-image src="img2020.jpg" position="1 2.2 -8.5" width="1.7" height="1.2"></a-image>
-      <a-text value="2020s - Presente e plenitude" position="1 3.2 -8.5" align="center" color="#FFF" width="4"></a-text>
+      <!-- 2010s -->
+      <a-image src="img2010.jpg" position="-4.2 2.2 -4.2" width="1.7" height="1.2"></a-image>
+      <a-text value="2010s - Caminhos abertos" position="-4.2 3.2 -4.2" align="center" color="#FFF" width="4"></a-text>
+
+      <!-- 2020s -->
+      <a-image src="img2020.jpg" position="0 2.4 -6" width="1.7" height="1.2"></a-image>
+      <a-text value="2020s - Plenitude e amor" position="0 3.4 -6" align="center" color="#FFF" width="4"></a-text>
 
     </a-scene>
   </body>
