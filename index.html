@@ -5,65 +5,184 @@
     <title>Mural Cósmico</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-    <!-- <base href="/memories-xr/"> REMOVIDO para uso local -->
+    <script src="https://unpkg.com/aframe-rounded-component@1.2.0/dist/aframe-rounded-component.min.js"></script>
+    <style>
+      .floating {
+        animation: float 3s ease-in-out infinite;
+      }
+      @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-0.2m); }
+      }
+    </style>
   </head>
   <body>
     <a-scene>
-      <!-- Fundo 360º estrelado -->
+      <!-- Céu 360° como fundo -->
       <a-sky src="qwantani_night.jpg" rotation="0 -90 0"></a-sky>
 
       <!-- Música de fundo -->
       <a-entity sound="src: url(musica.mp3); autoplay: true; loop: true"></a-entity>
 
-      <!-- Câmera central -->
+      <!-- Câmera -->
       <a-entity camera look-controls wasd-controls position="0 1.6 0"></a-entity>
 
-      <!-- Título reflexivo -->
+      <!-- Texto de abertura -->
       <a-text 
-        value="Este é um espaço feito de memória. " 
-        position="0 4 -2" 
+        value="Quem sou eu?\nDe onde vim, o que carrego?\n\nAs memórias nos costuram, nos revelam.\nEste é um passeio pelas camadas da sua jornada.\nVocê foi — e é — luz em cada tempo."
+        position="0 5 -2" 
         align="center" 
-        color="#FFD700" 
-        width="5">
-      </a-text>
-      <a-text 
-        value="Um céu de lembranças que brilha para te lembrar de onde veio, de quem já foi, e da beleza do caminho até aqui. Olhe em volta e veja a sua linda jornada nesta vida." 
-        position="0 3.5 -2" 
-        align="center" 
-        color="#FFF" 
-        width="4.0">
+        width="6" 
+        color="white"
+        line-height="60">
       </a-text>
 
-      <!-- Memórias em 360° - posições circulares -->
+      <!-- BLOCO: Anos 60 -->
+      <a-entity class="floating" position="-5 3 -5">
+        <a-image src="img60.jpg" width="3" height="2" radius="5"></a-image>
+      </a-entity>
+      <a-entity class="floating" position="-7.5 1.5 -5">
+        <a-image src="img601.jpg" width="1.5" height="1" radius="5"></a-image>
+      </a-entity>
+      <a-entity class="floating" position="-5.5 1.5 -5">
+        <a-image src="img602.jpg" width="1.5" height="1" radius="0.1"></a-image>
+      </a-entity>
+      <a-entity class="floating" position="-3.5 1.5 -5">
+        <a-image src="img603.jpg" width="1.5" height="1" radius="0.1"></a-image>
+      </a-entity>
+      <a-entity class="floating" position="-6 -0.1 -5">
+        <a-image src="img604.jpg" width="1.5" height="1" radius="0.1"></a-image>
+      </a-entity>
+      <a-entity class="floating" position="-4.25 -0.1 -5">
+        <a-image src="img605.jpg" width="1.5" height="1" radius="0.1"></a-image>
+      </a-entity>
+      <a-text value="Anos 60 — O início de uma jornada transformadora." position="-5 4.5 -5" align="center" color="white" width="4"></a-text>
 
-      <!-- 1960s -->
-      <a-image src="imagelarasf.jpeg" position="6 2 -2" width="1.7" height="1.2"></a-image>
-      <a-text value="1960s - O começo" position="6 3 -2" align="center" color="#FFF" width="4"></a-text>
+      <!-- BLOCO: Anos 70 -->
+      <a-entity class="floating" position="0 3 -7">
+        <a-image src="img70.jpg" width="3" height="2" radius="0.1"></a-image>
+      </a-entity>
+      <a-entity class="floating" position="-1.5 1.5 -7">
+        <a-image src="img701.jpg" width="1.5" height="1" radius="0.1"></a-image>
+      </a-entity>
+      <a-entity class="floating" position="0.5 1.5 -7">
+        <a-image src="img702.jpg" width="1.5" height="1" radius="0.1"></a-image>
+      </a-entity>
+      <a-entity class="floating" position="2.5 1.5 -7">
+        <a-image src="img703.jpg" width="1.5" height="1" radius="0.1"></a-image>
+      </a-entity>
+      <a-entity class="floating" position="-0.5 -0.1 -7">
+        <a-image src="img704.jpg" width="1.5" height="1" radius="0.1"></a-image>
+      </a-entity>
+      <a-entity class="floating" position="1.25 -0.1 -7">
+        <a-image src="img705.jpg" width="1.5" height="1" radius="0.1"></a-image>
+      </a-entity>
+      <a-text value="Anos 70 — Primeiros passos, descobertas com brilho." position="0 4.5 -7" align="center" color="white" width="4"></a-text>
 
-      <!-- 1970s -->
-      <a-image src="img70.jpg" position="4.2 2.2 4.2" width="1.7" height="1.2"></a-image>
-      <a-text value="1970s - Infância e descobertas" position="4.2 3.2 4.2" align="center" color="#FFF" width="4"></a-text>
+      <!-- BLOCO: Anos 80 -->
+      <a-entity class="floating" position="5 3 -5">
+        <a-image src="img80.jpg" width="3" height="2" radius="0.1"></a-image>
+      </a-entity>
+      <a-entity class="floating" position="2.5 1.5 -5">
+        <a-image src="img801.jpg" width="1.5" height="1" radius="0.1"></a-image>
+      </a-entity>
+      <a-entity class="floating" position="4.5 1.5 -5">
+        <a-image src="img802.jpg" width="1.5" height="1" radius="0.1"></a-image>
+      </a-entity>
+      <a-entity class="floating" position="6.5 1.5 -5">
+        <a-image src="img803.jpg" width="1.5" height="1" radius="0.1"></a-image>
+      </a-entity>
+      <a-entity class="floating" position="3.5 -0.1 -5">
+        <a-image src="img804.jpg" width="1.5" height="1" radius="0.1"></a-image>
+      </a-entity>
+      <a-entity class="floating" position="5.25 -0.1 -5">
+        <a-image src="img805.jpg" width="1.5" height="1" radius="0.1"></a-image>
+      </a-entity>
+      <a-text value="Anos 80 — Juventude que floresce com força." position="5 4.5 -5" align="center" color="white" width="4"></a-text>
 
-      <!-- 1980s -->
-      <a-image src="img80.jpg" position="0 2.5 6" width="1.7" height="1.2"></a-image>
-      <a-text value="1980s - Juventude e alegria" position="0 3.5 6" align="center" color="#FFF" width="4"></a-text>
+      <!-- BLOCO: Anos 90 -->
+      <a-entity class="floating" position="7 3 0">
+        <a-image src="img90.jpg" width="3" height="2" radius="0.1"></a-image>
+      </a-entity>
+      <a-entity class="floating" position="4.5 1.5 0">
+        <a-image src="img901.jpg" width="1.5" height="1" radius="0.1"></a-image>
+      </a-entity>
+      <a-entity class="floating" position="6.5 1.5 0">
+        <a-image src="img902.jpg" width="1.5" height="1" radius="0.1"></a-image>
+      </a-entity>
+      <a-entity class="floating" position="8.5 1.5 0">
+        <a-image src="img903.jpg" width="1.5" height="1" radius="0.1"></a-image>
+      </a-entity>
+      <a-entity class="floating" position="5.5 -0.1 0">
+        <a-image src="img904.jpg" width="1.5" height="1" radius="0.1"></a-image>
+      </a-entity>
+      <a-entity class="floating" position="7.25 -0.1 0">
+        <a-image src="img905.jpg" width="1.5" height="1" radius="0.1"></a-image>
+      </a-entity>
+      <a-text value="Anos 90 — Construindo, cuidando, sendo alicerce." position="7 4.5 0" align="center" color="white" width="4"></a-text>
 
-      <!-- 1990s -->
-      <a-image src="img90.jpg" position="-4.2 3 4.2" width="1.7" height="1.2"></a-image>
-      <a-text value="1990s - Amor e recomeços" position="-4.2 3.1 4.2" align="center" color="#FFF" width="4"></a-text>
+      <!-- BLOCO: Anos 2000 -->
+      <a-entity class="floating" position="5 3 5">
+        <a-image src="img00.jpg" width="3" height="2" radius="0.1"></a-image>
+      </a-entity>
+      <a-entity class="floating" position="2.5 1.5 5">
+        <a-image src="img001.jpg" width="1.5" height="1" radius="0.1"></a-image>
+      </a-entity>
+      <a-entity class="floating" position="4.5 1.5 5">
+        <a-image src="img002.jpg" width="1.5" height="1" radius="0.1"></a-image>
+      </a-entity>
+      <a-entity class="floating" position="6.5 1.5 5">
+        <a-image src="img003.jpg" width="1.5" height="1" radius="0.1"></a-image>
+      </a-entity>
+      <a-entity class="floating" position="3.5 -0.1 5">
+        <a-image src="img004.jpg" width="1.5" height="1" radius="0.1"></a-image>
+      </a-entity>
+      <a-entity class="floating" position="5.25 -0.1 5">
+        <a-image src="img005.jpg" width="1.5" height="1" radius="0.1"></a-image>
+      </a-entity>
+      <a-text value="Anos 2000 — Desafios e renovações com sabedoria." position="5 4.5 5" align="center" color="white" width="4"></a-text>
 
-      <!-- 2000s -->
-      <a-image src="img2000.jpg" position="-6 4 -2" width="1.7" height="1.2"></a-image>
-      <a-text value="2000s - Construção e raízes" position="-6 3 -2" align="center" color="#FFF" width="4"></a-text>
+      <!-- BLOCO: Anos 2010 -->
+      <a-entity class="floating" position="0 3 7">
+        <a-image src="img10.jpg" width="3" height="2" radius="0.1"></a-image>
+      </a-entity>
+      <a-entity class="floating" position="-2.5 1.5 7">
+        <a-image src="img1001.jpg" width="1.5" height="1" radius="0.1"></a-image>
+      </a-entity>
+      <a-entity class="floating" position="-0.5 1.5 7">
+        <a-image src="img1002.jpg" width="1.5" height="1" radius="0.1"></a-image>
+      </a-entity>
+      <a-entity class="floating" position="1.5 1.5 7">
+        <a-image src="img1003.jpg" width="1.5" height="1" radius="0.1"></a-image>
+      </a-entity>
+      <a-entity class="floating" position="-1.5 -0.1 7">
+        <a-image src="img1004.jpg" width="1.5" height="1" radius="0.1"></a-image>
+      </a-entity>
+      <a-entity class="floating" position="0.25 -0.1 7">
+        <a-image src="img1005.jpg" width="1.5" height="1" radius="0.1"></a-image>
+      </a-entity>
+      <a-text value="Anos 2010 — Memórias vivas, alegrias florescendo." position="0 4.5 7" align="center" color="white" width="4"></a-text>
 
-      <!-- 2010s -->
-      <a-image src="img2010.jpg" position="-4.2 2.2 -4.2" width="1.7" height="1.2"></a-image>
-      <a-text value="2010s - Caminhos abertos" position="-4.2 3.2 -4.2" align="center" color="#FFF" width="4"></a-text>
-
-      <!-- 2020s -->
-      <a-image src="img2020.jpg" position="0 2.4 -6" width="1.7" height="1.2"></a-image>
-      <a-text value="2020s - Plenitude e amor" position="0 3.4 -6" align="center" color="#FFF" width="4"></a-text>
-
+      <!-- BLOCO: Anos 2020 -->
+      <a-entity class="floating" position="-5 3 5">
+        <a-image src="img20.jpg" width="3" height="2" radius="0.1"></a-image>
+      </a-entity>
+      <a-entity class="floating" position="-7.5 1.5 5">
+        <a-image src="img2001.jpg" width="1.5" height="1" radius="0.1"></a-image>
+      </a-entity>
+      <a-entity class="floating" position="-5.5 1.5 5">
+        <a-image src="img2002.jpg" width="1.5" height="1" radius="0.1"></a-image>
+      </a-entity>
+      <a-entity class="floating" position="-3.5 1.5 5">
+        <a-image src="img2003.jpg" width="1.5" height="1" radius="0.1"></a-image>
+      </a-entity>
+      <a-entity class="floating" position="-6 -0.1 5">
+        <a-image src="img2004.jpg" width="1.5" height="1" radius="0.1"></a-image>
+      </a-entity>
+      <a-entity class="floating" position="-4.25 -0.1 5">
+        <a-image src="img2005.jpg" width="1.5" height="1" radius="0.1"></a-image>
+      </a-entity>
+      <a-text value="Anos 2020 — Beleza de uma vida bem vivida." position="-5 4.5 5" align="center" color="white" width="4"></a-text>
     </a-scene>
   </body>
 </html>
