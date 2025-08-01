@@ -19,7 +19,7 @@
   <body>
     <a-scene>
       <!-- Céu 360° como fundo -->
-      <a-sky src="qwantani_night.jpg" rotation="0 -90 0"></a-sky>
+      <a-sky src="bgsky.jpg" rotation="0 -90 0"></a-sky>
 
       <!-- Música de fundo -->
       <a-entity sound="src: url(musica.mp3); autoplay: true; loop: true"></a-entity>
@@ -38,151 +38,167 @@
       </a-text>
 
       <!-- BLOCO: Anos 60 -->
-      <a-entity class="floating" position="-5 3 -5">
-        <a-image src="img60.jpg" width="3" height="2" radius="5"></a-image>
+      <a-entity position="-5 3 -5" class="floating">
+        <a-image src="img60.jpg" width="3" height="2" radius="0.1"></a-image>
       </a-entity>
-      <a-entity class="floating" position="-7.5 1.5 -5">
-        <a-image src="img601.jpg" width="1.5" height="1" radius="5"></a-image>
+      <a-entity position="-7.5 1.5 -5" class="floating">
+        <a-image src="img601.jpg" width="1.5" height="1" radius="0.1"></a-image>
       </a-entity>
-      <a-entity class="floating" position="-5.5 1.5 -5">
+      <a-entity position="-5.5 1.5 -5" class="floating">
         <a-image src="img602.jpg" width="1.5" height="1" radius="0.1"></a-image>
       </a-entity>
-      <a-entity class="floating" position="-3.5 1.5 -5">
+      <a-entity position="-3.5 1.5 -5" class="floating">
         <a-image src="img603.jpg" width="1.5" height="1" radius="0.1"></a-image>
       </a-entity>
-      <a-entity class="floating" position="-6 -0.1 -5">
+      <a-entity position="-6 -0.1 -5" class="floating">
         <a-image src="img604.jpg" width="1.5" height="1" radius="0.1"></a-image>
       </a-entity>
-      <a-entity class="floating" position="-4.25 -0.1 -5">
+      <a-entity position="-4.25 -0.1 -5" class="floating">
         <a-image src="img605.jpg" width="1.5" height="1" radius="0.1"></a-image>
       </a-entity>
       <a-text value="Anos 60 — O início de uma jornada transformadora." position="-5 4.5 -5" align="center" color="white" width="4"></a-text>
 
       <!-- BLOCO: Anos 70 -->
-      <a-entity class="floating" position="0 3 -7">
+      <a-entity position="0 3 -7" class="floating">
         <a-image src="img70.jpg" width="3" height="2" radius="0.1"></a-image>
       </a-entity>
-      <a-entity class="floating" position="-1.5 1.5 -7">
+      <a-entity position="-1.5 1.5 -7" class="floating">
         <a-image src="img701.jpg" width="1.5" height="1" radius="0.1"></a-image>
       </a-entity>
-      <a-entity class="floating" position="0.5 1.5 -7">
+      <a-entity position="0.5 1.5 -7" class="floating">
         <a-image src="img702.jpg" width="1.5" height="1" radius="0.1"></a-image>
       </a-entity>
-      <a-entity class="floating" position="2.5 1.5 -7">
+      <a-entity position="2.5 1.5 -7" class="floating">
         <a-image src="img703.jpg" width="1.5" height="1" radius="0.1"></a-image>
       </a-entity>
-      <a-entity class="floating" position="-0.5 -0.1 -7">
+      <a-entity position="-0.5 -0.1 -7" class="floating">
         <a-image src="img704.jpg" width="1.5" height="1" radius="0.1"></a-image>
       </a-entity>
-      <a-entity class="floating" position="1.25 -0.1 -7">
+      <a-entity position="1.25 -0.1 -7" class="floating">
         <a-image src="img705.jpg" width="1.5" height="1" radius="0.1"></a-image>
       </a-entity>
       <a-text value="Anos 70 — Primeiros passos, descobertas com brilho." position="0 4.5 -7" align="center" color="white" width="4"></a-text>
 
       <!-- BLOCO: Anos 80 -->
-      <a-entity class="floating" position="5 3 -5">
+      <a-entity position="6 3 -5" rotation="0 145 0" class="floating">
         <a-image src="img80.jpg" width="3" height="2" radius="0.1"></a-image>
       </a-entity>
-      <a-entity class="floating" position="2.5 1.5 -5">
+      <a-entity position="4 1.5 -5" rotation="0 145 0" class="floating">
         <a-image src="img801.jpg" width="1.5" height="1" radius="0.1"></a-image>
       </a-entity>
-      <a-entity class="floating" position="4.5 1.5 -5">
+      <a-entity position="7 1.5 -5" rotation="0 145 0" class="floating">
         <a-image src="img802.jpg" width="1.5" height="1" radius="0.1"></a-image>
       </a-entity>
-      <a-entity class="floating" position="6.5 1.5 -5">
+      <a-entity position="9.5 1 -5" rotation="0 145 0" class="floating">
         <a-image src="img803.jpg" width="1.5" height="1" radius="0.1"></a-image>
       </a-entity>
-      <a-entity class="floating" position="3.5 -0.1 -5">
+      <a-entity position="4 -0.1 -5" rotation="0 145 0"class="floating">
         <a-image src="img804.jpg" width="1.5" height="1" radius="0.1"></a-image>
       </a-entity>
-      <a-entity class="floating" position="5.25 -0.1 -5">
+      <a-entity position="7 -0.1 -5" rotation="0 145 0"class="floating">
         <a-image src="img805.jpg" width="1.5" height="1" radius="0.1"></a-image>
       </a-entity>
-      <a-text value="Anos 80 — Juventude que floresce com força." position="5 4.5 -5" align="center" color="white" width="4"></a-text>
+      <a-text value="Anos 80 — Juventude que floresce com força." position="6 4.5 -5" rotation="0 320 0" align="center" color="white" width="4"></a-text>
 
       <!-- BLOCO: Anos 90 -->
-      <a-entity class="floating" position="7 3 0">
+      <a-entity position="7 5 1" rotation="0 90 0" class="floating">
         <a-image src="img90.jpg" width="3" height="2" radius="0.1"></a-image>
       </a-entity>
-      <a-entity class="floating" position="4.5 1.5 0">
+      <a-entity position="4.5 2.5 0"rotation="0 90 0" class="floating">
         <a-image src="img901.jpg" width="1.5" height="1" radius="0.1"></a-image>
       </a-entity>
-      <a-entity class="floating" position="6.5 1.5 0">
+      <a-entity position="6.5 3 2" rotation="0 90" class="floating">
         <a-image src="img902.jpg" width="1.5" height="1" radius="0.1"></a-image>
       </a-entity>
-      <a-entity class="floating" position="8.5 1.5 0">
+      <a-entity position="8.5 2 4" rotation="0 90" class="floating">
         <a-image src="img903.jpg" width="1.5" height="1" radius="0.1"></a-image>
       </a-entity>
-      <a-entity class="floating" position="5.5 -0.1 0">
+      <a-entity position="5.5 1.5 0" rotation="0 90 0" class="floating">
         <a-image src="img904.jpg" width="1.5" height="1" radius="0.1"></a-image>
       </a-entity>
-      <a-entity class="floating" position="7.25 -0.1 0">
+      <a-entity position="7.25 1 2" rotation="0 90 0" class="floating">
         <a-image src="img905.jpg" width="1.5" height="1" radius="0.1"></a-image>
       </a-entity>
-      <a-text value="Anos 90 — Construindo, cuidando, sendo alicerce." position="7 4.5 0" align="center" color="white" width="4"></a-text>
+      <a-text value="Anos 90 — Construindo, cuidando, sendo alicerce." position="7 6.2 1" rotation="0 270 0" align="center" color="white" width="4"></a-text>
 
       <!-- BLOCO: Anos 2000 -->
-      <a-entity class="floating" position="5 3 5">
+      <a-entity position="5 3 5" class="floating">
         <a-image src="img00.jpg" width="3" height="2" radius="0.1"></a-image>
       </a-entity>
-      <a-entity class="floating" position="2.5 1.5 5">
+      <a-entity position="2.5 1.5 5" class="floating">
         <a-image src="img001.jpg" width="1.5" height="1" radius="0.1"></a-image>
       </a-entity>
-      <a-entity class="floating" position="4.5 1.5 5">
+      <a-entity position="4.5 1.5 5" class="floating">
         <a-image src="img002.jpg" width="1.5" height="1" radius="0.1"></a-image>
       </a-entity>
-      <a-entity class="floating" position="6.5 1.5 5">
+      <a-entity position="6.5 1.5 5" class="floating">
         <a-image src="img003.jpg" width="1.5" height="1" radius="0.1"></a-image>
       </a-entity>
-      <a-entity class="floating" position="3.5 -0.1 5">
+      <a-entity position="3.5 -0.1 5" class="floating">
         <a-image src="img004.jpg" width="1.5" height="1" radius="0.1"></a-image>
       </a-entity>
-      <a-entity class="floating" position="5.25 -0.1 5">
+      <a-entity position="5.25 -0.1 5" class="floating">
         <a-image src="img005.jpg" width="1.5" height="1" radius="0.1"></a-image>
       </a-entity>
-      <a-text value="Anos 2000 — Desafios e renovações com sabedoria." position="5 4.5 5" align="center" color="white" width="4"></a-text>
+      <a-text value="Anos 2000 — Desafios e renovações com sabedoria." position="5 4.5 5" rotation="0 180 0" align="center" color="white" width="4"></a-text>
 
       <!-- BLOCO: Anos 2010 -->
-      <a-entity class="floating" position="0 3 7">
+      <a-entity position="0 5 7" class="floating">
         <a-image src="img10.jpg" width="3" height="2" radius="0.1"></a-image>
       </a-entity>
-      <a-entity class="floating" position="-2.5 1.5 7">
+      <a-entity position="-2.5 3 7" class="floating">
         <a-image src="img1001.jpg" width="1.5" height="1" radius="0.1"></a-image>
       </a-entity>
-      <a-entity class="floating" position="-0.5 1.5 7">
+      <a-entity position="-0.5 3 7" class="floating">
         <a-image src="img1002.jpg" width="1.5" height="1" radius="0.1"></a-image>
       </a-entity>
-      <a-entity class="floating" position="1.5 1.5 7">
+      <a-entity position="1.5 3 7" class="floating">
         <a-image src="img1003.jpg" width="1.5" height="1" radius="0.1"></a-image>
       </a-entity>
-      <a-entity class="floating" position="-1.5 -0.1 7">
+      <a-entity position="-1.5 1.5 7" class="floating">
         <a-image src="img1004.jpg" width="1.5" height="1" radius="0.1"></a-image>
       </a-entity>
-      <a-entity class="floating" position="0.25 -0.1 7">
+      <a-entity position="0.25 1.5 7" class="floating">
         <a-image src="img1005.jpg" width="1.5" height="1" radius="0.1"></a-image>
       </a-entity>
-      <a-text value="Anos 2010 — Memórias vivas, alegrias florescendo." position="0 4.5 7" align="center" color="white" width="4"></a-text>
+      <a-text value="Anos 2010 — Memórias vivas, alegrias florescendo." position="0 6.5 7" rotation="0 180 0" align="center" color="white" width="4"></a-text>
 
       <!-- BLOCO: Anos 2020 -->
-      <a-entity class="floating" position="-5 3 5">
+      <a-entity position="-5 3 2" rotation="0 145 0" class="floating">
         <a-image src="img20.jpg" width="3" height="2" radius="0.1"></a-image>
       </a-entity>
-      <a-entity class="floating" position="-7.5 1.5 5">
+      <a-entity position="-7.5 1.5 1"  rotation="0 145 0" class="floating">
         <a-image src="img2001.jpg" width="1.5" height="1" radius="0.1"></a-image>
       </a-entity>
-      <a-entity class="floating" position="-5.5 1.5 5">
+      <a-entity position="-5.5 1.5 2" rotation="0 145 0" class="floating">
         <a-image src="img2002.jpg" width="1.5" height="1" radius="0.1"></a-image>
       </a-entity>
-      <a-entity class="floating" position="-3.5 1.5 5">
+      <a-entity position="-3.5 1.5 3" rotation="0 145 0" class="floating">
         <a-image src="img2003.jpg" width="1.5" height="1" radius="0.1"></a-image>
       </a-entity>
-      <a-entity class="floating" position="-6 -0.1 5">
+      <a-entity position="-6 -0.1 1" rotation="0 145 0" class="floating">
         <a-image src="img2004.jpg" width="1.5" height="1" radius="0.1"></a-image>
       </a-entity>
-      <a-entity class="floating" position="-4.25 -0.1 5">
+      <a-entity position="-4.25 -0.1 2" rotation="0 145 0" class="floating">
         <a-image src="img2005.jpg" width="1.5" height="1" radius="0.1"></a-image>
       </a-entity>
-      <a-text value="Anos 2020 — Beleza de uma vida bem vivida." position="-5 4.5 5" align="center" color="white" width="4"></a-text>
+      <a-text value="Anos 2020 — Beleza de uma vida bem vivida." position="-5 4.5 2" rotation="0 145 0" align="center" color="white" width="4"></a-text>
+
+      <!-- Correção para os efeitos funcionarem -->
+      <script>
+        // Forçar carregamento dos componentes
+        setTimeout(() => {
+          const images = document.querySelectorAll('a-image');
+          images.forEach(img => {
+            img.setAttribute('radius', '0.1');
+          });
+          
+          const floaters = document.querySelectorAll('.floating');
+          floaters.forEach(el => {
+            el.style.animation = 'float 3s ease-in-out infinite';
+          });
+        }, 500);
+      </script>
     </a-scene>
   </body>
 </html>
