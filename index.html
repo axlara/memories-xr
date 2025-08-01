@@ -1,204 +1,393 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Mural Cósmico</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-    <script src="https://unpkg.com/aframe-rounded-component@1.2.0/dist/aframe-rounded-component.min.js"></script>
-    <style>
-      .floating {
-        animation: float 3s ease-in-out infinite;
-      }
-      @keyframes float {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-0.2m); }
-      }
-    </style>
-  </head>
-  <body>
-    <a-scene>
-      <!-- Céu 360° como fundo -->
-      <a-sky src="bgsky.jpg" rotation="0 -90 0"></a-sky>
+<head>
+  <meta charset="utf-8">
+  <title>Mural Cósmico</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- A-Frame e componentes -->
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <script src="https://unpkg.com/aframe-rounded-component@1.2.0/dist/aframe-rounded-component.min.js"></script>
+  <script src="https://unpkg.com/aframe-animation-component@5.1.2/dist/aframe-animation-component.min.js"></script>
+  
+  <style>
+    a-image:hover {
+      animation: pulse 1.0s infinite;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.3); }
+      50% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.6); }
+      100% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.3); }
+    }
+    #loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-family: Arial, sans-serif;
+      z-index: 9999;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
 
-      <!-- Música de fundo -->
-      <a-entity sound="src: url(musica.mp3); autoplay: true; loop: true"></a-entity>
+  <!-- Tela de carregamento -->
+  <div id="loading">Carregando experiência... Por favor, aguarde.</div>
 
-      <!-- Câmera -->
-      <a-entity camera look-controls wasd-controls position="0 1.6 0"></a-entity>
+  <a-scene>
+    <!-- Fundo estelar -->
+    <a-sky src="bgsky.jpg" rotation="0 -90 0"></a-sky>
 
-      <!-- Texto de abertura -->
-      <a-text 
-        value="Ola querida alma, esse é um lugar para voce se lembrar, se orgulhar e reconhecer a sua bela jornada pela vida."
-        position="0 5 -2" 
-        align="center" 
-        width="6" 
-        color="white"
-        line-height="60">
-      </a-text>
+    <!-- Música de fundo -->
+    <a-entity sound="src: url(musica.mp3); autoplay: true; loop: true; volume: 0.5"></a-entity>
 
-      <!-- BLOCO: Anos 60 -->
-      <a-entity position="-5 3 -5" class="floating">
-        <a-image src="img60.jpg" width="3" height="2" radius="0.1"></a-image>
-      </a-entity>
-      <a-entity position="-7.5 1.5 -5" class="floating">
-        <a-image src="img601.jpg" width="1.5" height="1" radius="0.1"></a-image>
-      </a-entity>
-      <a-entity position="-5.5 1.5 -5" class="floating">
-        <a-image src="img602.jpg" width="1.5" height="1" radius="0.1"></a-image>
-      </a-entity>
-      <a-entity position="-3.5 1.5 -5" class="floating">
-        <a-image src="img603.jpg" width="1.5" height="1" radius="0.1"></a-image>
-      </a-entity>
-      <a-entity position="-6 -0.1 -5" class="floating">
-        <a-image src="img604.jpg" width="1.5" height="1" radius="0.1"></a-image>
-      </a-entity>
-      <a-entity position="-4.25 -0.1 -5" class="floating">
-        <a-image src="img605.jpg" width="1.5" height="1" radius="0.1"></a-image>
-      </a-entity>
-      <a-text value="Anos 60 — O início de uma jornada transformadora." position="-5 4.5 -5" align="center" color="white" width="4"></a-text>
+    <!-- Câmera -->
+    <a-entity camera look-controls wasd-controls position="0 1 2" rotation="0 0 0"></a-entity>
 
-      <!-- BLOCO: Anos 70 -->
-      <a-entity position="0 3 -7" class="floating">
-        <a-image src="img70.jpg" width="3" height="2" radius="0.1"></a-image>
-      </a-entity>
-      <a-entity position="-1.5 1.5 -7" class="floating">
-        <a-image src="img701.jpg" width="1.5" height="1" radius="0.1"></a-image>
-      </a-entity>
-      <a-entity position="0.5 1.5 -7" class="floating">
-        <a-image src="img702.jpg" width="1.5" height="1" radius="0.1"></a-image>
-      </a-entity>
-      <a-entity position="2.5 1.5 -7" class="floating">
-        <a-image src="img703.jpg" width="1.5" height="1" radius="0.1"></a-image>
-      </a-entity>
-      <a-entity position="-0.5 -0.1 -7" class="floating">
-        <a-image src="img704.jpg" width="1.5" height="1" radius="0.1"></a-image>
-      </a-entity>
-      <a-entity position="1.25 -0.1 -7" class="floating">
-        <a-image src="img705.jpg" width="1.5" height="1" radius="0.1"></a-image>
-      </a-entity>
-      <a-text value="Anos 70 — Primeiros passos, descobertas com brilho." position="0 4.5 -7" align="center" color="white" width="4"></a-text>
+    <!-- Iluminação -->
+    <a-entity light="type: ambient; color: #445; intensity: 0.6"></a-entity>
+    <a-entity light="type: directional; color: #fff; intensity: 0.8" position="-1 2 1"></a-entity>
 
-      <!-- BLOCO: Anos 80 -->
-      <a-entity position="6 3 -5" rotation="0 145 0" class="floating">
-        <a-image src="img80.jpg" width="3" height="2" radius="0.1"></a-image>
+    <!-- Texto de abertura (fixo, sem animação de subida) -->
+    <a-entity position="0 5 -2">
+      <a-entity
+        text="value: Bem-vinda, querida alma. Este é um espaço para se reconectar consigo mesma — com quem você é, quem já foi e tudo o que viveu até aqui. Um momento para reconhecer sua essência, valorizar a trajetória e lembrar da força que te trouxe até aqui.;
+              align: center;
+              width: 6;
+              color: white;
+              font: exo2bold;
+              shader: msdf;"
+        animation__fade="property: material.opacity; from: 0; to: 1; dur: 2000; easing: linear">
       </a-entity>
-      <a-entity position="4 1.5 -5" rotation="0 145 0" class="floating">
-        <a-image src="img801.jpg" width="1.5" height="1" radius="0.1"></a-image>
-      </a-entity>
-      <a-entity position="7 1.5 -5" rotation="0 145 0" class="floating">
-        <a-image src="img802.jpg" width="1.5" height="1" radius="0.1"></a-image>
-      </a-entity>
-      <a-entity position="9.5 1 -5" rotation="0 145 0" class="floating">
-        <a-image src="img803.jpg" width="1.5" height="1" radius="0.1"></a-image>
-      </a-entity>
-      <a-entity position="4 -0.1 -5" rotation="0 145 0"class="floating">
-        <a-image src="img804.jpg" width="1.5" height="1" radius="0.1"></a-image>
-      </a-entity>
-      <a-entity position="7 -0.1 -5" rotation="0 145 0"class="floating">
-        <a-image src="img805.jpg" width="1.5" height="1" radius="0.1"></a-image>
-      </a-entity>
-      <a-text value="Anos 80 — Juventude que floresce com força." position="6 4.5 -5" rotation="0 320 0" align="center" color="white" width="4"></a-text>
+    </a-entity>
 
-      <!-- BLOCO: Anos 90 -->
-      <a-entity position="7 5 1" rotation="0 90 0" class="floating">
-        <a-image src="img90.jpg" width="3" height="2" radius="0.1"></a-image>
+    <!-- BLOCO: Anos 60 -->
+    <a-entity position="-5 3 -5">
+      <a-image src="img60.jpg" width="3" height="2" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 0 1; dir: alternate; dur: 10000; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <a-entity position="-7.5 1.5 -5">
+      <a-image src="img601.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 0 0.8; dir: alternate; dur: 9500; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <a-entity position="-5.5 1.5 -5">
+      <a-image src="img602.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 0 1.2; dir: alternate; dur: 10500; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <a-entity position="-3.5 1.5 -5">
+      <a-image src="img603.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 0 0.7; dir: alternate; dur: 9800; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <a-entity position="-6 -0.1 -5">
+      <a-image src="img604.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 0 1.1; dir: alternate; dur: 10200; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <a-entity position="-4.25 -0.1 -5">
+      <a-image src="img605.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 0 0.9; dir: alternate; dur: 9900; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <!-- Título 60s (fixo) -->
+    <a-entity position="-5 4.5 -5">
+      <a-entity
+        text="value: Anos 60 — O início de uma jornada transformadora.;
+              align: center;
+              width: 4;
+              color: white;
+              font: exo2bold;
+              shader: msdf;">
       </a-entity>
-      <a-entity position="4.5 2.5 0"rotation="0 90 0" class="floating">
-        <a-image src="img901.jpg" width="1.5" height="1" radius="0.1"></a-image>
-      </a-entity>
-      <a-entity position="6.5 3 2" rotation="0 90" class="floating">
-        <a-image src="img902.jpg" width="1.5" height="1" radius="0.1"></a-image>
-      </a-entity>
-      <a-entity position="8.5 2 4" rotation="0 90" class="floating">
-        <a-image src="img903.jpg" width="1.5" height="1" radius="0.1"></a-image>
-      </a-entity>
-      <a-entity position="5.5 1.5 0" rotation="0 90 0" class="floating">
-        <a-image src="img904.jpg" width="1.5" height="1" radius="0.1"></a-image>
-      </a-entity>
-      <a-entity position="7.25 1 2" rotation="0 90 0" class="floating">
-        <a-image src="img905.jpg" width="1.5" height="1" radius="0.1"></a-image>
-      </a-entity>
-      <a-text value="Anos 90 — Construindo, cuidando, sendo alicerce." position="7 6.2 1" rotation="0 270 0" align="center" color="white" width="4"></a-text>
+    </a-entity>
 
-      <!-- BLOCO: Anos 2000 -->
-      <a-entity position="5 3 5" class="floating">
-        <a-image src="img00.jpg" width="3" height="2" radius="0.1"></a-image>
+    <!-- BLOCO: Anos 70 -->
+    <a-entity position="0 3 -7">
+      <a-image src="img70.jpg" width="3" height="2" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 0 1; dir: alternate; dur: 10500; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <a-entity position="-1.5 1.5 -7">
+      <a-image src="img701.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 0 0.8; dir: alternate; dur: 9700; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <a-entity position="0.5 1.5 -7">
+      <a-image src="img702.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 0 1.1; dir: alternate; dur: 10300; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <a-entity position="2.5 1.5 -7">
+      <a-image src="img703.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 0 0.9; dir: alternate; dur: 10100; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <a-entity position="-0.5 -0.1 -7">
+      <a-image src="img704.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 0 1.2; dir: alternate; dur: 9900; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <a-entity position="1.25 -0.1 -7">
+      <a-image src="img705.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 0 0.7; dir: alternate; dur: 10400; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <!-- Título 70s (fixo) -->
+    <a-entity position="0 4.5 -7">
+      <a-entity
+        text="value: Anos 70 — Primeiros passos, descobertas com brilho.;
+              align: center;
+              width: 4;
+              color: white;
+              font: exo2bold;
+              shader: msdf;">
       </a-entity>
-      <a-entity position="2.5 1.5 5" class="floating">
-        <a-image src="img001.jpg" width="1.5" height="1" radius="0.1"></a-image>
-      </a-entity>
-      <a-entity position="4.5 1.5 5" class="floating">
-        <a-image src="img002.jpg" width="1.5" height="1" radius="0.1"></a-image>
-      </a-entity>
-      <a-entity position="6.5 1.5 5" class="floating">
-        <a-image src="img003.jpg" width="1.5" height="1" radius="0.1"></a-image>
-      </a-entity>
-      <a-entity position="3.5 -0.1 5" class="floating">
-        <a-image src="img004.jpg" width="1.5" height="1" radius="0.1"></a-image>
-      </a-entity>
-      <a-entity position="5.25 -0.1 5" class="floating">
-        <a-image src="img005.jpg" width="1.5" height="1" radius="0.1"></a-image>
-      </a-entity>
-      <a-text value="Anos 2000 — Desafios e renovações com sabedoria." position="5 4.5 5" rotation="0 180 0" align="center" color="white" width="4"></a-text>
+    </a-entity>
 
-      <!-- BLOCO: Anos 2010 -->
-      <a-entity position="0 5 7" class="floating">
-        <a-image src="img10.jpg" width="3" height="2" radius="0.1"></a-image>
+    <!-- BLOCO: Anos 80 -->
+    <a-entity position="6 3 -5" rotation="0 145 0">
+      <a-image src="img80.jpg" width="3" height="2" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 145 1; dir: alternate; dur: 10200; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <a-entity position="4 1.5 -5" rotation="0 145 0">
+      <a-image src="img801.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 145 0.8; dir: alternate; dur: 9800; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <a-entity position="7 1.5 -5" rotation="0 145 0">
+      <a-image src="img802.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 145 1.1; dir: alternate; dur: 10600; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <a-entity position="9.5 1 -5" rotation="0 145 0">
+      <a-image src="img803.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 145 0.9; dir: alternate; dur: 10400; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <a-entity position="4 -0.1 -5" rotation="0 145 0">
+      <a-image src="img804.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 145 1.2; dir: alternate; dur: 10000; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <a-entity position="7 -0.1 -5" rotation="0 145 0">
+      <a-image src="img805.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 145 0.7; dir: alternate; dur: 10300; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <!-- Título 80s (fixo) -->
+    <a-entity position="6 4.5 -5" rotation="0 320 0">
+      <a-entity
+        text="value: Anos 80 — Juventude que floresce com força.;
+              align: center;
+              width: 4;
+              color: white;
+              font: exo2bold;
+              shader: msdf;">
       </a-entity>
-      <a-entity position="-2.5 3 7" class="floating">
-        <a-image src="img1001.jpg" width="1.5" height="1" radius="0.1"></a-image>
-      </a-entity>
-      <a-entity position="-0.5 3 7" class="floating">
-        <a-image src="img1002.jpg" width="1.5" height="1" radius="0.1"></a-image>
-      </a-entity>
-      <a-entity position="1.5 3 7" class="floating">
-        <a-image src="img1003.jpg" width="1.5" height="1" radius="0.1"></a-image>
-      </a-entity>
-      <a-entity position="-1.5 1.5 7" class="floating">
-        <a-image src="img1004.jpg" width="1.5" height="1" radius="0.1"></a-image>
-      </a-entity>
-      <a-entity position="0.25 1.5 7" class="floating">
-        <a-image src="img1005.jpg" width="1.5" height="1" radius="0.1"></a-image>
-      </a-entity>
-      <a-text value="Anos 2010 — Memórias vivas, alegrias florescendo." position="0 6.5 7" rotation="0 180 0" align="center" color="white" width="4"></a-text>
+    </a-entity>
 
-      <!-- BLOCO: Anos 2020 -->
-      <a-entity position="-5 3 2" rotation="0 145 0" class="floating">
-        <a-image src="img20.jpg" width="3" height="2" radius="0.1"></a-image>
+    <!-- BLOCO: Anos 90 -->
+    <a-entity position="7 5 1" rotation="0 90 0">
+      <a-image src="img90.jpg" width="3" height="2" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 90 1; dir: alternate; dur: 10500; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <a-entity position="4.5 2.5 0" rotation="0 90 0">
+      <a-image src="img901.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 90 0.8; dir: alternate; dur: 9900; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <a-entity position="6.5 3 2" rotation="0 90 0">
+      <a-image src="img902.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 90 1.1; dir: alternate; dur: 10200; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <a-entity position="8.5 2 4" rotation="0 90 0">
+      <a-image src="img903.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 90 0.9; dir: alternate; dur: 10400; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <a-entity position="5.5 1.5 0" rotation="0 90 0">
+      <a-image src="img904.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 90 1.2; dir: alternate; dur: 10100; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <a-entity position="7.25 1 2" rotation="0 90 0">
+      <a-image src="img905.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 90 0.7; dir: alternate; dur: 10300; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <!-- Título 90s (fixo) -->
+    <a-entity position="7 6.2 1" rotation="0 270 0">
+      <a-entity
+        text="value: Anos 90 — Construindo, cuidando, sendo alicerce.;
+              align: center;
+              width: 4;
+              color: white;
+              font: exo2bold;
+              shader: msdf;">
       </a-entity>
-      <a-entity position="-7.5 1.5 1"  rotation="0 145 0" class="floating">
-        <a-image src="img2001.jpg" width="1.5" height="1" radius="0.1"></a-image>
-      </a-entity>
-      <a-entity position="-5.5 1.5 2" rotation="0 145 0" class="floating">
-        <a-image src="img2002.jpg" width="1.5" height="1" radius="0.1"></a-image>
-      </a-entity>
-      <a-entity position="-3.5 1.5 3" rotation="0 145 0" class="floating">
-        <a-image src="img2003.jpg" width="1.5" height="1" radius="0.1"></a-image>
-      </a-entity>
-      <a-entity position="-6 -0.1 1" rotation="0 145 0" class="floating">
-        <a-image src="img2004.jpg" width="1.5" height="1" radius="0.1"></a-image>
-      </a-entity>
-      <a-entity position="-4.25 -0.1 2" rotation="0 145 0" class="floating">
-        <a-image src="img2005.jpg" width="1.5" height="1" radius="0.1"></a-image>
-      </a-entity>
-      <a-text value="Anos 2020 — Beleza de uma vida bem vivida." position="-5 4.5 2" rotation="0 145 0" align="center" color="white" width="4"></a-text>
+    </a-entity>
 
-      <!-- Correção para os efeitos funcionarem -->
-      <script>
-        // Forçar carregamento dos componentes
+    <!-- BLOCO: Anos 2000 -->
+    <a-entity position="5 3 5">
+      <a-image src="img00.jpg" width="3" height="2" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 0 1; dir: alternate; dur: 10400; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <a-entity position="2.5 1.5 5">
+      <a-image src="img001.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 0 0.8; dir: alternate; dur: 10000; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <a-entity position="4.5 1.5 5">
+      <a-image src="img002.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 0 1.1; dir: alternate; dur: 10500; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <a-entity position="6.5 1.5 5">
+      <a-image src="img003.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 0 0.9; dir: alternate; dur: 10200; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <a-entity position="3.5 -0.1 5">
+      <a-image src="img004.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 0 1.2; dir: alternate; dur: 10300; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <a-entity position="5.25 -0.1 5">
+      <a-image src="img005.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 0 0.7; dir: alternate; dur: 10100; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <!-- Título 2000s (fixo) -->
+    <a-entity position="5 4.5 5" rotation="0 180 0">
+      <a-entity
+        text="value: Anos 2000 — Desafios e renovações com sabedoria.;
+              align: center;
+              width: 4;
+              color: white;
+              font: exo2bold;
+              shader: msdf;">
+      </a-entity>
+    </a-entity>
+
+    <!-- BLOCO: Anos 2010 -->
+    <a-entity position="0 5 7">
+      <a-image src="img10.jpg" width="3" height="2" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 0 1; dir: alternate; dur: 10500; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <a-entity position="-2.5 3 7">
+      <a-image src="img1001.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 0 0.8; dir: alternate; dur: 10100; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <a-entity position="-0.5 3 7">
+      <a-image src="img1002.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 0 1.1; dir: alternate; dur: 10400; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <a-entity position="1.5 3 7">
+      <a-image src="img1003.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 0 0.9; dir: alternate; dur: 10200; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <a-entity position="-1.5 1.5 7">
+      <a-image src="img1004.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 0 1.2; dir: alternate; dur: 10300; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <a-entity position="0.25 1.5 7">
+      <a-image src="img1005.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 0 0.7; dir: alternate; dur: 9900; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <!-- Título 2010s (fixo) -->
+    <a-entity position="0 6.5 7" rotation="0 180 0">
+      <a-entity
+        text="value: Anos 2010 — Memórias vivas, alegrias florescendo.;
+              align: center;
+              width: 4;
+              color: white;
+              font: exo2bold;
+              shader: msdf;">
+      </a-entity>
+    </a-entity>
+
+    <!-- BLOCO: Anos 2020 -->
+    <a-entity position="-5 3 2" rotation="0 145 0">
+      <a-image src="img20.jpg" width="3" height="2" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 145 1; dir: alternate; dur: 10400; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <a-entity position="-7.5 1.5 1" rotation="0 145 0">
+      <a-image src="img2001.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 145 0.8; dir: alternate; dur: 10200; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <a-entity position="-5.5 1.5 2" rotation="0 145 0">
+      <a-image src="img2002.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 145 1.1; dir: alternate; dur: 10600; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <a-entity position="-3.5 1.5 3" rotation="0 145 0">
+      <a-image src="img2003.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 145 0.9; dir: alternate; dur: 10300; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <a-entity position="-6 -0.1 1" rotation="0 145 0">
+      <a-image src="img2004.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 145 1.2; dir: alternate; dur: 10100; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <a-entity position="-4.25 -0.1 2" rotation="0 145 0">
+      <a-image src="img2005.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+               animation="property: rotation; to: 0 145 0.7; dir: alternate; dur: 10500; loop: true; easing: easeInOutSine">
+      </a-image>
+    </a-entity>
+    <!-- Título 2020s (fixo) -->
+    <a-entity position="-5 4.5 2" rotation="0 145 0">
+      <a-entity
+        text="value: Anos 2020 — Beleza de uma vida bem vivida.;
+              align: center;
+              width: 4;
+              color: white;
+              font: exo2bold;
+              shader: msdf;">
+      </a-entity>
+    </a-entity>
+
+    <!-- Script de carregamento -->
+    <script>
+      const loadingDiv = document.getElementById('loading');
+      const scene = document.querySelector('a-scene');
+
+      scene.addEventListener('loaded', () => {
+        console.log("Cena carregada!");
         setTimeout(() => {
-          const images = document.querySelectorAll('a-image');
-          images.forEach(img => {
-            img.setAttribute('radius', '0.1');
-          });
-          
-          const floaters = document.querySelectorAll('.floating');
-          floaters.forEach(el => {
-            el.style.animation = 'float 3s ease-in-out infinite';
-          });
-        }, 500);
-      </script>
-    </a-scene>
-  </body>
+          loadingDiv.style.display = 'none';
+        }, 1000);
+      });
+
+      // Fallback
+      setTimeout(() => {
+        if (loadingDiv.style.display !== 'none') {
+          loadingDiv.style.display = 'none';
+        }
+      }, 8000);
+    </script>
+  </a-scene>
+</body>
 </html>
