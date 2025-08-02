@@ -4,7 +4,6 @@
   <meta charset="utf-8">
   <title>Mural Cósmico</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
   <!-- A-Frame e componentes -->
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
   <script src="https://unpkg.com/aframe-rounded-component@1.2.0/dist/aframe-rounded-component.min.js"></script>
@@ -37,7 +36,6 @@
   </style>
 </head>
 <body>
-
   <!-- Tela de carregamento -->
   <div id="loading">Carregando experiência... Por favor, aguarde.</div>
 
@@ -49,13 +47,13 @@
     <a-entity sound="src: url(musica.mp3); autoplay: true; loop: true; volume: 0.5"></a-entity>
 
     <!-- Câmera -->
-    <a-entity camera look-controls wasd-controls position="0 1 2" rotation="0 0 0"></a-entity>
+    <a-entity camera look-controls wasd-controls position="0 1.6 3" rotation="0 0 0"></a-entity>
 
     <!-- Iluminação -->
     <a-entity light="type: ambient; color: #445; intensity: 0.6"></a-entity>
     <a-entity light="type: directional; color: #fff; intensity: 0.8" position="-1 2 1"></a-entity>
 
-    <!-- Texto de abertura (fixo, sem animação de subida) -->
+    <!-- Texto de abertura (fixo) -->
     <a-entity position="0 5 -2">
       <a-entity
         text="value: Bem-vinda, querida alma. Este é um espaço para se reconectar consigo mesma — com quem você é, quem já foi e tudo o que viveu até aqui. Um momento para reconhecer sua essência, valorizar a trajetória e lembrar da força que te trouxe até aqui.;
@@ -70,36 +68,42 @@
 
     <!-- BLOCO: Anos 60 -->
     <a-entity position="-5 3 -5">
-      <a-image src="img60.jpg" width="3" height="2" radius="0.2" shadow="true"
+      <a-image src="img60.jpg" width="3" height="2" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 0 1; dir: alternate; dur: 10000; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
     <a-entity position="-7.5 1.5 -5">
-      <a-image src="img601.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+      <a-image src="img601.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 0 0.8; dir: alternate; dur: 9500; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
     <a-entity position="-5.5 1.5 -5">
-      <a-image src="img602.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+      <a-image src="img602.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 0 1.2; dir: alternate; dur: 10500; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
     <a-entity position="-3.5 1.5 -5">
-      <a-image src="img603.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+      <a-image src="img603.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 0 0.7; dir: alternate; dur: 9800; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
     <a-entity position="-6 -0.1 -5">
-      <a-image src="img604.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+      <a-image src="img604.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 0 1.1; dir: alternate; dur: 10200; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
     <a-entity position="-4.25 -0.1 -5">
-      <a-image src="img605.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+      <a-image src="img605.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 0 0.9; dir: alternate; dur: 9900; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
-    <!-- Título 60s (fixo) -->
+    <!-- Título 60s -->
     <a-entity position="-5 4.5 -5">
       <a-entity
         text="value: Anos 60 — O início de uma jornada transformadora.;
@@ -113,36 +117,42 @@
 
     <!-- BLOCO: Anos 70 -->
     <a-entity position="0 3 -7">
-      <a-image src="img70.jpg" width="3" height="2" radius="0.2" shadow="true"
+      <a-image src="img70.jpg" width="3" height="2" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 0 1; dir: alternate; dur: 10500; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
     <a-entity position="-1.5 1.5 -7">
-      <a-image src="img701.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+      <a-image src="img701.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 0 0.8; dir: alternate; dur: 9700; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
     <a-entity position="0.5 1.5 -7">
-      <a-image src="img702.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+      <a-image src="img702.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 0 1.1; dir: alternate; dur: 10300; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
     <a-entity position="2.5 1.5 -7">
-      <a-image src="img703.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+      <a-image src="img703.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 0 0.9; dir: alternate; dur: 10100; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
     <a-entity position="-0.5 -0.1 -7">
-      <a-image src="img704.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+      <a-image src="img704.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 0 1.2; dir: alternate; dur: 9900; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
     <a-entity position="1.25 -0.1 -7">
-      <a-image src="img705.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+      <a-image src="img705.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 0 0.7; dir: alternate; dur: 10400; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
-    <!-- Título 70s (fixo) -->
+    <!-- Título 70s -->
     <a-entity position="0 4.5 -7">
       <a-entity
         text="value: Anos 70 — Primeiros passos, descobertas com brilho.;
@@ -156,36 +166,42 @@
 
     <!-- BLOCO: Anos 80 -->
     <a-entity position="6 3 -5" rotation="0 145 0">
-      <a-image src="img80.jpg" width="3" height="2" radius="0.2" shadow="true"
+      <a-image src="img80.jpg" width="3" height="2" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 145 1; dir: alternate; dur: 10200; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
     <a-entity position="4 1.5 -5" rotation="0 145 0">
-      <a-image src="img801.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+      <a-image src="img801.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 145 0.8; dir: alternate; dur: 9800; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
     <a-entity position="7 1.5 -5" rotation="0 145 0">
-      <a-image src="img802.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+      <a-image src="img802.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 145 1.1; dir: alternate; dur: 10600; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
     <a-entity position="9.5 1 -5" rotation="0 145 0">
-      <a-image src="img803.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+      <a-image src="img803.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 145 0.9; dir: alternate; dur: 10400; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
     <a-entity position="4 -0.1 -5" rotation="0 145 0">
-      <a-image src="img804.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+      <a-image src="img804.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 145 1.2; dir: alternate; dur: 10000; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
     <a-entity position="7 -0.1 -5" rotation="0 145 0">
-      <a-image src="img805.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+      <a-image src="img805.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 145 0.7; dir: alternate; dur: 10300; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
-    <!-- Título 80s (fixo) -->
+    <!-- Título 80s -->
     <a-entity position="6 4.5 -5" rotation="0 320 0">
       <a-entity
         text="value: Anos 80 — Juventude que floresce com força.;
@@ -199,36 +215,42 @@
 
     <!-- BLOCO: Anos 90 -->
     <a-entity position="7 5 1" rotation="0 90 0">
-      <a-image src="img90.jpg" width="3" height="2" radius="0.2" shadow="true"
+      <a-image src="img90.jpg" width="3" height="2" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 90 1; dir: alternate; dur: 10500; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
     <a-entity position="4.5 2.5 0" rotation="0 90 0">
-      <a-image src="img901.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+      <a-image src="img901.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 90 0.8; dir: alternate; dur: 9900; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
     <a-entity position="6.5 3 2" rotation="0 90 0">
-      <a-image src="img902.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+      <a-image src="img902.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 90 1.1; dir: alternate; dur: 10200; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
     <a-entity position="8.5 2 4" rotation="0 90 0">
-      <a-image src="img903.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+      <a-image src="img903.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 90 0.9; dir: alternate; dur: 10400; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
     <a-entity position="5.5 1.5 0" rotation="0 90 0">
-      <a-image src="img904.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+      <a-image src="img904.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 90 1.2; dir: alternate; dur: 10100; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
     <a-entity position="7.25 1 2" rotation="0 90 0">
-      <a-image src="img905.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+      <a-image src="img905.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 90 0.7; dir: alternate; dur: 10300; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
-    <!-- Título 90s (fixo) -->
+    <!-- Título 90s -->
     <a-entity position="7 6.2 1" rotation="0 270 0">
       <a-entity
         text="value: Anos 90 — Construindo, cuidando, sendo alicerce.;
@@ -242,36 +264,42 @@
 
     <!-- BLOCO: Anos 2000 -->
     <a-entity position="5 3 5">
-      <a-image src="img00.jpg" width="3" height="2" radius="0.2" shadow="true"
+      <a-image src="img00.jpg" width="3" height="2" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 0 1; dir: alternate; dur: 10400; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
     <a-entity position="2.5 1.5 5">
-      <a-image src="img001.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+      <a-image src="img001.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 0 0.8; dir: alternate; dur: 10000; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
     <a-entity position="4.5 1.5 5">
-      <a-image src="img002.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+      <a-image src="img002.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 0 1.1; dir: alternate; dur: 10500; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
     <a-entity position="6.5 1.5 5">
-      <a-image src="img003.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+      <a-image src="img003.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 0 0.9; dir: alternate; dur: 10200; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
     <a-entity position="3.5 -0.1 5">
-      <a-image src="img004.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+      <a-image src="img004.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 0 1.2; dir: alternate; dur: 10300; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
     <a-entity position="5.25 -0.1 5">
-      <a-image src="img005.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+      <a-image src="img005.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 0 0.7; dir: alternate; dur: 10100; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
-    <!-- Título 2000s (fixo) -->
+    <!-- Título 2000s -->
     <a-entity position="5 4.5 5" rotation="0 180 0">
       <a-entity
         text="value: Anos 2000 — Desafios e renovações com sabedoria.;
@@ -285,36 +313,42 @@
 
     <!-- BLOCO: Anos 2010 -->
     <a-entity position="0 5 7">
-      <a-image src="img10.jpg" width="3" height="2" radius="0.2" shadow="true"
+      <a-image src="img10.jpg" width="3" height="2" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 0 1; dir: alternate; dur: 10500; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
     <a-entity position="-2.5 3 7">
-      <a-image src="img1001.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+      <a-image src="img1001.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 0 0.8; dir: alternate; dur: 10100; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
     <a-entity position="-0.5 3 7">
-      <a-image src="img1002.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+      <a-image src="img1002.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 0 1.1; dir: alternate; dur: 10400; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
     <a-entity position="1.5 3 7">
-      <a-image src="img1003.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+      <a-image src="img1003.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 0 0.9; dir: alternate; dur: 10200; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
     <a-entity position="-1.5 1.5 7">
-      <a-image src="img1004.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+      <a-image src="img1004.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 0 1.2; dir: alternate; dur: 10300; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
     <a-entity position="0.25 1.5 7">
-      <a-image src="img1005.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+      <a-image src="img1005.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 0 0.7; dir: alternate; dur: 9900; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
-    <!-- Título 2010s (fixo) -->
+    <!-- Título 2010s -->
     <a-entity position="0 6.5 7" rotation="0 180 0">
       <a-entity
         text="value: Anos 2010 — Memórias vivas, alegrias florescendo.;
@@ -328,36 +362,42 @@
 
     <!-- BLOCO: Anos 2020 -->
     <a-entity position="-5 3 2" rotation="0 145 0">
-      <a-image src="img20.jpg" width="3" height="2" radius="0.2" shadow="true"
+      <a-image src="img20.jpg" width="3" height="2" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 145 1; dir: alternate; dur: 10400; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
     <a-entity position="-7.5 1.5 1" rotation="0 145 0">
-      <a-image src="img2001.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+      <a-image src="img2001.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 145 0.8; dir: alternate; dur: 10200; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
     <a-entity position="-5.5 1.5 2" rotation="0 145 0">
-      <a-image src="img2002.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+      <a-image src="img2002.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 145 1.1; dir: alternate; dur: 10600; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
     <a-entity position="-3.5 1.5 3" rotation="0 145 0">
-      <a-image src="img2003.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+      <a-image src="img2003.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 145 0.9; dir: alternate; dur: 10300; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
     <a-entity position="-6 -0.1 1" rotation="0 145 0">
-      <a-image src="img2004.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+      <a-image src="img2004.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 145 1.2; dir: alternate; dur: 10100; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
     <a-entity position="-4.25 -0.1 2" rotation="0 145 0">
-      <a-image src="img2005.jpg" width="1.5" height="1" radius="0.2" shadow="true"
+      <a-image src="img2005.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false"
                animation="property: rotation; to: 0 145 0.7; dir: alternate; dur: 10500; loop: true; easing: easeInOutSine">
       </a-image>
     </a-entity>
-    <!-- Título 2020s (fixo) -->
+    <!-- Título 2020s -->
     <a-entity position="-5 4.5 2" rotation="0 145 0">
       <a-entity
         text="value: Anos 2020 — Beleza de uma vida bem vivida.;
@@ -373,15 +413,12 @@
     <script>
       const loadingDiv = document.getElementById('loading');
       const scene = document.querySelector('a-scene');
-
       scene.addEventListener('loaded', () => {
         console.log("Cena carregada!");
         setTimeout(() => {
           loadingDiv.style.display = 'none';
         }, 1000);
       });
-
-      // Fallback
       setTimeout(() => {
         if (loadingDiv.style.display !== 'none') {
           loadingDiv.style.display = 'none';
