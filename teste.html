@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Mural Cósmico</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- A-Frame e componentes -->
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <script src="https://unpkg.com/aframe-rounded-component@1.2.0/dist/aframe-rounded-component.min.js"></script>
+  <script src="https://unpkg.com/aframe-msdf-text-component@1.1.0/dist/aframe-msdf-text-component.min.js"></script>
+
+  <style>
+    a-image:hover { animation: pulse 1.0s infinite; }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.3); }
+      50% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.6); }
+      100% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.3); }
+    }
+    #loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-family: Arial, sans-serif;
+      z-index: 9999;
+      font-size: 18px;
+    }
+    a-image {
+      border: 3px solid transparent;
+      box-shadow: 
+        0 0 15px rgba(255, 255, 255, 0.3),
+        0 0 30px rgba(255, 255, 255, 0.15);
+      filter: brightness(1.1);
+    }
+    a-image:hover {
+      box-shadow: 
+        0 0 25px rgba(255, 255, 255, 0.6),
+        0 0 50px rgba(255, 255, 255, 0.3);
+    }
+  </style>
+</head>
+<body>
+  <div id="loading">Carregando experiência... Por favor, aguarde.</div>
+
+  <a-scene fog="type: exponential; color: #000; density: 0.0015">
+    <!-- Recursos pré-carregados -->
+    <a-assets>
+      <a-asset-item id="exo2Font" src="fonts/generated/Exo2-Regular.fnt"></a-asset-item>
+      <!-- Garanta que fonts/generated/Exo2-Regular.png esteja no mesmo diretório -->
+    </a-assets>
+
+    <!-- Céu -->
+    <a-sky src="bgsky.jpg"></a-sky>
+
+    <!-- Partículas (estrelas) -->
+    <a-entity
+      particle-system="
+        preset: dust;
+        particleCount: 1500;
+        radius: 4900;
+        size: 0.8;
+        color: #ffffff, #ffcc99, #ccccff;
+        opacity: 0.9;
+        transparent: true;
+        enabled: true;
+        velocity: 0;
+        randomVelocity: 0.01;
+        animating: true;
+      ">
+    </a-entity>
+
+    <!-- Música de fundo -->
+    <a-entity sound="src: url(musica.mp3); autoplay: true; loop: true; volume: 0.5"></a-entity>
+
+    <!-- Câmera -->
+    <a-entity camera look-controls wasd-controls position="0 1.6 3" rotation="0 0 0"></a-entity>
+
+    <!-- Iluminação -->
+    <a-entity light="type: ambient; color: #fff; intensity: 1.0"></a-entity>
+    <a-entity light="type: directional; color: #fff; intensity: 1.0" position="-1 2 1"></a-entity>
+
+    <!-- TESTE: Texto fixo no centro para depuração -->
+    <a-entity position="0 1.6 -3" text="
+      value: TESTE VISÍVEL COM ACENTUAÇÃO: é, ã, ç, ó;
+      font: #exo2Font;
+      shader: msdf;
+      color: white;
+      width: 5;
+      align: center;
+      anchor: center;
+    "></a-entity>
+
+    <!-- Componente dinâmico com shader MSDF -->
+    <a-entity id="dynamic-text-entity"></a-entity>
+
+    <!-- Texto de boas-vindas -->
+    <a-entity position="0 4.5 -2">
+      <a-entity text="
+        value: Bem-vinda, querida alma. Este é um espaço para se reconectar consigo mesma [...];
+        align: center;
+        width: 6;
+        color: white;
+        font: #exo2Font;
+        shader: msdf;
+      "
+        animation__fade="property: material.opacity; from: 0; to: 1; dur: 2000; easing: linear">
+      </a-entity>
+    </a-entity>
+
+    <!-- Títulos por década -->
+    <a-entity position="-5 4.5 -5" rotation="0 45 0">
+      <a-entity text="value: Anos 60 — O início de uma jornada transformadora.;
+              align: center;
+              width: 4;
+              color: white;
+              font: #exo2Font;
+              shader: msdf;"></a-entity>
+    </a-entity>
+
+    <a-entity position="0 4.5 -7">
+      <a-entity text="value: Anos 70 — Primeiros passos, descobertas com brilho.;
+              align: center;
+              width: 4;
+              color: white;
+              font: #exo2Font;
+              shader: msdf;"></a-entity>
+    </a-entity>
+
+    <a-entity position="6 4.5 -5" rotation="0 320 0">
+      <a-entity text="value: Anos 80 — Juventude que floresce com força.;
+              align: center;
+              width: 4;
+              color: white;
+              font: #exo2Font;
+              shader: msdf;"></a-entity>
+    </a-entity>
+
+    <a-entity position="7 6.2 1" rotation="0 270 0">
+      <a-entity text="value: Anos 90 — Construindo, cuidando, sendo alicerce.;
+              align: center;
+              width: 4;
+              color: white;
+              font: #exo2Font;
+              shader: msdf;"></a-entity>
+    </a-entity>
+
+    <a-entity position="3 3.5 5" rotation="0 -145 0">
+      <a-entity text="value: Anos 2000 — Desafios e renovações com sabedoria.;
+              align: center;
+              width: 4;
+              color: white;
+              font: #exo2Font;
+              shader: msdf;"></a-entity>
+    </a-entity>
+
+    <a-entity position="-2 6.3 7" rotation="0 180 0">
+      <a-entity text="value: Anos 2010 — Memórias vivas, alegrias florescendo.;
+              align: center;
+              width: 4;
+              color: white;
+              font: #exo2Font;
+              shader: msdf;"></a-entity>
+    </a-entity>
+
+    <a-entity position="-5 4.5 2" rotation="0 110 0">
+      <a-entity text="value: Anos 2020 — Beleza de uma vida bem vivida.;
+              align: center;
+              width: 4;
+              color: white;
+              font: #exo2Font;
+              shader: msdf;"></a-entity>
+    </a-entity>
+
+    <!-- Blocos de imagens (mantidos iguais) -->
+    <!-- ... (seu código de imagens continua aqui, omitido por brevidade) -->
+
+    <!-- Script -->
+    <script>
+      // Componente de rotação suave
+      AFRAME.registerComponent('auto-rotate', {
+        schema: {
+          speed: { type: 'number', default: 10000 },
+          intensity: { type: 'number', default: 1 }
+        },
+        init: function () {
+          const el = this.el;
+          const rotationY = el.getAttribute('rotation')?.y || 0;
+          el.setAttribute('animation__rotate', {
+            property: 'rotation',
+            to: `${rotationY} 0 ${this.data.intensity}`,
+            from: `${rotationY} 0 ${-this.data.intensity}`,
+            dir: 'alternate',
+            dur: this.data.speed,
+            loop: true,
+            easing: 'easeInOutSine'
+          });
+        }
+      });
+
+      // Componente de texto dinâmico (agora com shader MSDF)
+      AFRAME.registerComponent('dynamic-text', {
+        schema: {
+          content: { type: 'string', default: 'Texto dinâmico' },
+          size: { type: 'number', default: 0.5 },
+          color: { type: 'color', default: '#FF0000' }
+        },
+        update: function () {
+          const el = this.el;
+          el.setAttribute('text', {
+            value: this.data.content,
+            font: '#exo2Font',
+            shader: 'msdf',  // 🔥 ESSE É O DETALHE QUE FALTAVA!
+            color: this.data.color,
+            width: this.data.size * 10,
+            align: 'center'
+          });
+        }
+      });
+
+      // Instanciar o texto dinâmico após o carregamento
+      document.addEventListener('DOMContentLoaded', () => {
+        const dynamicEntity = document.getElementById('dynamic-text-entity');
+        dynamicEntity.setAttribute('dynamic-text', {
+          content: 'Este é um texto dinâmico com acentos: é, ã, ç.',
+          size: 0.6,
+          color: '#00FFFF'
+        });
+      });
+
+      // Controle de loading
+      const loadingDiv = document.getElementById('loading');
+      const scene = document.querySelector('a-scene');
+
+      scene.addEventListener('loaded', () => {
+        setTimeout(() => loadingDiv.style.display = 'none', 1000);
+      });
+
+      setTimeout(() => loadingDiv.style.display = 'none', 8000);
+
+      // Logs de depuração
+      scene.addEventListener('error', (event) => {
+        console.error('Erro no cenário:', event.detail);
+      });
+
+      const fontAsset = document.querySelector('#exo2Font');
+      fontAsset.addEventListener('loaded', () => {
+        console.log('✅ Fonte Exo2-Regular carregada com sucesso!');
+      });
+      fontAsset.addEventListener('error', () => {
+        console.error('❌ Erro ao carregar a fonte Exo2-Regular.fnt');
+      });
+
+      // Verificação pós-carregamento
+      scene.addEventListener('loaded', () => {
+        setTimeout(() => {
+          document.querySelectorAll('[text]').forEach((el) => {
+            const textComp = el.components.text;
+            if (textComp && textComp.material) {
+              console.log(`📝 Texto: "${textComp.data.value}" | Shader: ${textComp.data.shader} | Material OK`);
+            } else {
+              console.warn('⚠️ Texto sem material:', el);
+            }
+          });
+        }, 2000);
+      });
+    </script>
+  </a-scene>
+</body>
+</html>
