@@ -7,374 +7,408 @@
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
   <script src="https://unpkg.com/aframe-rounded-component@1.2.0/dist/aframe-rounded-component.min.js"></script>
   <script src="https://unpkg.com/aframe-animation-component@5.1.2/dist/aframe-animation-component.min.js"></script>
-  <a-assets>
-    <img id="img65" src="img65.jpg" crossorigin="anonymous">
-    <img id="img600" src="img600.jpg" crossorigin="anonymous">
-    <!-- Adicione todas as outras imagens aqui -->
-  </a-assets>
-  </head>
-  <style>
-    a-image:hover { animation: pulse 1.0s infinite; }
-    @keyframes pulse {
-      0% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.3); }
-      50% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.6); }
-      100% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.3); }
-    }
-    #loading {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      font-family: Arial, sans-serif;
-      z-index: 9999;
-      font-size: 18px;
-    }
-   a-image {
-  border: 3px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 
-    0 0 15px rgba(255, 255, 255, 0.3),
-    0 0 30px rgba(255, 255, 255, 0.15);
-  filter: brightness(1.1) contrast(1.05);
-  transition: all 0.3s ease;
-}
-
-a-image:hover {
-  box-shadow: 
-    0 0 25px rgba(255, 255, 255, 0.6),
-    0 0 50px rgba(255, 255, 255, 0.3);
-  filter: brightness(1.2) contrast(1.1);
-}
-  </style>
-
+</head>
+<style>
+  a-image:hover { animation: pulse 1.0s infinite; }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.3); }
+    50% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.6); }
+    100% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.3); }
+  }
+  #loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: Arial, sans-serif;
+    z-index: 9999;
+    font-size: 18px;
+  }
+  a-image {
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 
+      0 0 15px rgba(255, 255, 255, 0.3),
+      0 0 30px rgba(255, 255, 255, 0.15);
+    filter: brightness(1.1) contrast(1.05);
+    transition: all 0.3s ease;
+  }
+  a-image:hover {
+    box-shadow: 
+      0 0 25px rgba(255, 255, 255, 0.6),
+      0 0 50px rgba(255, 255, 255, 0.3);
+    filter: brightness(1.2) contrast(1.1);
+  }
+</style>
 <body>
-  <div id="loading">Carregando experiência... Por favor, aguarde.</div>
+  <div id="loading">Loading experience... Please wait.</div>
   <a-scene fog="type: exponential; color: #000; density: 0.0015">
-    <a-sky src="bgsky.jpg"></a-sky>
-
-    <!-- Estrelas distantes -->
- 
+    <a-sky src="kloppenheim_02_puresky.jpg"></a-sky>
+    <!-- Lights -->
     <a-entity light="type: directional; color: #fff; intensity: 0.5" position="1 1 1"></a-entity>
-<a-entity light="type: directional; color: #ffccaa; intensity: 0.3" position="-1 1 -1"></a-entity>
-
-    <!-- Música de fundo -->
+    <a-entity light="type: directional; color: #ffccaa; intensity: 0.3" position="-1 1 -1"></a-entity>
+    <!-- Background Music -->
     <a-entity sound="src: url(musica.mp3); autoplay: true; loop: true; volume: 0.5"></a-entity>
-
-    <!-- Câmera -->
+    <!-- Camera -->
     <a-entity camera look-controls wasd-controls position="0 1.6 3" rotation="0 0 0"></a-entity>
-
-    <!-- Iluminação -->
+    <!-- Ambient and directional lighting -->
     <a-entity light="type: ambient; color: #445; intensity: 0.6"></a-entity>
     <a-entity light="type: directional; color: #fff; intensity: 0.8" position="-1 2 1"></a-entity>
-
-    <!-- Texto de abertura -->
-    <a-entity position="0 4.5 -2">
-      <a-entity text="value: Bem-vinda, querida alma. Este é um espaço para se reconectar consigo mesma — com quem você é, quem já foi e tudo o que viveu até aqui. Um momento para reconhecer sua essência, valorizar a trajetória e lembrar da força que te trouxe até aqui.;
-              align: center;
-              width: 6;
-              color: white;
-              font: https://cdn.aframe.io/fonts/Roboto-msdf.json;
-              shader: msdf;"
-        animation__fade="property: material.opacity; from: 0; to: 1; dur: 2000; easing: linear">
+    <!-- Opening Text (inclined for better visibility when looking up) -->
+    <a-entity position="0 4.5 -2" rotation="-20 0 0">
+      <a-entity text="value: Welcome, dear soul. This is a space to reconnect with yourself — with who you are, who you’ve been, and everything you’ve lived through. A moment to honor your essence, cherish your journey, and remember the strength that brought you here.;
+                  align: center;
+                  width: 6;
+                  color: white;
+                  font: https://cdn.aframe.io/fonts/Roboto-msdf.json;
+                  shader: msdf;"
+                animation__fade="property: material.opacity; from: 0; to: 1; dur: 2000; easing: linear">
       </a-entity>
     </a-entity>
-
-    <!-- ============================================= -->
-    <!-- BLOCO: Anos 60 (TODAS AS IMAGENS CORRIGIDAS) -->
-    <!-- ============================================= -->
+    <!-- 1960s -->
+    <a-entity position="-5 4.5 -5" rotation="0 45 0">
+      <a-entity text="value: 1960s — The beginning of a beautiful journey. First steps, discoveries filled with wonder for life.;
+                  align: center;
+                  width: 4;
+                  color: white;
+                  font: https://cdn.aframe.io/fonts/Roboto-msdf.json;
+                  shader: msdf;">
+      </a-entity>
+    </a-entity>
+    <!-- Images 1960s -->
     <a-entity position="-5 3.2 -5" rotation="0 45 0">
       <a-image src="img65.jpg" width="3" height="2" radius="0.2"
-         material="shader: flat; src: #img65; roughness: 0.1; metalness: 0.05" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+               material="shader: flat; roughness: 0.1; metalness: 0.05" 
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
     <a-entity position="-7.5 1.5 -5" rotation="0 45 0">
-      <a-image src="img600.jpg" width="1.5" height="1" radius="0.2"  material="shader: flat;  roughness: 0.1; metalness: 0.05"
-           shadow="cast: true; receive: false" 
-           auto-rotate="speed: 2000; intensity: 2"
-           hover-zoom>
+      <a-image src="img600.jpg" width="1.5" height="1" radius="0.2"  
+               material="shader: flat; roughness: 0.1; metalness: 0.05"
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
     <a-entity position="-5.5 1.5 -5" rotation="0 45 0">
-      <a-image src="img6066.jpg" width="1.5" height="1" radius="0.2"  material="shader: flat; roughness: 0.1; metalness: 0.05"
-           shadow="cast: true; receive: false" 
-           auto-rotate="speed: 2000; intensity: 2"
-           hover-zoom>
+      <a-image src="img6066.jpg" width="1.5" height="1" radius="0.2"  
+               material="shader: flat; roughness: 0.1; metalness: 0.05"
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
     <a-entity position="-3.5 1.5 -5" rotation="0 45 0">
-      <a-image src="img6001.jpg" width="1.5" height="1" radius="0.2"  material="shader: flat;  roughness: 0.1; metalness: 0.05"
-           shadow="cast: true; receive: false" 
-           auto-rotate="speed: 2000; intensity: 2"
-           hover-zoom>
+      <a-image src="img6001.jpg" width="1.5" height="1" radius="0.2"  
+               material="shader: flat; roughness: 0.1; metalness: 0.05"
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
     <a-entity position="-6 -0.1 -5" rotation="0 45 0">
-      <a-image src="img6002.jpg" width="1.5" height="1" radius="0.2"  material="shader: flat;  roughness: 0.1; metalness: 0.05"
-           shadow="cast: true; receive: false" 
-           auto-rotate="speed: 2000; intensity: 2"
-           hover-zoom>
+      <a-image src="img6002.jpg" width="1.5" height="1" radius="0.2"  
+               material="shader: flat; roughness: 0.1; metalness: 0.05"
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
     <a-entity position="-4.25 -0.1 -5" rotation="0 45 0">
-      <a-image src="img606.jpg" width="1.5" height="1" radius="0.2"  material="shader: flat; roughness: 0.1; metalness: 0.05"
-           shadow="cast: true; receive: false" 
-           auto-rotate="speed: 2000; intensity: 2"
-           hover-zoom>
+      <a-image src="img606.jpg" width="1.5" height="1" radius="0.2"  
+               material="shader: flat; roughness: 0.1; metalness: 0.05"
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
-    <!-- Título 60s -->
-    <a-entity position="-5 4.5 -5" rotation="0 45 0">
-      <a-entity text="value: Anos 60 — O início de uma linda jornada. Primeiros passos, descobertas com brilho pela vida.
-              align: center;
-              width: 4;
-              color: white;
-              font: https://cdn.aframe.io/fonts/Roboto-msdf.json;
-              shader: msdf;">
+    <!-- 1970s -->
+    <a-entity position="0 4.5 -7">
+      <a-entity text="value: 1970s — Youth blossoming with lightness and grace;
+                  align: center;
+                  width: 4;
+                  color: white;
+                  font: https://cdn.aframe.io/fonts/Roboto-msdf.json;
+                  shader: msdf;">
       </a-entity>
     </a-entity>
-
-    <!-- ============================================= -->
-    <!-- BLOCO: Anos 70 (TODAS AS IMAGENS CORRIGIDAS) -->
-    <!-- ============================================= -->
     <a-entity position="0 3.3 -7">
-      <a-image src="img74.jpg" width="3" height="2" radius="0.2"  material="shader: flat; roughness: 0.1; metalness: 0.05"
-           shadow="cast: true; receive: false" 
-           auto-rotate="speed: 2000; intensity: 2"
-           hover-zoom>
+      <a-image src="img74.jpg" width="3" height="2" radius="0.2"  
+               material="shader: flat; roughness: 0.1; metalness: 0.05"
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
     <a-entity position="-1.5 1.5 -7">
-      <a-image src="img71.jpg" width="1.5" height="1" radius="0.2"  material="shader: flat; roughness: 0.1; metalness: 0.05"
-           shadow="cast: true; receive: false" 
-           auto-rotate="speed: 2000; intensity: 2"
-           hover-zoom>
+      <a-image src="img71.jpg" width="1.5" height="1" radius="0.2"  
+               material="shader: flat; roughness: 0.1; metalness: 0.05"
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
     <a-entity position="0.5 1.5 -7">
-      <a-image src="img73.jpg" width="1.5" height="1" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img73.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
     <a-entity position="2.5 1.5 -7">
-      <a-image src="img72.jpg" width="1.5" height="1" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img72.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
     <a-entity position="-0.5 -0.1 -7">
-      <a-image src="img70.jpg" width="1.5" height="1" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img70.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
     <a-entity position="1.25 -0.1 -7">
-      <a-image src="img722.jpg" width="1.5" height="1" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img722.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
-    <!-- Título 70s -->
-    <a-entity position="0 4.5 -7">
-      <a-entity text="value: Anos 70 — Juventude que floresce com leveza;
-              align: center;
-              width: 4;
-              color: white;
-              font: https://cdn.aframe.io/fonts/Roboto-msdf.json;
-              shader: msdf;">
+    <!-- 1980s -->
+    <a-entity position="6 4.5 -5" rotation="0 320 0">
+      <a-entity text="value: 1980s — Finding love;
+                  align: center;
+                  width: 4;
+                  color: white;
+                  font: https://cdn.aframe.io/fonts/Roboto-msdf.json;
+                  shader: msdf;">
       </a-entity>
     </a-entity>
-
-    <!-- ============================================= -->
-    <!-- BLOCO: Anos 80 (TODAS AS IMAGENS CORRIGIDAS) -->
-    <!-- ============================================= -->
     <a-entity position="6 3 -5" rotation="0 145 0">
-      <a-image src="img77.jpg" width="3" height="2" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img77.jpg" width="3" height="2" radius="0.2" 
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
     <a-entity position="4 1.5 -5" rotation="0 145 0">
-      <a-image src="img801.jpg" width="1.5" height="1" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img803.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
     <a-entity position="7 1.5 -5" rotation="0 145 0">
-      <a-image src="img.jpg" width="1.5" height="1" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img793.jpeg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
     <a-entity position="9.5 1 -5" rotation="0 145 0">
-      <a-image src="img79.jpg" width="1.5" height="1" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img79.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
     <a-entity position="4 -0.1 -5" rotation="0 145 0">
-      <a-image src="img85.jpg" width="1.5" height="1" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img85.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
-    <a-entity position="7 -0.1 -5" rotation="0 145 0">
-      <a-image src="img80.jpg" width="1.5" height="1" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+    <a-entity position="6 -0.1 -5" rotation="0 145 0">
+      <a-image src="img799.jpeg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
-    <!-- Título 80s -->
-    <a-entity position="6 4.5 -5" rotation="0 320 0">
-      <a-entity text="value: Anos 80 — Encontrando o amor;
-              align: center;
-              width: 4;
-              color: white;
-              font: https://cdn.aframe.io/fonts/Roboto-msdf.json;
-              shader: msdf;">
+    <a-entity position="8 -0.1 -5" rotation="0 145 0">
+      <a-image src="img80.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
+      </a-image>
+    </a-entity>
+    <!-- 1990s -->
+    <a-entity position="7 6.2 1" rotation="0 270 0"> 
+      <a-entity text="value: 1990s — Building dreams;
+                  align: center;
+                  width: 4;
+                  color: white;
+                  font: https://cdn.aframe.io/fonts/Roboto-msdf.json;
+                  shader: msdf;">
       </a-entity>
     </a-entity>
-
-    <!-- ============================================= -->
-    <!-- BLOCO: Anos 90 (TODAS AS IMAGENS CORRIGIDAS) -->
-    <!-- ============================================= -->
     <a-entity position="7 5 1" rotation="0 90 0">
-      <a-image src="img8000.jpg" width="3" height="2" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img8000.jpg" width="3" height="2" radius="0.2" 
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
     <a-entity position="4.5 2.5 0" rotation="0 90 0">
-      <a-image src="img90.jpg" width="1.5" height="1" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img90.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
     <a-entity position="6.5 3 2" rotation="0 90 0">
-      <a-image src="img87.jpg" width="1.5" height="1" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img87.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
     <a-entity position="8.5 2 3" rotation="0 90 0">
-      <a-image src="img97.jpg" width="1.5" height="1" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img97.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
     <a-entity position="5.5 1.5 0" rotation="0 90 0">
-      <a-image src="img960.jpg" width="1.5" height="1" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img960.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
     <a-entity position="7.25 1 2" rotation="0 90 0">
-      <a-image src="img2002.jpg" width="1.5" height="1" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img2002.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
-    <!-- Título 90s -->
-    <a-entity position="7 6.2 1" rotation="0 270 0"> 
-      <a-entity text="value: Anos 90 — Construindo sonhos;
-              align: center;
-              width: 4;
-              color: white;
-              font: https://cdn.aframe.io/fonts/Roboto-msdf.json;
-              shader: msdf;">
+    <!-- 2000s -->
+    <a-entity position="3 3.5 5" rotation="0 -130 0">
+      <a-entity text="value: 2000s — Strengthening, caring, becoming a foundation.;
+                  align: center;
+                  width: 4;
+                  color: white;
+                  font: https://cdn.aframe.io/fonts/Roboto-msdf.json;
+                  shader: msdf;">
       </a-entity>
     </a-entity>
-
-    <!-- =============================================== -->
-    <!-- BLOCO: Anos 2000 (TODAS AS IMAGENS CORRIGIDAS) -->
-    <!-- =============================================== -->
     <a-entity position="5 3.5 6.5" rotation="0 45 0">
-      <a-image src="img2000.jpg" width="3" height="2" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img2000.jpg" width="3" height="2" radius="0.2" 
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
     <a-entity position="2.5 1.5 6" rotation="0 45 0">
-      <a-image src="img2009.jpg" width="1.5" height="1" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img2009.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
     <a-entity position="4.5 1.5 5.5" rotation="0 45 0">
-      <a-image src="img2001.jpg" width="1.5" height="1" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img2001.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
     <a-entity position="6.5 -0.07 4.5" rotation="0 45 0">
-      <a-image src="img2010.jpg" width="1.5" height="1" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img2010.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
     <a-entity position="3.5 -0.1 7" rotation="0 45 0">
-      <a-image src="img20100.jpg" width="1.5" height="1" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img20100.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
     <a-entity position="5.25 -0.1 6" rotation="0 45 0">
-      <a-image src="img005.jpg" width="1.5" height="1" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img005.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
-    <!-- Título 2000s -->
-    <a-entity position="3 3.5 5" rotation="0 -145 0">
-      <a-entity text="value: Anos 2000 — Consolidando, cuidando, sendo alicerce.;
-              align: center;
-              width: 4;
-              color: white;
-              font: https://cdn.aframe.io/fonts/Roboto-msdf.json;
-              shader: msdf;">
+    <!-- 2010s -->
+    <a-entity position="-2 6.3 7" rotation="0 180 0">
+      <a-entity text="value: 2010s — Challenges and renewal with wisdom.;
+                  align: center;
+                  width: 4;
+                  color: white;
+                  font: https://cdn.aframe.io/fonts/Roboto-msdf.json;
+                  shader: msdf;">
       </a-entity>
     </a-entity>
-
-    <!-- =============================================== -->
-    <!-- BLOCO: Anos 2010 (TODAS AS IMAGENS CORRIGIDAS) -->
-    <!-- =============================================== -->
     <a-entity position="-2 5 7">
-      <a-image src="img10.jpg" width="3" height="2" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img10.jpg" width="3" height="2" radius="0.2" 
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
     <a-entity position="-3.5 3 7">
-      <a-image src="img1001.jpg" width="1.5" height="1" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img1001.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
     <a-entity position="-1.8 2.5 7">
-      <a-image src="img1002.jpg" width="1.5" height="1" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img1002.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
     <a-entity position="0 3 7">
-      <a-image src="img1003.jpg" width="1.5" height="1" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img1003.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
     <a-entity position="-3.5 1.5 7">
-      <a-image src="img1004.jpg" width="1.5" height="1" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img1004.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
     <a-entity position="0 1.5 7">
-      <a-image src="img1005.jpg" width="1.5" height="1" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img1005.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
-    <!-- Título 2010s -->
-    <a-entity position="-2 6.3 7" rotation="0 180 0">
-      <a-entity text="value: Anos 2010 — Desafios e renovações com sabedoria.;
-              align: center;
-              width: 4;
-              color: white;
-              font: https://cdn.aframe.io/fonts/Roboto-msdf.json;
-              shader: msdf;">
+    <!-- 2020s -->
+    <a-entity position="-5 4.5 2" rotation="0 110 0">
+      <a-entity text="value: 2020s — The beauty of a life well lived.;
+                  align: center;
+                  width: 4;
+                  color: white;
+                  font: https://cdn.aframe.io/fonts/Roboto-msdf.json;
+                  shader: msdf;">
       </a-entity>
     </a-entity>
-
-    <!-- =============================================== -->
-    <!-- BLOCO: Anos 2020 (TODAS AS IMAGENS CORRIGIDAS) -->
-    <!-- =============================================== -->
     <a-entity position="-5 3.3 2" rotation="0 110 0">
-      <a-image src="img2020.jpg" width="3" height="2" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img2020.jpg" width="3" height="2" radius="0.2" 
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
     <a-entity position="-7.5 1.5 6" rotation="0 110 0">
-      <a-image src="img200.jpg" width="1.5" height="1" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img200.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
     <a-entity position="-5.5 1.5 1" rotation="0 110 0">
-      <a-image src="img200.jpg" width="1.5" height="1" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img200.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
     <a-entity position="-3.5 1.5 3" rotation="0 110 0">
-      <a-image src="img200.jpg" width="1.5" height="1" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img200.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
     <a-entity position="-6 -0.1 1" rotation="0 110 0">
-      <a-image src="img200.jpg" width="1.5" height="1" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img200.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
     <a-entity position="-4.25 -0.1 4" rotation="0 110 0">
-      <a-image src="img2025.jpg" width="1.5" height="1" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img2025.jpg" width="1.5" height="1" radius="0.2" 
+               shadow="cast: true; receive: false" 
+               auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
-    <!-- Título 2020s -->
-    <a-entity position="-5 4.5 2" rotation="0 110 0">
-      <a-entity text="value: Anos 2020 — Beleza de uma vida bem vivida.;
-              align: center;
-              width: 4;
-              color: white;
-              font: https://cdn.aframe.io/fonts/Roboto-msdf.json;
-              shader: msdf;">
-      </a-entity>
-    </a-entity>
- 
-    <!-- Script de carregamento -->
+    <!-- Scripts -->
     <script>
-      // Componente para rotação automática
       AFRAME.registerComponent('auto-rotate', {
         schema: {
           speed: {type: 'number', default: 10000},
@@ -394,44 +428,6 @@ a-image:hover {
           });
         }
       });
-
-      AFRAME.registerComponent('hover-zoom', {
-  init: function() {
-    const el = this.el;
-    const originalScale = el.getAttribute('scale').clone();
-    const zoomScale = {x: originalScale.x * 1.1, y: originalScale.y * 1.1, z: originalScale.z};
-    
-    el.addEventListener('mouseenter', () => {
-      el.setAttribute('animation', {
-        property: 'scale',
-        to: `${zoomScale.x} ${zoomScale.y} ${zoomScale.z}`,
-        dur: 300,
-        easing: 'easeOutElastic'
-      });
-    });
-    
-    el.addEventListener('mouseleave', () => {
-      el.setAttribute('animation', {
-        property: 'scale',
-        to: `${originalScale.x} ${originalScale.y} ${originalScale.z}`,
-        dur: 500,
-        easing: 'easeOutElastic'
-      });
-    });
-  }
-});
-AFRAME.registerComponent('gaze-focus', {
-  init: function() {
-    const el = this.el;
-    el.addEventListener('gaze-start', () => {
-      el.setAttribute('material', 'opacity', '1');
-    });
-    el.addEventListener('gaze-end', () => {
-      el.setAttribute('material', 'opacity', '0.8');
-    });
-  }
-});
-      // Tela de carregamento
       const loadingDiv = document.getElementById('loading');
       const scene = document.querySelector('a-scene');
       scene.addEventListener('loaded', () => {
