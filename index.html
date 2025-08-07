@@ -3,18 +3,35 @@
 <head>
   <meta charset="utf-8">
   <title>Memories</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
   <script src="https://unpkg.com/aframe-rounded-component@1.2.0/dist/aframe-rounded-component.min.js"></script>
   <script src="https://unpkg.com/aframe-animation-component@5.1.2/dist/aframe-animation-component.min.js"></script>
 </head>
 <style>
-  a-image:hover { animation: pulse 1.0s infinite; }
-  @keyframes pulse {
-    0% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.3); }
-    50% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.6); }
-    100% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.3); }
+  body {
+    margin: 0;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
   }
+  
+  a-image {
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 
+      0 0 20px rgba(255, 255, 255, 0.4),
+      0 0 40px rgba(255, 255, 255, 0.2);
+    filter: brightness(1.1) contrast(1.05);
+    transition: all 0.3s ease;
+  }
+  
+  a-image:hover {
+    box-shadow: 
+      0 0 30px rgba(255, 255, 255, 0.8),
+      0 0 60px rgba(255, 255, 255, 0.4);
+    filter: brightness(1.2) contrast(1.1);
+    transform: scale(1.05);
+  }
+  
   #loading {
     position: fixed;
     top: 0;
@@ -23,404 +40,282 @@
     height: 100%;
     background: #000;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     color: white;
-    font-family: Arial, sans-serif;
     z-index: 9999;
-    font-size: 18px;
+    font-size: 24px;
+    transition: opacity 1s ease;
   }
-  a-image {
-    border: 3px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 
-      0 0 15px rgba(255, 255, 255, 0.3),
-      0 0 30px rgba(255, 255, 255, 0.15);
-    filter: brightness(1.1) contrast(1.05);
-    transition: all 0.3s ease;
+  
+  #loading p {
+    margin-top: 20px;
+    font-size: 16px;
+    opacity: 0.8;
   }
-  a-image:hover {
-    box-shadow: 
-      0 0 25px rgba(255, 255, 255, 0.6),
-      0 0 50px rgba(255, 255, 255, 0.3);
-    filter: brightness(1.2) contrast(1.1);
+  
+  #look-around {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-size: 24px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+    z-index: 100;
+  }
+  
+  #look-around .arrow {
+    font-size: 36px;
+    margin-bottom: 10px;
+    animation: rotate 4s infinite linear;
+  }
+  
+  @keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  
+  .decade-title {
+    font-family: 'Arial', sans-serif;
+    text-shadow: 0 0 10px rgba(255,255,255,0.5);
+    width: 6 !important;
   }
 </style>
 <body>
-  <div id="loading">Loading experience... Please wait.</div>
-  <a-scene fog="type: exponential; color: #000; density: 0.0015">
-    <a-sky src="kloppenheim_02_puresky.jpg"></a-sky>
-    <!-- Lights -->
-    <a-entity light="type: directional; color: #fff; intensity: 0.5" position="1 1 1"></a-entity>
-    <a-entity light="type: directional; color: #ffccaa; intensity: 0.3" position="-1 1 -1"></a-entity>
-    <!-- Background Music -->
-    <a-entity sound="src: url(musica.mp3); autoplay: true; loop: true; volume: 0.5"></a-entity>
-    <!-- Camera -->
-    <a-entity camera look-controls wasd-controls position="0 1.6 3" rotation="0 0 0"></a-entity>
-    <!-- Ambient and directional lighting -->
+  <div id="loading">
+    <div>Loading Your Experience...</div>
+    <p>Preparing a journey through time</p>
+  </div>
+  
+  <div id="look-around">
+    <div class="arrow">↻</div>
+    <div>Look around to explore</div>
+  </div>
+
+   <a-scene fog="type: exponential; color: #000; density: 0.0015" loading-screen="dotsColor: white; backgroundColor: black">
+    <!-- Sky -->
+    <a-sky src="bgsky.jpg"></a-sky>
+    
     <a-entity light="type: ambient; color: #445; intensity: 0.6"></a-entity>
     <a-entity light="type: directional; color: #fff; intensity: 0.8" position="-1 2 1"></a-entity>
-    <!-- Opening Text (inclined for better visibility when looking up) -->
-    <a-entity position="0 4.5 -2" rotation="-20 0 0">
-      <a-entity text="value: Welcome, dear soul. This is a space to reconnect with yourself — with who you are, who you’ve been, and everything you’ve lived through. A moment to honor your essence, cherish your journey, and remember the strength that brought you here.;
+    <a-entity light="type: directional; color: #ffccaa; intensity: 0.3" position="1 1 -1"></a-entity>
+    
+    <!-- Background Music -->
+    <a-entity sound="src: url(musica.mp3); autoplay: true; loop: true; volume: 0.5"></a-entity>
+    
+    <!-- Camera -->
+    <a-entity camera look-controls="pointerLockEnabled: true" wasd-controls="enabled: false" position="0 1.6 0">
+      <a-entity cursor="fuse: true; fuseTimeout: 500"
+                position="0 0 -1"
+                geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+                material="color: white; shader: flat">
+      </a-entity>
+    </a-entity>
+    
+    <!-- Welcome Message -->
+    <a-entity position="0 2.5 -1.5" rotation="20 10 2">
+      <a-entity text="value: Welcome, dear soul. This is a space to reconnect with yourself — with who you are, who you've been, and everything you've lived through. A moment to honor your essence, cherish your journey, and remember the strength that brought you here.;
                   align: center;
                   width: 6;
                   color: white;
                   font: https://cdn.aframe.io/fonts/Roboto-msdf.json;
                   shader: msdf;"
-                animation__fade="property: material.opacity; from: 0; to: 1; dur: 2000; easing: linear">
+                animation="property: material.opacity; from: 0; to: 1; dur: 2000; easing: easeInOutQuad">
       </a-entity>
     </a-entity>
-    <!-- 1960s -->
-    <a-entity position="-5 4.5 -5" rotation="0 45 0">
-      <a-entity text="value: 1960s — The beginning of a beautiful journey. First steps, discoveries filled with wonder for life.;
-                  align: center;
-                  width: 4;
-                  color: white;
-                  font: https://cdn.aframe.io/fonts/Roboto-msdf.json;
-                  shader: msdf;">
+    <!-- Circular Timeline of Decades -->
+    
+    <!-- 1960s (-45 degrees) -->
+    <a-entity class="decade-group" position="-3.5 1.5 -3.5" rotation="0 45 0">
+      <a-entity position="0 2.5 0" class="decade-title">
+        <a-entity text="value: 1960s — The beginning; align: center; width: 4; color: white;"></a-entity>
+      </a-entity>
+      <a-image src="img65.jpg" width="3" height="2" radius="0.2" position="0 0 0"
+               material="shader: standard; roughness: 0.1; metalness: 0.1"></a-image>
+      <a-entity position="0 -1.5 0">
+        <a-entity position="-1.5 0 0"><a-image src="img600.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+        <a-entity position="1.5 0 0"><a-image src="img6066.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+        <a-entity position="0 -1 0"><a-image src="img6002.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
       </a-entity>
     </a-entity>
-    <!-- Images 1960s -->
-    <a-entity position="-5 3.2 -5" rotation="0 45 0">
-      <a-image src="img65.jpg" width="3" height="2" radius="0.2"
-               material="shader: flat; roughness: 0.1; metalness: 0.05" 
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <a-entity position="-7.5 1.5 -5" rotation="0 45 0">
-      <a-image src="img600.jpg" width="1.5" height="1" radius="0.2"  
-               material="shader: flat; roughness: 0.1; metalness: 0.05"
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <a-entity position="-5.5 1.5 -5" rotation="0 45 0">
-      <a-image src="img6066.jpg" width="1.5" height="1" radius="0.2"  
-               material="shader: flat; roughness: 0.1; metalness: 0.05"
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <a-entity position="-3.5 1.5 -5" rotation="0 45 0">
-      <a-image src="img6001.jpg" width="1.5" height="1" radius="0.2"  
-               material="shader: flat; roughness: 0.1; metalness: 0.05"
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <a-entity position="-6 -0.1 -5" rotation="0 45 0">
-      <a-image src="img6002.jpg" width="1.5" height="1" radius="0.2"  
-               material="shader: flat; roughness: 0.1; metalness: 0.05"
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <a-entity position="-4.25 -0.1 -5" rotation="0 45 0">
-      <a-image src="img606.jpg" width="1.5" height="1" radius="0.2"  
-               material="shader: flat; roughness: 0.1; metalness: 0.05"
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <!-- 1970s -->
-    <a-entity position="0 4.5 -7">
-      <a-entity text="value: 1970s — Youth blossoming with lightness and grace;
-                  align: center;
-                  width: 4;
-                  color: white;
-                  font: https://cdn.aframe.io/fonts/Roboto-msdf.json;
-                  shader: msdf;">
+    
+    <!-- 1970s (0 degrees) -->
+    <a-entity class="decade-group" position="0 1.5 -5">
+      <a-entity position="0 2.5 0" class="decade-title">
+        <a-entity text="value: 1970s — Youth blossoming; align: center; width: 4; color: white;"></a-entity>
+      </a-entity>
+      <a-image src="img74.jpg" width="3" height="2" radius="0.2" position="0 0 0"
+               material="shader: standard; roughness: 0.1; metalness: 0.1"></a-image>
+      <a-entity position="0 -1.5 0">
+        <a-entity position="-1.5 0 0"><a-image src="img71.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+        <a-entity position="1.5 0 0"><a-image src="img73.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+        <a-entity position="0 -1 0"><a-image src="img70.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
       </a-entity>
     </a-entity>
-    <a-entity position="0 3.3 -7">
-      <a-image src="img74.jpg" width="3" height="2" radius="0.2"  
-               material="shader: flat; roughness: 0.1; metalness: 0.05"
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <a-entity position="-1.5 1.5 -7">
-      <a-image src="img71.jpg" width="1.5" height="1" radius="0.2"  
-               material="shader: flat; roughness: 0.1; metalness: 0.05"
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <a-entity position="0.5 1.5 -7">
-      <a-image src="img73.jpg" width="1.5" height="1" radius="0.2" 
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <a-entity position="2.5 1.5 -7">
-      <a-image src="img72.jpg" width="1.5" height="1" radius="0.2" 
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <a-entity position="-0.5 -0.1 -7">
-      <a-image src="img70.jpg" width="1.5" height="1" radius="0.2" 
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <a-entity position="1.25 -0.1 -7">
-      <a-image src="img722.jpg" width="1.5" height="1" radius="0.2" 
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <!-- 1980s -->
-    <a-entity position="6 4.5 -5" rotation="0 320 0">
-      <a-entity text="value: 1980s — Finding love;
-                  align: center;
-                  width: 4;
-                  color: white;
-                  font: https://cdn.aframe.io/fonts/Roboto-msdf.json;
-                  shader: msdf;">
+    
+    <!-- 1980s (45 degrees) -->
+    <a-entity class="decade-group" position="3.5 1.5 -3.5" rotation="0 -45 0">
+      <a-entity position="0 2.5 0" class="decade-title">
+        <a-entity text="value: 1980s — Finding love; align: center; width: 4; color: white;"></a-entity>
+      </a-entity>
+      <a-image src="img77.jpg" width="3" height="2" radius="0.2" position="0 0 0"
+               material="shader: standard; roughness: 0.1; metalness: 0.1"></a-image>
+      <a-entity position="0 -1.5 0">
+        <a-entity position="-1.5 0 0"><a-image src="img803.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+        <a-entity position="1.5 0 0"><a-image src="img793.jpeg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+        <a-entity position="0 -1 0"><a-image src="img85.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
       </a-entity>
     </a-entity>
-    <a-entity position="6 3 -5" rotation="0 145 0">
-      <a-image src="img77.jpg" width="3" height="2" radius="0.2" 
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <a-entity position="4 1.5 -5" rotation="0 145 0">
-      <a-image src="img803.jpg" width="1.5" height="1" radius="0.2" 
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <a-entity position="7 1.5 -5" rotation="0 145 0">
-      <a-image src="img793.jpeg" width="1.5" height="1" radius="0.2" 
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <a-entity position="9.5 1 -5" rotation="0 145 0">
-      <a-image src="img79.jpg" width="1.5" height="1" radius="0.2" 
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <a-entity position="4 -0.1 -5" rotation="0 145 0">
-      <a-image src="img85.jpg" width="1.5" height="1" radius="0.2" 
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <a-entity position="6 -0.1 -5" rotation="0 145 0">
-      <a-image src="img799.jpeg" width="1.5" height="1" radius="0.2" 
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <a-entity position="8 -0.1 -5" rotation="0 145 0">
-      <a-image src="img80.jpg" width="1.5" height="1" radius="0.2" 
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <!-- 1990s -->
-    <a-entity position="7 6.2 1" rotation="0 270 0"> 
-      <a-entity text="value: 1990s — Building dreams;
-                  align: center;
-                  width: 4;
-                  color: white;
-                  font: https://cdn.aframe.io/fonts/Roboto-msdf.json;
-                  shader: msdf;">
+    
+    <!-- 1990s (90 degrees) -->
+    <a-entity class="decade-group" position="5 1.5 0" rotation="0 -90 0">
+      <a-entity position="0 2.5 0" class="decade-title">
+        <a-entity text="value: 1990s — Building dreams; align: center; width: 4; color: white;"></a-entity>
+      </a-entity>
+      <a-image src="img8000.jpg" width="3" height="2" radius="0.2" position="0 0 0"
+               material="shader: standard; roughness: 0.1; metalness: 0.1"></a-image>
+      <a-entity position="0 -1.5 0">
+        <a-entity position="-1.5 0 0"><a-image src="img90.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+        <a-entity position="1.5 0 0"><a-image src="img87.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+        <a-entity position="0 -1 0"><a-image src="img960.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
       </a-entity>
     </a-entity>
-    <a-entity position="7 5 1" rotation="0 90 0">
-      <a-image src="img8000.jpg" width="3" height="2" radius="0.2" 
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <a-entity position="4.5 2.5 0" rotation="0 90 0">
-      <a-image src="img90.jpg" width="1.5" height="1" radius="0.2" 
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <a-entity position="6.5 3 2" rotation="0 90 0">
-      <a-image src="img87.jpg" width="1.5" height="1" radius="0.2" 
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <a-entity position="8.5 2 3" rotation="0 90 0">
-      <a-image src="img97.jpg" width="1.5" height="1" radius="0.2" 
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <a-entity position="5.5 1.5 0" rotation="0 90 0">
-      <a-image src="img960.jpg" width="1.5" height="1" radius="0.2" 
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <a-entity position="7.25 1 2" rotation="0 90 0">
-      <a-image src="img2002.jpg" width="1.5" height="1" radius="0.2" 
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <!-- 2000s -->
-    <a-entity position="3 3.5 5" rotation="0 -130 0">
-      <a-entity text="value: 2000s — Strengthening, caring, becoming a foundation.;
-                  align: center;
-                  width: 4;
-                  color: white;
-                  font: https://cdn.aframe.io/fonts/Roboto-msdf.json;
-                  shader: msdf;">
+    
+    <!-- 2000s (135 degrees) -->
+    <a-entity class="decade-group" position="3.5 1.5 3.5" rotation="0 -135 0">
+      <a-entity position="0 2.5 0" class="decade-title">
+        <a-entity text="value: 2000s — Strengthening; align: center; width: 4; color: white;"></a-entity>
+      </a-entity>
+      <a-image src="img2000.jpg" width="3" height="2" radius="0.2" position="0 0 0"
+               material="shader: standard; roughness: 0.1; metalness: 0.1"></a-image>
+      <a-entity position="0 -1.5 0">
+        <a-entity position="-1.5 0 0"><a-image src="img2009.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+        <a-entity position="1.5 0 0"><a-image src="img2001.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+        <a-entity position="0 -1 0"><a-image src="img2010.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
       </a-entity>
     </a-entity>
-    <a-entity position="5 3.5 6.5" rotation="0 45 0">
-      <a-image src="img2000.jpg" width="3" height="2" radius="0.2" 
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <a-entity position="2.5 1.5 6" rotation="0 45 0">
-      <a-image src="img2009.jpg" width="1.5" height="1" radius="0.2" 
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <a-entity position="4.5 1.5 5.5" rotation="0 45 0">
-      <a-image src="img2001.jpg" width="1.5" height="1" radius="0.2" 
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <a-entity position="6.5 -0.07 4.5" rotation="0 45 0">
-      <a-image src="img2010.jpg" width="1.5" height="1" radius="0.2" 
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <a-entity position="3.5 -0.1 7" rotation="0 45 0">
-      <a-image src="img20100.jpg" width="1.5" height="1" radius="0.2" 
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <a-entity position="5.25 -0.1 6" rotation="0 45 0">
-      <a-image src="img005.jpg" width="1.5" height="1" radius="0.2" 
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <!-- 2010s -->
-    <a-entity position="-2 6.3 7" rotation="0 180 0">
-      <a-entity text="value: 2010s — Challenges and renewal with wisdom.;
-                  align: center;
-                  width: 4;
-                  color: white;
-                  font: https://cdn.aframe.io/fonts/Roboto-msdf.json;
-                  shader: msdf;">
+    
+    <!-- 2010s (180 degrees) -->
+    <a-entity class="decade-group" position="0 1.5 5">
+      <a-entity position="0 2.5 0" class="decade-title">
+        <a-entity text="value: 2010s — Challenges; align: center; width: 4; color: white;"></a-entity>
+      </a-entity>
+      <a-image src="img10.jpg" width="3" height="2" radius="0.2" position="0 0 0"
+               material="shader: standard; roughness: 0.1; metalness: 0.1"></a-image>
+      <a-entity position="0 -1.5 0">
+        <a-entity position="-1.5 0 0"><a-image src="img1001.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+        <a-entity position="1.5 0 0"><a-image src="img1002.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+        <a-entity position="0 -1 0"><a-image src="img1004.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
       </a-entity>
     </a-entity>
-    <a-entity position="-2 5 7">
-      <a-image src="img10.jpg" width="3" height="2" radius="0.2" 
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <a-entity position="-3.5 3 7">
-      <a-image src="img1001.jpg" width="1.5" height="1" radius="0.2" 
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <a-entity position="-1.8 2.5 7">
-      <a-image src="img1002.jpg" width="1.5" height="1" radius="0.2" 
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <a-entity position="0 3 7">
-      <a-image src="img1003.jpg" width="1.5" height="1" radius="0.2" 
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <a-entity position="-3.5 1.5 7">
-      <a-image src="img1004.jpg" width="1.5" height="1" radius="0.2" 
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <a-entity position="0 1.5 7">
-      <a-image src="img1005.jpg" width="1.5" height="1" radius="0.2" 
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <!-- 2020s -->
-    <a-entity position="-5 4.5 2" rotation="0 110 0">
-      <a-entity text="value: 2020s — The beauty of a life well lived.;
-                  align: center;
-                  width: 4;
-                  color: white;
-                  font: https://cdn.aframe.io/fonts/Roboto-msdf.json;
-                  shader: msdf;">
+    
+    <!-- 2020s (-135 degrees) -->
+    <a-entity class="decade-group" position="-3.5 1.5 3.5" rotation="0 135 0">
+      <a-entity position="0 2.5 0" class="decade-title">
+        <a-entity text="value: 2020s — Life well lived; align: center; width: 4; color: white;"></a-entity>
+      </a-entity>
+      <a-image src="img2020.jpg" width="3" height="2" radius="0.2" position="0 0 0"
+               material="shader: standard; roughness: 0.1; metalness: 0.1"></a-image>
+      <a-entity position="0 -1.5 0">
+        <a-entity position="-1.5 0 0"><a-image src="img200.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+        <a-entity position="1.5 0 0"><a-image src="img200.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+        <a-entity position="0 -1 0"><a-image src="img2025.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
       </a-entity>
     </a-entity>
-    <a-entity position="-5 3.3 2" rotation="0 110 0">
-      <a-image src="img2020.jpg" width="3" height="2" radius="0.2" 
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
+    
+    
+   <a-entity position="0 0.01 0" rotation="-90 0 0">
+      <a-ring color="white" radius-inner="1" radius-outer="1.5" opacity="0.7"
+               animation="property: rotation; to: 0 0 360; loop: true; dur: 10000; easing: linear"></a-ring>
+      <a-text value="Look around to explore" align="center" width="4" color="white" position="0 0.1 0"
+              font="https://cdn.aframe.io/fonts/Roboto-msdf.json" shader="msdf"></a-text>
     </a-entity>
-    <a-entity position="-7.5 1.5 6" rotation="0 110 0">
-      <a-image src="img200.jpg" width="1.5" height="1" radius="0.2" 
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <a-entity position="-5.5 1.5 1" rotation="0 110 0">
-      <a-image src="img200.jpg" width="1.5" height="1" radius="0.2" 
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <a-entity position="-3.5 1.5 3" rotation="0 110 0">
-      <a-image src="img200.jpg" width="1.5" height="1" radius="0.2" 
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <a-entity position="-6 -0.1 1" rotation="0 110 0">
-      <a-image src="img200.jpg" width="1.5" height="1" radius="0.2" 
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
-    <a-entity position="-4.25 -0.1 4" rotation="0 110 0">
-      <a-image src="img2025.jpg" width="1.5" height="1" radius="0.2" 
-               shadow="cast: true; receive: false" 
-               auto-rotate="speed: 2000; intensity: 2">
-      </a-image>
-    </a-entity>
+    
     <!-- Scripts -->
     <script>
+      // Improved loading handling
+      window.addEventListener('load', function() {
+        const scene = document.querySelector('a-scene');
+        const loadingDiv = document.getElementById('loading');
+        
+        if (scene.hasLoaded) {
+          hideLoading();
+        } else {
+          scene.addEventListener('loaded', hideLoading);
+        }
+        
+        function hideLoading() {
+          loadingDiv.style.opacity = '0';
+          setTimeout(() => {
+            loadingDiv.style.display = 'none';
+          }, 1000);
+        }
+      });
+      
+      // Show "look around" message when looking down
+      AFRAME.registerComponent('look-direction-listener', {
+        init: function() {
+          const lookAroundDiv = document.getElementById('look-around');
+          const camera = document.querySelector('[camera]');
+          
+          this.tick = function() {
+            const rotation = camera.getAttribute('rotation');
+            // Show message when looking down (pitch > 30 degrees)
+            if (rotation.x > 30) {
+              lookAroundDiv.style.opacity = '1';
+            } else {
+              lookAroundDiv.style.opacity = '0';
+            }
+          };
+        }
+      });
+      
+      // Add the component to the scene
+      document.querySelector('a-scene').setAttribute('look-direction-listener', '');
+      
+      // Auto-rotate images slightly for better visibility
       AFRAME.registerComponent('auto-rotate', {
         schema: {
-          speed: {type: 'number', default: 10000},
-          intensity: {type: 'number', default: 1}
+          speed: {type: 'number', default: 20000},
+          intensity: {type: 'number', default: 5}
         },
         init: function() {
           const el = this.el;
           const rotationY = el.getAttribute('rotation')?.y || 0;
           el.setAttribute('animation__rotate', {
             property: 'rotation',
-            to: `${rotationY} 0 ${this.data.intensity}`,
-            from: `${rotationY} 0 ${-this.data.intensity}`,
+            to: `${rotationY} 360 0`,
+            from: `${rotationY} 0 0`,
+            dur: this.data.speed,
+            loop: true,
+            easing: 'linear'
+          });
+        }
+      });
+      
+      // Apply auto-rotate to all images
+      document.querySelectorAll('a-image').forEach(img => {
+        img.setAttribute('auto-rotate', '');
+      });
+      
+      // Add subtle animation to decade groups
+      AFRAME.registerComponent('float-animation', {
+        schema: {
+          speed: {type: 'number', default: 10000},
+          distance: {type: 'number', default: 0.2}
+        },
+        init: function() {
+          const el = this.el;
+          const originalY = el.getAttribute('position').y;
+          
+          el.setAttribute('animation__float', {
+            property: 'position',
+            to: {x: el.getAttribute('position').x, y: originalY + this.data.distance, z: el.getAttribute('position').z},
+            from: {x: el.getAttribute('position').x, y: originalY - this.data.distance, z: el.getAttribute('position').z},
             dir: 'alternate',
             dur: this.data.speed,
             loop: true,
@@ -428,12 +323,11 @@
           });
         }
       });
-      const loadingDiv = document.getElementById('loading');
-      const scene = document.querySelector('a-scene');
-      scene.addEventListener('loaded', () => {
-        setTimeout(() => loadingDiv.style.display = 'none', 1000);
+      
+      // Apply float animation to decade groups
+      document.querySelectorAll('.decade-group').forEach(group => {
+        group.setAttribute('float-animation', 'speed: 15000; distance: 0.15');
       });
-      setTimeout(() => loadingDiv.style.display = 'none', 8000);
     </script>
   </a-scene>
 </body>
