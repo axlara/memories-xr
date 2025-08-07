@@ -2,11 +2,17 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Mural Cósmico</title>
+  <title>Memories</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
   <script src="https://unpkg.com/aframe-rounded-component@1.2.0/dist/aframe-rounded-component.min.js"></script>
   <script src="https://unpkg.com/aframe-animation-component@5.1.2/dist/aframe-animation-component.min.js"></script>
+  <a-assets>
+    <img id="img65" src="img65.jpg" crossorigin="anonymous">
+    <img id="img600" src="img600.jpg" crossorigin="anonymous">
+    <!-- Adicione todas as outras imagens aqui -->
+  </a-assets>
+  </head>
   <style>
     a-image:hover { animation: pulse 1.0s infinite; }
     @keyframes pulse {
@@ -29,41 +35,32 @@
       z-index: 9999;
       font-size: 18px;
     }
-    a-image {
-      border: 3px solid transparent;
-      box-shadow: 
-        0 0 15px rgba(255, 255, 255, 0.3),
-        0 0 30px rgba(255, 255, 255, 0.15);
-      filter: brightness(1.1);
-    }
-    a-image:hover {
-      box-shadow: 
-        0 0 25px rgba(255, 255, 255, 0.6),
-        0 0 50px rgba(255, 255, 255, 0.3);
-    }
+   a-image {
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 0 15px rgba(255, 255, 255, 0.3),
+    0 0 30px rgba(255, 255, 255, 0.15);
+  filter: brightness(1.1) contrast(1.05);
+  transition: all 0.3s ease;
+}
+
+a-image:hover {
+  box-shadow: 
+    0 0 25px rgba(255, 255, 255, 0.6),
+    0 0 50px rgba(255, 255, 255, 0.3);
+  filter: brightness(1.2) contrast(1.1);
+}
   </style>
-</head>
+
 <body>
   <div id="loading">Carregando experiência... Por favor, aguarde.</div>
   <a-scene fog="type: exponential; color: #000; density: 0.0015">
     <a-sky src="bgsky.jpg"></a-sky>
 
     <!-- Estrelas distantes -->
-    <a-entity
-      particle-system="
-        preset: dust;
-        particleCount: 1500;           
-        radius: 4900;                  
-        size: 0.8;                   
-        color: #ffffff, #ffcc99, #ccccff; 
-        opacity: 0.9;                 
-        transparent: true;
-        enabled: true;
-        velocity: 0;
-        randomVelocity: 0.01;
-        animating: true;
-      ">
-    </a-entity>
+ 
+    <a-entity light="type: directional; color: #fff; intensity: 0.5" position="1 1 1"></a-entity>
+<a-entity light="type: directional; color: #ffccaa; intensity: 0.3" position="-1 1 -1"></a-entity>
 
     <!-- Música de fundo -->
     <a-entity sound="src: url(musica.mp3); autoplay: true; loop: true; volume: 0.5"></a-entity>
@@ -91,32 +88,48 @@
     <!-- BLOCO: Anos 60 (TODAS AS IMAGENS CORRIGIDAS) -->
     <!-- ============================================= -->
     <a-entity position="-5 3.2 -5" rotation="0 45 0">
-      <a-image src="img65.jpg" width="3" height="2" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img65.jpg" width="3" height="2" radius="0.2"
+         material="shader: flat; src: #img65; roughness: 0.1; metalness: 0.05" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
       </a-image>
     </a-entity>
     <a-entity position="-7.5 1.5 -5" rotation="0 45 0">
-      <a-image src="img600.jpg" width="1.5" height="1" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img600.jpg" width="1.5" height="1" radius="0.2"  material="shader: flat;  roughness: 0.1; metalness: 0.05"
+           shadow="cast: true; receive: false" 
+           auto-rotate="speed: 2000; intensity: 2"
+           hover-zoom>
       </a-image>
     </a-entity>
     <a-entity position="-5.5 1.5 -5" rotation="0 45 0">
-      <a-image src="img6066.jpg" width="1.5" height="1" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img6066.jpg" width="1.5" height="1" radius="0.2"  material="shader: flat; roughness: 0.1; metalness: 0.05"
+           shadow="cast: true; receive: false" 
+           auto-rotate="speed: 2000; intensity: 2"
+           hover-zoom>
       </a-image>
     </a-entity>
     <a-entity position="-3.5 1.5 -5" rotation="0 45 0">
-      <a-image src="img6001.jpg" width="1.5" height="1" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img6001.jpg" width="1.5" height="1" radius="0.2"  material="shader: flat;  roughness: 0.1; metalness: 0.05"
+           shadow="cast: true; receive: false" 
+           auto-rotate="speed: 2000; intensity: 2"
+           hover-zoom>
       </a-image>
     </a-entity>
     <a-entity position="-6 -0.1 -5" rotation="0 45 0">
-      <a-image src="img6002.jpg" width="1.5" height="1" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img6002.jpg" width="1.5" height="1" radius="0.2"  material="shader: flat;  roughness: 0.1; metalness: 0.05"
+           shadow="cast: true; receive: false" 
+           auto-rotate="speed: 2000; intensity: 2"
+           hover-zoom>
       </a-image>
     </a-entity>
     <a-entity position="-4.25 -0.1 -5" rotation="0 45 0">
-      <a-image src="img606.jpg" width="1.5" height="1" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img606.jpg" width="1.5" height="1" radius="0.2"  material="shader: flat; roughness: 0.1; metalness: 0.05"
+           shadow="cast: true; receive: false" 
+           auto-rotate="speed: 2000; intensity: 2"
+           hover-zoom>
       </a-image>
     </a-entity>
     <!-- Título 60s -->
     <a-entity position="-5 4.5 -5" rotation="0 45 0">
-      <a-entity text="value: Anos 60 — O início de uma jornada transformadora.;
+      <a-entity text="value: Anos 60 — O início de uma linda jornada. Primeiros passos, descobertas com brilho pela vida.
               align: center;
               width: 4;
               color: white;
@@ -129,11 +142,17 @@
     <!-- BLOCO: Anos 70 (TODAS AS IMAGENS CORRIGIDAS) -->
     <!-- ============================================= -->
     <a-entity position="0 3.3 -7">
-      <a-image src="img74.jpg" width="3" height="2" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img74.jpg" width="3" height="2" radius="0.2"  material="shader: flat; roughness: 0.1; metalness: 0.05"
+           shadow="cast: true; receive: false" 
+           auto-rotate="speed: 2000; intensity: 2"
+           hover-zoom>
       </a-image>
     </a-entity>
     <a-entity position="-1.5 1.5 -7">
-      <a-image src="img71.jpg" width="1.5" height="1" radius="0.2" shadow="cast: true; receive: false" auto-rotate="speed: 2000; intensity: 2">
+      <a-image src="img71.jpg" width="1.5" height="1" radius="0.2"  material="shader: flat; roughness: 0.1; metalness: 0.05"
+           shadow="cast: true; receive: false" 
+           auto-rotate="speed: 2000; intensity: 2"
+           hover-zoom>
       </a-image>
     </a-entity>
     <a-entity position="0.5 1.5 -7">
@@ -154,7 +173,7 @@
     </a-entity>
     <!-- Título 70s -->
     <a-entity position="0 4.5 -7">
-      <a-entity text="value: Anos 70 — Primeiros passos, descobertas com brilho.;
+      <a-entity text="value: Anos 70 — Juventude que floresce com leveza;
               align: center;
               width: 4;
               color: white;
@@ -192,7 +211,7 @@
     </a-entity>
     <!-- Título 80s -->
     <a-entity position="6 4.5 -5" rotation="0 320 0">
-      <a-entity text="value: Anos 80 — Juventude que floresce com força.;
+      <a-entity text="value: Anos 80 — Encontrando o amor;
               align: center;
               width: 4;
               color: white;
@@ -229,8 +248,8 @@
       </a-image>
     </a-entity>
     <!-- Título 90s -->
-    <a-entity position="7 6.2 1" rotation="0 270 0">
-      <a-entity text="value: Anos 90 — Construindo, cuidando, sendo alicerce.;
+    <a-entity position="7 6.2 1" rotation="0 270 0"> 
+      <a-entity text="value: Anos 90 — Construindo sonhos;
               align: center;
               width: 4;
               color: white;
@@ -268,7 +287,7 @@
     </a-entity>
     <!-- Título 2000s -->
     <a-entity position="3 3.5 5" rotation="0 -145 0">
-      <a-entity text="value: Anos 2000 — Desafios e renovações com sabedoria.;
+      <a-entity text="value: Anos 2000 — Consolidando, cuidando, sendo alicerce.;
               align: center;
               width: 4;
               color: white;
@@ -306,7 +325,7 @@
     </a-entity>
     <!-- Título 2010s -->
     <a-entity position="-2 6.3 7" rotation="0 180 0">
-      <a-entity text="value: Anos 2010 — Memórias vivas, alegrias florescendo.;
+      <a-entity text="value: Anos 2010 — Desafios e renovações com sabedoria.;
               align: center;
               width: 4;
               color: white;
@@ -352,7 +371,7 @@
               shader: msdf;">
       </a-entity>
     </a-entity>
-
+ 
     <!-- Script de carregamento -->
     <script>
       // Componente para rotação automática
@@ -376,6 +395,42 @@
         }
       });
 
+      AFRAME.registerComponent('hover-zoom', {
+  init: function() {
+    const el = this.el;
+    const originalScale = el.getAttribute('scale').clone();
+    const zoomScale = {x: originalScale.x * 1.1, y: originalScale.y * 1.1, z: originalScale.z};
+    
+    el.addEventListener('mouseenter', () => {
+      el.setAttribute('animation', {
+        property: 'scale',
+        to: `${zoomScale.x} ${zoomScale.y} ${zoomScale.z}`,
+        dur: 300,
+        easing: 'easeOutElastic'
+      });
+    });
+    
+    el.addEventListener('mouseleave', () => {
+      el.setAttribute('animation', {
+        property: 'scale',
+        to: `${originalScale.x} ${originalScale.y} ${originalScale.z}`,
+        dur: 500,
+        easing: 'easeOutElastic'
+      });
+    });
+  }
+});
+AFRAME.registerComponent('gaze-focus', {
+  init: function() {
+    const el = this.el;
+    el.addEventListener('gaze-start', () => {
+      el.setAttribute('material', 'opacity', '1');
+    });
+    el.addEventListener('gaze-end', () => {
+      el.setAttribute('material', 'opacity', '0.8');
+    });
+  }
+});
       // Tela de carregamento
       const loadingDiv = document.getElementById('loading');
       const scene = document.querySelector('a-scene');
