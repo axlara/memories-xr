@@ -96,7 +96,12 @@
     <div>Look around to explore</div>
   </div>
 
+  <a-assets>
+  <audio id="bg-music" src="https://cdn.pixabay.com/audio/2023/08/16/audiofile.mp3" preload="metadata"></audio>
+</a-assets>
+
    <a-scene fog="type: exponential; color: #000; density: 0.0015" loading-screen="dotsColor: white; backgroundColor: black">
+   <a-entity sound="src: #bg-music; autoplay: false; loop: true; volume: 0.5"></a-entity>
     <!-- Sky -->
     <a-sky src="bgsky.jpg"></a-sky>
     
@@ -106,10 +111,6 @@
     <a-entity light="type: directional; color: #ffccaa; intensity: 0.3" position="1 1 -1"></a-entity>
     
     <!-- Background Music -->
-  <a-assets>
-  <audio id="bg-music" src="https://cdn.pixabay.com/audio/2023/08/16/audiofile.mp3" preload="auto"></audio>
-</a-assets>
-
     
     <!-- Camera (posição mais baixa: y=1.4 em vez de 1.6) -->
     <a-entity camera look-controls="pointerLockEnabled: true" wasd-controls="enabled: false" position="0 1.1 0">
@@ -306,7 +307,18 @@
           });
         }
       });
-      
+      // Iniciar música após clique (para contornar bloqueio de autoplay)
+document.addEventListener('click', function playAudio() {
+  const audioEl = document.getElementById('bg-music');
+  const audio = audioEl ? audioEl.components.sound : null;
+
+  if (audio && !audio.isPlaying) {
+    audio.play();
+  }
+
+  // Remover o listener após o primeiro clique
+  document.removeEventListener('click', playAudio);
+}, { once: true });
       // Apply auto-rotate to all images
       document.querySelectorAll('a-image').forEach(img => {
         img.setAttribute('auto-rotate', '');
