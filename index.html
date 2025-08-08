@@ -84,6 +84,22 @@
     text-shadow: 0 0 10px rgba(255,255,255,0.5);
     width: 6 !important;
   }
+  #audio-fallback {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  padding: 15px 25px;
+  background: #ff3366;
+  color: white;
+  border-radius: 30px;
+  font-size: 18px;
+  cursor: pointer;
+  z-index: 10000;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  display: none; /* Inicialmente escondido */
+  border: none;
+  outline: none;
+}
 </style>
 <body>
   <div id="loading">
@@ -98,14 +114,10 @@
 
    <a-scene fog="type: exponential; color: #000; density: 0.0015" loading-screen="dotsColor: white; backgroundColor: black">
 
-    <!-- Assets -->
- <a-assets>
-      <audio id="bg-music" src="forever young.wav" preload="metadata"></audio>
-   
-
+    <a-assets>
+      <audio id="bg-music" src="foreveryoung.mp3" preload="auto"></audio>
     </a-assets>
 
-    <!-- Player de áudio -->
     <a-entity id="music-player" sound="src: #bg-music; autoplay: false; loop: true; volume: 0.5"></a-entity>
 
     <!-- Sky -->
@@ -145,9 +157,9 @@
                material="shader: standard; roughness: 0.1; metalness: 0.1"></a-image>
       <a-entity position="0 -1.5 0">
         <a-entity position="-1.5 0 0"><a-image src="img600.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
-        <a-entity position="1.5 0 0"><a-image src="img6066.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+        <a-entity position="1 0 0"><a-image src="img6066.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
         <a-entity position="0 -1 0"><a-image src="img6002.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
-         <a-entity position="-1.3 -1 0"><a-image src="img606.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+         <a-entity position="1.5 -1.5 0"><a-image src="img606.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
          <a-entity position="-1 -2 0"><a-image src="img6001.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
       </a-entity>
     </a-entity>
@@ -254,25 +266,93 @@
     
     <!-- Scripts -->
     <script>
-      // Improved loading handling
-      window.addEventListener('load', function() {
-        const scene = document.querySelector('a-scene');
-        const loadingDiv = document.getElementById('loading');
-        
-        if (scene.hasLoaded) {
-          hideLoading();
-        } else {
-          scene.addEventListener('loaded', hideLoading);
-        }
-        
-        function hideLoading() {
-          loadingDiv.style.opacity = '0';
-          setTimeout(() => {
-            loadingDiv.style.display = 'none';
-          }, 1000);
-        }
-      });
+    console.log("✅ Script carregado. Iniciando setup de áudio...");
+  
+  // Espera o DOM e o A-Frame estarem prontos
+  document.addEventListener('DOMContentLoaded', function() {
+    const scene = document.querySelector('a-scene');
+    
+    if (!scene) {
+      console.error("❌ a-scene não encontrado!");
+      return;
+    }
+
+    // Cria o botão manualmente (caso não exista no HTML)
+    const fallbackButton = document.createElement('button');
+    fallbackButton.id = 'audio-fallback';
+    fallbackButton.textContent = 'Play Music';
+    fallbackButton.style.cssText = `
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      padding: 15px 25px;
+      background: #ff3366;
+      color: white;
+      border-radius: 30px;
+      font-size: 18px;
+      cursor: pointer;
+      z-index: 10000;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      display: none;
+      border: none;
+      outline: none;
+    `;
+    document.body.appendChild(fallbackButton);
+
+    scene.addEventListener('loaded', function() {
+      console.log("🎮 A-Frame carregado. Configurando áudio...");
       
+      const musicPlayer = document.getElementById('music-player');
+      if (!musicPlayer || !musicPlayer.components.sound) {
+        console.error("❌ Player de música não encontrado!");
+        return;
+      }
+
+      // 1. Tentativa com A-Frame
+      try {
+        musicPlayer.setAttribute('sound', 'volume', 0.5);
+        musicPlayer.components.sound.play().then(() => {
+          console.log("🎵 Áudio do A-Frame tocando!");
+        }).catch(e => {
+          console.log("🔇 A-Frame bloqueado:", e.message);
+          initFallback();
+        });
+      } catch (e) {
+        console.error("❌ Erro no A-Frame:", e);
+        initFallback();
+      }
+
+      // 2. Fallback
+      function initFallback() {
+        console.log("⚙️ Iniciando fallback de áudio...");
+        const audio = new Audio("foreveryoung.mp3");
+        audio.volume = 0.5;
+        audio.loop = true;
+
+        // Mostra o botão
+        fallbackButton.style.display = 'block';
+        console.log("🔼 Botão de fallback deve estar visível agora");
+
+        // Configura o botão
+        fallbackButton.onclick = function() {
+          audio.play()
+            .then(() => {
+              console.log("🔊 Áudio tocando via fallback!");
+              this.style.display = 'none';
+            })
+            .catch(e => {
+              console.error("❌ Falha ao tocar:", e);
+              alert("Não foi possível tocar o áudio. Verifique o console para detalhes.");
+            });
+        };
+
+        // Tenta tocar automaticamente
+        audio.play().catch(e => {
+          console.log("🔇 Precisa de interação:", e.message);
+        });
+      }
+    });
+  });
       // Show "look around" message when looking down
       AFRAME.registerComponent('look-direction-listener', {
         init: function() {
@@ -294,6 +374,10 @@
       // Add the component to the scene
       document.querySelector('a-scene').setAttribute('look-direction-listener', '');
       
+
+      // Adicione o componente na câmera
+      document.querySelector('[camera]').setAttribute('play-on-vr', '');
+      
       // Auto-rotate images slightly for better visibility
       AFRAME.registerComponent('auto-rotate', {
         schema: {
@@ -313,43 +397,7 @@
           });
         }
       });
- AFRAME.registerComponent('play-on-vr', {
-    init: function () {
-      const musicEl = document.getElementById('music');
-      const soundComponent = musicEl.components.sound;
-
-      // Ouvir quando o usuário entrar em VR
-AFRAME.registerComponent('play-on-vr', {
-  init: function () {
-    const musicEl = document.getElementById('bg-music'); // corrigido
-    const soundComponent = musicEl.components.sound;
-
-    this.el.addEventListener('enter-vr', () => {
-      if (soundComponent && !soundComponent.isPlaying) {
-        soundComponent.play();
-        console.log("🎵 Música iniciada ao entrar em VR!");
-      }
-    });
-
-    this.el.addEventListener('exit-vr', () => {
-      if (soundComponent && soundComponent.isPlaying) {
-        soundComponent.pause();
-      }
-    });
-  }
-});
-
-      // Opcional: pausar ao sair do VR
-      this.el.addEventListener('exit-vr', () => {
-        if (soundComponent && soundComponent.isPlaying) {
-          soundComponent.pause();
-        }
-      });
-    }
-  });
-
-  // Adicione o componente na câmera
-  document.querySelector('[camera]').setAttribute('play-on-vr', '');
+      
       // Apply auto-rotate to all images
       document.querySelectorAll('a-image').forEach(img => {
         img.setAttribute('auto-rotate', '');
@@ -381,7 +429,11 @@ AFRAME.registerComponent('play-on-vr', {
       document.querySelectorAll('.decade-group').forEach(group => {
         group.setAttribute('float-animation', 'speed: 15000; distance: 0.15');
       });
+
+console.log("✅ Script está sendo executado!");
     </script>
   </a-scene>
+  <button id="audio-fallback">TOCAR MÚSICA</button>
+
 </body>
 </html>

@@ -1,46 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Memories</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-  <script src="https://unpkg.com/aframe-rounded-component@1.2.0/dist/aframe-rounded-component.min.js"></script>
-  <script src="https://unpkg.com/aframe-animation-component@5.1.2/dist/aframe-animation-component.min.js"></script>
-</head>
-<style>
-  /* Estilos mantidos iguais */
-</style>
-<body>
-  <div id="loading">
-    <div>Loading Your Experience...</div>
-    <p>Preparing a journey through time</p>
-  </div>
-
-  <div id="click-to-start">
-    <div>🔊 Click to Start Music</div>
-    <div style="font-size: 18px; margin-top: 10px;">Required for audio to play</div>
-  </div>
-
-  <div id="look-around">
-    <div class="arrow">↻</div>
-    <div>Look around to explore</div>
-  </div>
-
-  <a-scene fog="type: exponential; color: #000; density: 0.0015" loading-screen="dotsColor: white; backgroundColor: black">
-    <a-assets>
-      <!-- Use o caminho local do áudio -->
-      <audio id="bg-music" src="audiofile.mp3" crossorigin="anonymous" preload="metadata"></audio>
-    </a-assets>
-
-    <a-entity sound="src: #bg-music; autoplay: false; loop: true; volume: 0.5"></a-entity>
-
-    <!-- Resto da cena mantido igual -->
-    <!-- ... -->
-  </a-scene>
-
-  <script>
-    // Scripts mantidos iguais
-  </script>
-</body>
-</html>
+// Adicione este teste separado ao seu HTML
+<button onclick="testAudio()" style="position: fixed; top: 10px; left: 10px; z-index: 10000;">
+  TESTAR ÁUDIO DO NAVEGADOR
+</button>
+<script>
+  function testAudio() {
+    const audio = new Audio("foreveryoung.mp3");
+    audio.volume = 0.5;
+    audio.play().then(() => console.log("Áudio do navegador tocando!")).catch(e => console.error(e));
+  }
+</script>
