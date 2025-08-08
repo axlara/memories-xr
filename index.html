@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
   <script src="https://unpkg.com/aframe-rounded-component@1.2.0/dist/aframe-rounded-component.min.js"></script>
-  <script src="https://unpkg.com/aframe-animation-component@5.1.2/dist/aframe-animation-component.min.js"></script>
+ 
 </head>
 <style>
   body {
@@ -96,12 +96,18 @@
     <div>Look around to explore</div>
   </div>
 
-  <a-assets>
-  <audio id="bg-music" src="https://cdn.pixabay.com/audio/2023/08/16/audiofile.mp3" preload="metadata"></audio>
-</a-assets>
-
    <a-scene fog="type: exponential; color: #000; density: 0.0015" loading-screen="dotsColor: white; backgroundColor: black">
-   <a-entity sound="src: #bg-music; autoplay: false; loop: true; volume: 0.5"></a-entity>
+
+    <!-- Assets -->
+ <a-assets>
+      <audio id="bg-music" src="forever young.wav" preload="metadata"></audio>
+   
+
+    </a-assets>
+
+    <!-- Player de áudio -->
+    <a-entity id="music-player" sound="src: #bg-music; autoplay: false; loop: true; volume: 0.5"></a-entity>
+
     <!-- Sky -->
     <a-sky src="bgsky.jpg"></a-sky>
     
@@ -238,13 +244,13 @@
   </a-entity>
 </a-entity>
  
-     <a-entity position="0 -1 0" rotation="-90 0 0">
+     <a-entity position="0 -3 0" rotation="-90 0 0">
       <a-ring color="white" radius-inner="1" radius-outer="1.5" opacity="0.7"
                animation="property: rotation; to: 0 0 360; loop: true; dur: 10000; easing: linear"></a-ring>
       <a-text value="Look around to explore" align="center" width="4" color="white" position="0 0.1 0"
               font="https://cdn.aframe.io/fonts/Roboto-msdf.json" shader="msdf"></a-text>
     </a-entity>
-       <a-plane position="0 -2 0" rotation="-90 0 0" width="10" height="10" color="#000" opacity="0.9"></a-plane>
+       <a-plane position="0 -4 0" rotation="-90 0 0" width="10" height="10" color="#000" opacity="1"></a-plane>
     
     <!-- Scripts -->
     <script>
@@ -307,18 +313,43 @@
           });
         }
       });
-      // Iniciar música após clique (para contornar bloqueio de autoplay)
-document.addEventListener('click', function playAudio() {
-  const audioEl = document.getElementById('bg-music');
-  const audio = audioEl ? audioEl.components.sound : null;
+ AFRAME.registerComponent('play-on-vr', {
+    init: function () {
+      const musicEl = document.getElementById('music');
+      const soundComponent = musicEl.components.sound;
 
-  if (audio && !audio.isPlaying) {
-    audio.play();
+      // Ouvir quando o usuário entrar em VR
+AFRAME.registerComponent('play-on-vr', {
+  init: function () {
+    const musicEl = document.getElementById('bg-music'); // corrigido
+    const soundComponent = musicEl.components.sound;
+
+    this.el.addEventListener('enter-vr', () => {
+      if (soundComponent && !soundComponent.isPlaying) {
+        soundComponent.play();
+        console.log("🎵 Música iniciada ao entrar em VR!");
+      }
+    });
+
+    this.el.addEventListener('exit-vr', () => {
+      if (soundComponent && soundComponent.isPlaying) {
+        soundComponent.pause();
+      }
+    });
   }
+});
 
-  // Remover o listener após o primeiro clique
-  document.removeEventListener('click', playAudio);
-}, { once: true });
+      // Opcional: pausar ao sair do VR
+      this.el.addEventListener('exit-vr', () => {
+        if (soundComponent && soundComponent.isPlaying) {
+          soundComponent.pause();
+        }
+      });
+    }
+  });
+
+  // Adicione o componente na câmera
+  document.querySelector('[camera]').setAttribute('play-on-vr', '');
       // Apply auto-rotate to all images
       document.querySelectorAll('a-image').forEach(img => {
         img.setAttribute('auto-rotate', '');
