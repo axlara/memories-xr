@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Teste de Fonte A-Frame em Português</title>
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <!-- Incluindo o componente de texto melhorado -->
+    <script src="https://unpkg.com/aframe-text-geometry-component@^3.0.0/dist/aframe-text-geometry-component.min.js"></script>
+</head>
+<body>
+    <a-scene>
+        <!-- Céu azul claro -->
+        <a-sky color="#87CEEB"></a-sky>
+        
+        <!-- Texto simples com acentos -->
+        <a-entity position="0 1.6 -2">
+            <a-text value="Teste de Acentuação: áéíóúâêîôûãõàèìòùç" 
+                    color="black" 
+                    align="center"
+                    width="5"></a-text>
+        </a-entity>
+        
+        <!-- Texto com fonte personalizada e parágrafo em português -->
+        <a-entity position="0 0.5 -3" text="value: A cena 3D em VR precisa renderizar corretamente os caracteres especiais do português como ç, ã, õ e acentos agudos. Isso é essencial para desenvolvedores brasileiros; color: #223344; width: 4; align: center">
+        </a-entity>
+        
+        <!-- Exemplo com formatação mais avançada -->
+        <a-entity position="-1.5 2 -2.5">
+            <a-entity text-geometry="value: Fonética Portuguesa; 
+                                    font: https://cdn.aframe.io/fonts/Roboto-msdf.json;
+                                    size: 0.2;
+                                    height: 0.01"
+                      material="color: #AA0000;
+                                shader: msdf"
+                      position="0 0 0"></a-entity>
+        </a-entity>
+        
+        <!-- Chão para referência -->
+        <a-plane position="0 0 -4" rotation="-90 0 0" width="10" height="10" color="#7BCBA4"></a-plane>
+        
+        <!-- Esfera como elemento visual adicional -->
+        <a-sphere position="1.5 1.5 -3" radius="0.5" color="#FF926B"></a-sphere>
+        
+        <!-- Posição da câmera -->
+        <a-entity position="0 1.6 0">
+            <a-entity camera look-controls wasd-controls></a-entity>
+        </a-entity>
+    </a-scene>
+</body>
+</html>
