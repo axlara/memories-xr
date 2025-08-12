@@ -123,7 +123,7 @@
 
   <canvas id="textCanvas" width="1024" height="512" style="display: none;"></canvas>
 
-  <a-scene fog="type: exponential; color: #000; density: 0.0015" loading-screen="dotsColor: white; backgroundColor: black">
+  <a-scene fog="type: exponential; color: #000; density: 0.0015" loading-screen="dotsColor: white; backgroundColor: black" force-look-up>
 
     <a-assets>
       <audio id="bg-music" src="foreveryoung.mp3" preload="auto"></audio>
@@ -140,9 +140,20 @@
     <a-entity light="type: directional; color: #ffffff; intensity: 1.2" position="-1 2 1"></a-entity>
     <a-entity light="type: directional; color: #ffddbb; intensity: 0.5" position="1 1 -1"></a-entity>
     
-    <!-- Camera -->
-    <a-entity camera look-controls="pointerLockEnabled: true" wasd-controls="enabled: false" position="0 1.1 0">
-    </a-entity>
+  <!-- Substitua a câmera existente por esta: -->
+<a-entity camera 
+          look-controls="pointerLockEnabled: true" 
+          wasd-controls="enabled: false" 
+          position="0 1.6 0" 
+          rotation="-30 0 0">
+          
+  <!-- Animação suave (opcional) -->
+  <a-animation attribute="rotation"
+               to="-30 0 0"
+               dur="2000"
+               easing="ease-out"
+               begin="scene-loaded"></a-animation>
+</a-entity>
 <a-plane 
   src="#welcome-text-img" 
   position="0 5.5 -2" 
@@ -340,14 +351,22 @@
     <a-entity position="0 -3 0" rotation="-90 0 0">
       <a-ring color="white" radius-inner="1" radius-outer="1.3" opacity="0.7"
                animation="property: rotation; to: 0 0 360; loop: true; dur: 10000; easing: linear"></a-ring>
-      <a-text value="Olhe em volta para explorar" align="center" width="4" color="white" position="0 0.1 0"
+      <a-text value="Look around" align="center" width="4" color="white" position="0 0.1 0"
               font="https://cdn.aframe.io/fonts/Roboto-msdf.json" shader="msdf"></a-text>
     </a-entity>
-    <a-plane position="0 -4 0" rotation="-90 0 0" width="10" height="10" color="#000" opacity="1"></a-plane>
+    <a-plane position="0 -4 0" rotation="-90 0 0" width="15" height="15" color="#000" opacity="1"></a-plane>
 
     <!-- Scripts -->
    
     <script>
+      // Componente para olhar para cima ao iniciar
+  AFRAME.registerComponent('force-look-up', {
+    init: function() {
+      const camera = document.querySelector('[camera]');
+      // Define rotação inicial (30 graus para cima)
+      camera.setAttribute('rotation', '-30 0 0'); 
+    }
+  });
 
       console.log("✅ Script carregado. Iniciando setup de áudio...");
     
@@ -536,62 +555,65 @@
           }
         });
       });
-       AFRAME.registerComponent('falling-stars', {
+      AFRAME.registerComponent('global-snow', {
     schema: {
-      count: { default: 30 },       // Quantidade de partículas
-      speed: { default: 5 },        // Velocidade (5 = normal, 10 = rápido)
-      size: { default: 0.03 }       // Tamanho das bolinhas
+      count: { default: 100 },     // Número de partículas
+      speed: { default: 3 },       // Velocidade de queda
+      size: { default: 0.02 },     // Tamanho
+      areaSize: { default: 20 }    // Tamanho da área 3D
     },
+    
     init: function() {
       const el = this.el;
       const data = this.data;
       
-      // Cria cada partícula
+      // Cria partículas em volta de toda a cena
       for (let i = 0; i < data.count; i++) {
-        const star = document.createElement('a-sphere');
+        const snow = document.createElement('a-sphere');
         
-        // Posição inicial aleatória
-        star.setAttribute('position', {
-          x: (Math.random() - 0.5) * 20,  // -10 a 10 em X
-          y: 10 + Math.random() * 5,      // Começa no alto (Y)
-          z: -10 - Math.random() * 10      // Distância (Z)
+        // Posição inicial aleatória em 360°
+        snow.setAttribute('position', {
+          x: (Math.random() - 0.5) * data.areaSize,
+          y: 10 + Math.random() * 10,
+          z: (Math.random() - 0.5) * data.areaSize
         });
         
         // Aparência
-        star.setAttribute('radius', data.size);
-        star.setAttribute('color', 'white');
-        star.setAttribute('opacity', 0.3 + Math.random() * 0.7);
+        snow.setAttribute('radius', data.size);
+        snow.setAttribute('color', 'white');
+        snow.setAttribute('opacity', 0.5 + Math.random() * 0.5);
         
-        // Animação de queda
-        star.setAttribute('animation', {
+        // Animação de queda (em todas as direções)
+        snow.setAttribute('animation', {
           property: 'position',
           to: {
-            x: star.getAttribute('position').x + (Math.random() - 0.5) * 2,  // Cai com leve variação em X
-            y: -15,  // Cai até Y = -15 (fora da tela)
-            z: star.getAttribute('position').z
+            x: snow.getAttribute('position').x + (Math.random() - 0.5) * 2,
+            y: -10,
+            z: snow.getAttribute('position').z + (Math.random() - 0.5) * 2
           },
-          dur: (5000 + Math.random() * 5000) / data.speed,  // Tempo aleatório
+          dur: (5000 + Math.random() * 5000) / data.speed,
           loop: true,
           easing: 'linear'
         });
         
-        // Animação de piscar
-        star.setAttribute('animation__blink', {
+        // Efeito de piscar
+        snow.setAttribute('animation__blink', {
           property: 'opacity',
           to: 0.2,
           from: 0.8,
-          dur: 1000 + Math.random() * 3000,
+          dur: 2000 + Math.random() * 3000,
           loop: true,
           easing: 'easeInOutSine'
         });
         
-        el.appendChild(star);  // Adiciona à cena
+        el.appendChild(snow);
       }
     }
   });
     </script>
-    <a-entity falling-stars="count: 60; speed: 0.5; size: 0.02"></a-entity>
+<a-entity global-snow="color: lightblue; speed: 1; size: 0.01; count: 200"></a-entity>
   </a-scene>
+  
 
   <button id="audio-fallback">INICIAR</button>
 
