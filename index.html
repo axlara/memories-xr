@@ -121,7 +121,6 @@
     <div>Olhe ao redor para explorar</div>
   </div>
 
-  <!-- === CANVAS OCULTO PARA TEXTO COM ACENTOS === -->
   <canvas id="textCanvas" width="1024" height="512" style="display: none;"></canvas>
 
   <a-scene fog="type: exponential; color: #000; density: 0.0015" loading-screen="dotsColor: white; backgroundColor: black">
@@ -149,16 +148,19 @@
   position="0 5.5 -2" 
   rotation="45 0 0" 
   width="6" 
-  height="2" 
-  material="shader: flat; transparent: true; side: double; opacity: 1"
-  animation="property: material.opacity; from: 0; to: 1; dur: 2000; easing: easeInOutQuad">
+  height="2"
+  material="shader: flat; 
+           transparent: true; 
+           opacity: 1; 
+           side: double;
+           alphaTest: 0.5"
+  float-simple>
 </a-plane>
- 
     
     <!-- 1960s -->
     <a-entity class="decade-group" position="-3.5 3 -3.5" rotation="0 45 0">
       <a-entity position="0 2 0" class="decade-title">
-        <a-entity text="value: 1960s — O início de tudo, primeiros passos; align: center; width: 4; color: white;"></a-entity>
+        <a-entity text="value: 1960s — mais precisamente 1965, O início de tudo, os primeiros passos; align: center; width: 4; color: white;"></a-entity>
       </a-entity>
       <a-image src="img65.jpg" width="3" height="2" radius="0.2" position="0 0 0"
                material="shader: standard; roughness: 0.1; metalness: 0.1"></a-image>
@@ -175,7 +177,7 @@
     <!-- 1970s -->
     <a-entity class="decade-group" position="0 3 -5">
       <a-entity position="0 2.5 0" class="decade-title">
-        <a-entity text="value: 1970s — Juventude que floresce; align: center; width: 4; color: white;"></a-entity>
+        <a-entity text="value: 1970s — Juventude que chega, vida que floresce; align: center; width: 4; color: white;"></a-entity>
       </a-entity>
       <a-image src="img71.jpg" width="3" height="2" radius="0.2" position="0 0 0"
                material="shader: standard; roughness: 0.1; metalness: 0.1"></a-image>
@@ -201,8 +203,8 @@
         <a-entity position="0 -0.2 0"><a-image src="img793.jpeg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
         <a-entity position="-1 -1 0"><a-image src="img85.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
         <a-entity position="1.1 -1 0"><a-image src="img799.jpeg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
-        <a-entity position="0 -2 0"><a-image src="img80.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
-           <a-entity position="1.5 -3 0"><a-image src="img1802.jpeg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+        <a-entity position="-1 -2.3 0"><a-image src="img80.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+           <a-entity position="1 -2.2 0"><a-image src="img1802.jpeg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
       </a-entity>
     </a-entity>
     
@@ -274,7 +276,7 @@
   <!-- Título -->
   <a-entity position="0 5.5 0" class="decade-title">
     <a-entity 
-      text="value: 2020s — Colhendo frutos, vivendo o melhor da vida (Feliz 60 anos); 
+      text="value: 2020s — Colhendo os melhores frutos de tudo que plantou, vivendo 60 anos de uma linda jornada; 
             align: center; 
             width: 6; 
             color: white;">
@@ -346,6 +348,7 @@
     <!-- Scripts -->
    
     <script>
+
       console.log("✅ Script carregado. Iniciando setup de áudio...");
     
       document.addEventListener('DOMContentLoaded', function() {
@@ -489,6 +492,23 @@
       });
 
       console.log("✅ Script está sendo executado!");
+
+       // Componente SIMPLES para flutuação
+  AFRAME.registerComponent('float-simple', {
+    init: function() {
+      const el = this.el;
+      const pos = el.getAttribute('position');
+      
+      el.setAttribute('animation', {
+        property: 'position',
+        to: {x: pos.x, y: pos.y + 0.3, z: pos.z},
+        from: {x: pos.x, y: pos.y - 0.3, z: pos.z},
+        dur: 10000,
+        loop: true,
+        easing: 'easeInOutSine'
+      });
+    }
+  });
       // Componente para material de alta qualidade
       AFRAME.registerComponent('high-quality-img', {
         init: function () {
@@ -516,7 +536,61 @@
           }
         });
       });
+       AFRAME.registerComponent('falling-stars', {
+    schema: {
+      count: { default: 30 },       // Quantidade de partículas
+      speed: { default: 5 },        // Velocidade (5 = normal, 10 = rápido)
+      size: { default: 0.03 }       // Tamanho das bolinhas
+    },
+    init: function() {
+      const el = this.el;
+      const data = this.data;
+      
+      // Cria cada partícula
+      for (let i = 0; i < data.count; i++) {
+        const star = document.createElement('a-sphere');
+        
+        // Posição inicial aleatória
+        star.setAttribute('position', {
+          x: (Math.random() - 0.5) * 20,  // -10 a 10 em X
+          y: 10 + Math.random() * 5,      // Começa no alto (Y)
+          z: -10 - Math.random() * 10      // Distância (Z)
+        });
+        
+        // Aparência
+        star.setAttribute('radius', data.size);
+        star.setAttribute('color', 'white');
+        star.setAttribute('opacity', 0.3 + Math.random() * 0.7);
+        
+        // Animação de queda
+        star.setAttribute('animation', {
+          property: 'position',
+          to: {
+            x: star.getAttribute('position').x + (Math.random() - 0.5) * 2,  // Cai com leve variação em X
+            y: -15,  // Cai até Y = -15 (fora da tela)
+            z: star.getAttribute('position').z
+          },
+          dur: (5000 + Math.random() * 5000) / data.speed,  // Tempo aleatório
+          loop: true,
+          easing: 'linear'
+        });
+        
+        // Animação de piscar
+        star.setAttribute('animation__blink', {
+          property: 'opacity',
+          to: 0.2,
+          from: 0.8,
+          dur: 1000 + Math.random() * 3000,
+          loop: true,
+          easing: 'easeInOutSine'
+        });
+        
+        el.appendChild(star);  // Adiciona à cena
+      }
+    }
+  });
     </script>
+    <a-entity falling-stars="count: 60; speed: 0.5; size: 0.02"></a-entity>
   </a-scene>
 
   <button id="audio-fallback">INICIAR</button>
