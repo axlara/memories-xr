@@ -140,39 +140,37 @@
     <a-entity light="type: directional; color: #ffffff; intensity: 1.2" position="-1 2 1"></a-entity>
     <a-entity light="type: directional; color: #ffddbb; intensity: 0.5" position="1 1 -1"></a-entity>
     
-  <!-- Substitua a câmera existente por esta: -->
-<a-entity camera 
-          look-controls="pointerLockEnabled: true" 
-          wasd-controls="enabled: false" 
-          position="0 1.6 0" 
-          rotation="-30 0 0">
+  <!-- Substitua a câmera atual por esta versão -->
+<a-entity id="main-camera"
+          camera="active: true"
+          look-controls="pointerLockEnabled: true"
+          wasd-controls="enabled: false"
+          position="0 1.6 0"     
+          rotation="-20 0 0">    
           
-  <!-- Animação suave (opcional) -->
+  <!-- Animação opcional para suavizar entrada -->
   <a-animation attribute="rotation"
-               to="-30 0 0"
+               to="-20 0 0"
                dur="2000"
-               easing="ease-out"
+               easing="easeOutQuad"
                begin="scene-loaded"></a-animation>
 </a-entity>
 <a-plane 
   src="#welcome-text-img" 
-  position="0 5.5 -2" 
-  rotation="45 0 0" 
-  width="6" 
-  height="2"
-  material="shader: flat; 
-           transparent: true; 
-           opacity: 1; 
-           side: double;
-           alphaTest: 0.5"
-  float-simple>
+  position="-1 1.5 -1.5" 
+  rotation="0 30 0"       
+  width="3" 
+  height="1.5"
+  material="transparent: true; opacity: 1"
+  class="welcome-message">
 </a-plane>
     
     <!-- 1960s -->
-    <a-entity class="decade-group" position="-3.5 3 -3.5" rotation="0 45 0">
-      <a-entity position="0 2 0" class="decade-title">
-        <a-entity text="value: 1960s — mais precisamente 1965, O início de tudo, os primeiros passos; align: center; width: 4; color: white;"></a-entity>
-      </a-entity>
+<a-entity class="decade-group" position="4 2.5 -5" rotation="0 -20 0">
+  <a-entity position="0 2 0" class="decade-title">
+    <a-entity text="value: 1960s (mais precisamente 1965) — O início de tudo, os primeiros passos; align: center; width: 4.5; color: white;"></a-entity>
+  </a-entity>
+     
       <a-image src="img65.jpg" width="3" height="2" radius="0.2" position="0 0 0"
                material="shader: standard; roughness: 0.1; metalness: 0.1"></a-image>
       <a-entity position="0 -1.5 0">
@@ -186,10 +184,10 @@
     </a-entity>
     
     <!-- 1970s -->
-    <a-entity class="decade-group" position="0 3 -5">
-      <a-entity position="0 2.5 0" class="decade-title">
-        <a-entity text="value: 1970s — Juventude que chega, vida que floresce; align: center; width: 4; color: white;"></a-entity>
-      </a-entity>
+  <a-entity class="decade-group" position="7 1.3 -3" rotation="0 -70 0">
+  <a-entity position="0 2.5 0" class="decade-title">
+    <a-entity text="value: 1970s — Juventude que chega, vida que floresce; align: center; width: 4.5; color: white;"></a-entity>
+  </a-entity>
       <a-image src="img71.jpg" width="3" height="2" radius="0.2" position="0 0 0"
                material="shader: standard; roughness: 0.1; metalness: 0.1"></a-image>
       <a-entity position="0 -1.5 0">
@@ -200,47 +198,52 @@
         <a-entity position="-1 -1.5 0"><a-image src="img72.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
       </a-entity>
     </a-entity>
+<!-- 1980s - Posição ajustada -->
+<a-entity class="decade-group" position="7 1.3 -2" rotation="0 -80 0">
+  <!-- Título separado -->
+  <a-entity position="0 2.5 0" class="decade-title">
+    <a-entity text="value: 1980s — Descobrindo o amor e novos desafios; align: center; width: 4.5; color: white;"></a-entity>
+  </a-entity>
+
+  <!-- Conteúdo principal em outra entidade -->
+  <a-image src="img77.jpg" width="3" height="2" radius="0.2" position="0 0 0"
+           material="shader: standard; roughness: 0.1; metalness: 0.1"></a-image>
+
+  <!-- Imagens secundárias -->
+  <a-entity position="0 -1.5 0">
+    <a-entity position="-1.5 0 0"><a-image src="img1800.jpeg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+    <a-entity position="1.5 0 0"><a-image src="img79.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+    <a-entity position="0 -0.2 0"><a-image src="img793.jpeg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+    <a-entity position="-1 -1 0"><a-image src="img85.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+    <a-entity position="1.1 -1 0"><a-image src="img799.jpeg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+    <a-entity position="-1 -2.3 0"><a-image src="img80.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+    <a-entity position="1 -2.2 0"><a-image src="img1802.jpeg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+  </a-entity>
+</a-entity>
     
-    <!-- 1980s -->
-    <a-entity class="decade-group" position="3.5 3 -3.5" rotation="0 -45 0">
-      <a-entity position="0 2 0" class="decade-title">
-        <a-entity text="value: 1980s — Descobrindo o amor e novos desafios; align: center; width: 4; color: white;"></a-entity>
-      </a-entity>
-      <a-image src="img77.jpg" width="3" height="2" radius="0.2" position="0 0 0"
-               material="shader: standard; roughness: 0.1; metalness: 0.1"></a-image>
-      <a-entity position="0 -1.5 0">
-        <a-entity position="-1.5 0 0"><a-image src="img1800.jpeg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
-        <a-entity position="1.5 0 0"><a-image src="img79.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
-        <a-entity position="0 -0.2 0"><a-image src="img793.jpeg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
-        <a-entity position="-1 -1 0"><a-image src="img85.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
-        <a-entity position="1.1 -1 0"><a-image src="img799.jpeg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
-        <a-entity position="-1 -2.3 0"><a-image src="img80.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
-           <a-entity position="1 -2.2 0"><a-image src="img1802.jpeg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
-      </a-entity>
-    </a-entity>
-    
-    <!-- 1990s -->
-    <a-entity class="decade-group" position="5 3 0" rotation="0 -90 0">
-      <a-entity position="0 2.5 0" class="decade-title">
-        <a-entity text="value: 1990s — Plantando sementes, explorando o mundo; align: center; width: 4; color: white;"></a-entity>
-      </a-entity>
-      <a-image src="img19899.jpeg" width="3" height="2" radius="0.2" position="0 0 0"
-               material="shader: standard; roughness: 0.1; metalness: 0.1"></a-image>
-      <a-entity position="0 -1.5 0">
-        <a-entity position="-1.3 0 0"><a-image src="img90.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
-        <a-entity position="1.5 0 0"><a-image src="img87.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
-        <a-entity position="0 -1 0"><a-image src="img960.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
-        <a-entity position="1.3 -1.5 0"><a-image src="img96.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
-        <a-entity position="-1 -2 0"><a-image src="img1998.jpeg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
-        <a-entity position="1 -2.5 0"><a-image src="img1995.jpeg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
-      </a-entity>
-    </a-entity>
-    
+<!-- 1990s - Posição ajustada -->
+<a-entity class="decade-group" position="7 1.3 2" rotation="0 -100 0">
+  <!-- Título em uma entidade separada -->
+  <a-entity position="0 2.5 0" class="decade-title">
+    <a-entity text="value: 1990s — Plantando sementes, explorando o mundo; align: center; width: 4.5; color: white;"></a-entity>
+  </a-entity>
+
+  <a-image src="img19899.jpeg" width="3" height="2" radius="0.2" position="0 0 0"
+           material="shader: standard; roughness: 0.1; metalness: 0.1"></a-image>
+  <a-entity position="0 -1.5 0">
+    <a-entity position="-1.3 0 0"><a-image src="img90.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+    <a-entity position="1.5 0 0"><a-image src="img87.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+    <a-entity position="0 -1 0"><a-image src="img960.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+    <a-entity position="1.3 -1.5 0"><a-image src="img96.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+    <a-entity position="-1 -2 0"><a-image src="img1998.jpeg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+    <a-entity position="1 -2.5 0"><a-image src="img1995.jpeg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+  </a-entity>
+</a-entity>
     <!-- 2000s -->
 <!-- 2000s (135 degrees) - MODIFICADO -->
-<a-entity class="decade-group" position="4 3 4" rotation="0 -135 0">
+<a-entity class="decade-group" position="4 1.3 6" rotation="0 -180 0">
   <a-entity position="0 2.5 0" class="decade-title">
-    <a-entity text="value: 2000s — Construindo alicerces, fortalecendo raizes; align: center; width: 4; color: white;"></a-entity>
+    <a-entity text="value: 2000s — Construindo alicerces, fortalecendo raízes; align: center; width: 5; color: white;"></a-entity>
   </a-entity>
   <a-image src="img980.jpeg" width="4" height="2.5" radius="0.2" position="0 0 0"
            material="shader: standard; roughness: 0.05; metalness: 0.05; antialias: true"></a-image>
@@ -259,9 +262,9 @@
 </a-entity>
 
 <!-- 2010s - MODIFICADO -->
-<a-entity class="decade-group" position="-1 3.5 6" rotation="0 180 0">
+<a-entity class="decade-group" position="0 1.3 7" rotation="0 -220 0">
   <a-entity position="0 3 0" class="decade-title">
-    <a-entity text="value: 2010s — Realizando sonhos, celebrando conquistas; align: center; width: 4; color: white;"></a-entity>
+    <a-entity text="value: 2010s — Realizando sonhos, celebrando conquistas; align: center; width: 5.5; color: white;"></a-entity>
   </a-entity>
   <a-image src="img20100.jpeg" width="4" height="2.5" radius="0.2" position="0 1 0"
            material="shader: standard; roughness: 0.05; metalness: 0.05; antialias: true"></a-image>
@@ -282,18 +285,11 @@
 </a-entity>
 
 <!-- 2020s - MODIFICADO -->
-<a-entity class="decade-group" position="-7 3 4" rotation="0 130 0">
-  
-  <!-- Título -->
+<a-entity class="decade-group" position="-5 1.3 6" rotation="0 -260 0">
   <a-entity position="0 5.5 0" class="decade-title">
-    <a-entity 
-      text="value: 2020s — Colhendo os melhores frutos de tudo que plantou, vivendo 60 anos de uma linda jornada; 
-            align: center; 
-            width: 6; 
-            color: white;">
-    </a-entity>
+    <a-entity text="value: 2020s — Colhendo os melhores frutos de tudo que plantou, vivendo 60 anos de uma linda jornada; 
+              align: center; width: 7; color: gold;"></a-entity>
   </a-entity>
-
   <!-- Imagem principal (central) -->
   <a-image 
     src="img2020.jpg" 
@@ -359,15 +355,23 @@
     <!-- Scripts -->
    
     <script>
-      // Componente para olhar para cima ao iniciar
+       // Componente para centralizar a visão
   AFRAME.registerComponent('force-look-up', {
     init: function() {
-      const camera = document.querySelector('[camera]');
-      // Define rotação inicial (30 graus para cima)
-      camera.setAttribute('rotation', '-30 0 0'); 
+      const camera = document.getElementById('main-camera');
+      // Reset para posição central
+      camera.setAttribute('position', '0 1.6 0');
+      camera.setAttribute('rotation', '-20 0 0');
+      
+      // Remove controles temporariamente
+      camera.setAttribute('look-controls', 'enabled', false);
+      
+      setTimeout(() => {
+        camera.setAttribute('look-controls', 'enabled', true);
+      }, 1000);
     }
   });
-
+  
       console.log("✅ Script carregado. Iniciando setup de áudio...");
     
       document.addEventListener('DOMContentLoaded', function() {
