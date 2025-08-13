@@ -151,7 +151,7 @@
     <a-entity light="type: directional; color: #ffffff; intensity: 1.2" position="-1 2 1"></a-entity>
     <a-entity light="type: directional; color: #ffddbb; intensity: 0.5" position="1 1 -1"></a-entity>
    
-<a-entity id="rig" position="0 0 0"> <!-- Posição Y=0 -->
+<a-entity id="rig" position="0 -0.7 0"> <!-- Posição Y=0 -->
   <a-entity id="main-camera"
             camera="active: true; fov: 70"
             look-controls="pointerLockEnabled: true"
@@ -160,8 +160,8 @@
          
   </a-entity>
   
-<a-entity position="0 -0.3 0" rotation="-85 0 0" fixed-feet class="feet-container">
-  <a-image src="#feet-img" width="0.8" height="0.4"
+<a-entity position="0 -1.5 0" rotation="-85 0 0" fixed-feet class="feet-container">
+  <a-image src="#feet-img" width="0.99" height="0.9"
   material="transparent: true; alphaTest: 0.5; opacity: 1;"></a-image>
 </a-entity>
 
@@ -210,9 +210,9 @@
       </a-entity>
     </a-entity>
 <!-- 1980s - Posição ajustada -->
-<a-entity class="decade-group" position="6 2 0.5" rotation="0 -100 0">
+<a-entity class="decade-group" position="6 2.2 0.5" rotation="0 -100 0">
   <!-- Título separado -->
-  <a-entity position="0 1.4 0" class="decade-title">
+  <a-entity position="0 1.3 0" class="decade-title">
     <a-entity text="value: 1980s — Descobrindo o amor e novos desafios; align: center; width: 4.5; color: white;"></a-entity>
   </a-entity>
 
@@ -233,7 +233,7 @@
 </a-entity>
     
 <!-- 1990s - Posição ajustada -->
-<a-entity class="decade-group" position="5 2.5 4" rotation="0 -130 0">
+<a-entity class="decade-group" position="5 2.6 4" rotation="0 -130 0">
   <!-- Título em uma entidade separada -->
   <a-entity position="0 1.5 0" class="decade-title">
     <a-entity text="value: 1990s — Plantando sementes, explorando o mundo; align: center; width: 4.5; color: white;"></a-entity>
