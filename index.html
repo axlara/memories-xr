@@ -166,8 +166,8 @@
     <a-entity light="type: directional; color: #ffffff; intensity: 1.2" position="-1 2 1"></a-entity>
     <a-entity light="type: directional; color: #ffddbb; intensity: 0.5" position="1 1 -1"></a-entity>
    
-  <a-entity id="rig">
-  <a-entity id="main-camera"
+  <a-entity id="rig" position="0 -0.5 0">
+  <a-entity id="main-camera" position="0 -0.5 0"
             camera="active: true; fov: 70"
             look-controls="pointerLockEnabled: true"
             wasd-controls="enabled: false">
@@ -381,6 +381,34 @@
     <!-- Scripts -->
  
 <script>
+  // 1. Configuração inicial do som (após o DOM carregar)
+document.addEventListener('DOMContentLoaded', function() {
+  const scene = document.querySelector('a-scene');
+  const musicPlayer = document.getElementById('music-player');
+  
+  // Detecta Oculus Browser e usa OGG se necessário
+  const isOculus = navigator.userAgent.match(/OculusBrowser|Quest/i);
+  if (isOculus) {
+    musicPlayer.setAttribute('sound', 'src', '#bg-music-ogg');
+  }
+
+  // Botão START
+  document.getElementById('start-experience').addEventListener('click', function() {
+    const sound = musicPlayer.components.sound;
+    sound.stopSound();
+    sound.playSound(); // Força o play no clique
+    
+    // Resto do código...
+  });
+
+  // Corrige áudio no VR
+  scene.addEventListener('enter-vr', () => {
+    setTimeout(() => {
+      musicPlayer.components.sound.stopSound();
+      musicPlayer.components.sound.playSound();
+    }, 300);
+  });
+});
 // Configuração inicial
 document.addEventListener('DOMContentLoaded', function() {
   const scene = document.querySelector('a-scene');
