@@ -6,9 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
   <script src="https://unpkg.com/aframe-rounded-component@1.2.0/dist/aframe-rounded-component.min.js"></script>
-
-  <!-- === FONTE WEB PARA ACENTOS EM PORTUGUÊS === -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
   <style>
     body {
@@ -91,39 +90,52 @@
       width: 6 !important;
     }
     
-    #audio-fallback {
-      position: fixed;
-      bottom: 20px;
-      direction: rtl;
-      right: 10px;
-      padding: 15px 25px;
-      background: #ff336600;
-      color: white;
-      border-radius: 30px;
-      font-size: 14px;
-      cursor: pointer;
-      z-index: 10000;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-      display: none;
-      border: none;
-      outline: none;
-    }
+    
+#start-experience {
+  font-family: Arial, Helvetica, sans-serif;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px 40px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  color: rgb(6, 247, 255);
+  border: 2px solid white;
+  border-radius: 50px;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
 
-  .no-rotate {
-    animation: none !important;
-    transform-style: preserve-3d;
-  }
+#start-experience:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+#start-experience i {
+  font-size: 32px;
+}
+
+#enterVR {
+  display: none; /* Esconde o botão padrão do A-Frame */
+  color: #0000000a;
   
-  [fixed-feet] {
-    transform-style: preserve-3d;
-  }
+}
 
+ 
   </style>
 </head>
 <body>
 
   <div id="loading">
-    <div>Carregando Sua Experiência...</div>
+    <div></div>
   </div>
   
   <div id="look-around">
@@ -154,13 +166,12 @@
     <a-entity light="type: directional; color: #ffffff; intensity: 1.2" position="-1 2 1"></a-entity>
     <a-entity light="type: directional; color: #ffddbb; intensity: 0.5" position="1 1 -1"></a-entity>
    
-<a-entity id="rig" position="0 -1 0"> <!-- Posição Y=0 -->
+  <a-entity id="rig">
   <a-entity id="main-camera"
             camera="active: true; fov: 70"
             look-controls="pointerLockEnabled: true"
             wasd-controls="enabled: false">
-          </a-entity>
-         
+  </a-entity>
   </a-entity>
   
 <!-- <a-entity position="0 -0.5 0" rotation="-85 0 0" fixed-feet class="feet-container">
@@ -368,271 +379,211 @@
  
 
     <!-- Scripts -->
-   
-   <script>
-  // =============================================
-  // COMPONENTES PRINCIPAIS
-  // =============================================
-
-  // 1. Componente para os pés fixos
-  AFRAME.registerComponent('fixed-feet', {
-    init: function () {
-      this.cameraEl = document.querySelector('#main-camera');
-      // Configuração inicial fixa
-      this.el.object3D.rotation.x = THREE.MathUtils.degToRad(-85);
-      this.el.object3D.position.y = -0.8;
-      this.el.object3D.rotation.z = 0;
-      this.el.classList.add('no-rotate');
-    },
-    tick: function () {
-      // Acompanha apenas rotação Y da câmera
-      const camRot = this.cameraEl.getAttribute('rotation') || { y: 0 };
-      this.el.object3D.rotation.y = THREE.MathUtils.degToRad(camRot.y) * 0.15;
-    }
-  });
-
-  // 2. Componente para rotação automática das imagens (exceto pés)
-  AFRAME.registerComponent('image-rotator', {
-    schema: { 
-      speed: { type: 'number', default: 20000 }
-    },
-    init: function() {
-      // Não aplica se for parte dos pés
-      if (!this.el.closest('[fixed-feet]')) {
-        const rotationY = this.el.getAttribute('rotation')?.y || 0;
-        this.el.setAttribute('animation__rotate', {
-          property: 'rotation',
-          to: `${rotationY} 360 0`,
-          from: `${rotationY} 0 0`,
-          dur: this.data.speed,
-          loop: true,
-          easing: 'linear'
-        });
-      }
-    }
-  });
-
-  // =============================================
-  // CONFIGURAÇÃO INICIAL
-  // =============================================
-
-  console.log("✅ Script carregado. Iniciando setup...");
-
-  document.addEventListener('DOMContentLoaded', function() {
-    const scene = document.querySelector('a-scene');
-    
-    if (!scene) {
-      console.error("❌ a-scene não encontrado!");
-      return;
-    }
-
-    // Configuração do áudio (mantido original)
-    const fallbackButton = document.createElement('button');
-    fallbackButton.id = 'audio-fallback';
-    fallbackButton.textContent = 'INICIAR';
-    fallbackButton.style.cssText = `
-      position: fixed;
-      bottom: -10px;
-      direction: rtl;
-      right: 5px;
-      padding: 15px 25px;
-      background: #ff336600;
-      color: white;
-      border-radius: 30px;
-      font-size: 12px;
-      cursor: pointer;
-      z-index: 10000;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-      display: none;
-      border: none;
-      outline: none;
-    `;
-    document.body.appendChild(fallbackButton);
-
-    scene.addEventListener('loaded', function() {
-      console.log("🎮 A-Frame carregado. Configurando...");
-      
-      // Configuração do áudio (mantido original)
-      const musicPlayer = document.getElementById('music-player');
-      if (!musicPlayer || !musicPlayer.components.sound) {
-        console.error("❌ Player de música não encontrado!");
-        return;
-      }
-
-      try {
-        musicPlayer.setAttribute('sound', 'volume', 0.5);
-        musicPlayer.components.sound.play().then(() => {
-          console.log("🎵 Áudio do A-Frame tocando!");
-        }).catch(e => {
-          console.log("🔇 A-Frame bloqueado:", e.message);
-          initFallback();
-        });
-      } catch (e) {
-        console.error("❌ Erro no A-Frame:", e);
-        initFallback();
-      }
-
-      function initFallback() {
-        console.log("⚙️ Iniciando fallback de áudio...");
-        const audio = new Audio("foreveryoung.mp3");
-        audio.volume = 0.5;
-        audio.loop = true;
-
-        fallbackButton.style.display = 'block';
-
-        fallbackButton.onclick = function() {
-          audio.play()
-            .then(() => {
-              console.log("🔊 Áudio tocando via fallback!");
-              this.style.display = 'none';
-            })
-            .catch(e => {
-              console.error("❌ Falha ao tocar:", e);
-              alert("Não foi possível tocar o áudio. Verifique o console para detalhes.");
-            });
-        };
-
-        audio.play().catch(e => {
-          console.log("🔇 Precisa de interação:", e.message);
-        });
-      }
-
-      // =============================================
-      // ATIVAÇÃO DAS ROTAÇÕES (ADICIONADO)
-      // =============================================
-      console.log("🔄 Ativando rotações automáticas...");
-      document.querySelectorAll('a-image:not([fixed-feet] a-image)').forEach(img => {
-        img.setAttribute('image-rotator', 'speed: 20000');
-      });
-    });
-  });
-
-  // =============================================
-  // COMPONENTES ADICIONAIS (MANTIDOS ORIGINAIS)
-  // =============================================
-
-  AFRAME.registerComponent('look-direction-listener', {
-    init: function() {
-      const lookAroundDiv = document.getElementById('look-around');
-      const camera = document.querySelector('[camera]');
-      
-      this.tick = function() {
-        const rotation = camera.getAttribute('rotation');
-        if (rotation.x > 30) {
-          lookAroundDiv.style.opacity = '1';
-        } else {
-          lookAroundDiv.style.opacity = '0';
-        }
-      };
-    }
-  });
+ 
+<script>
+// Configuração inicial
+document.addEventListener('DOMContentLoaded', function() {
+  const scene = document.querySelector('a-scene');
+  const startButton = document.getElementById('start-experience');
+  const audioFallback = document.getElementById('audio-fallback');
+  const musicPlayer = document.getElementById('music-player');
   
-  AFRAME.registerComponent('float-animation', {
-    schema: { 
-      speed: {type: 'number', default: 10000}, 
-      distance: {type: 'number', default: 0.2} 
-    },
-    init: function() {
-      const el = this.el;
-      const originalY = el.getAttribute('position').y;
-      el.setAttribute('animation__float', {
+  // Esconde elementos inicialmente
+  audioFallback.style.display = 'none';
+
+  // Configuração do VR
+  scene.addEventListener('enter-vr', () => {
+    const rig = document.getElementById('rig');
+    rig.setAttribute('position', '0 -0.5 0');
+  });
+
+  // Configuração do botão principal
+  startButton.addEventListener('click', async function() {
+    try {
+      // Tenta iniciar a música
+      musicPlayer.setAttribute('sound', 'volume', 0.5);
+      await musicPlayer.components.sound.playSound();
+      startButton.style.display = 'none';
+      
+      // Entra no VR
+      if (scene.hasAttribute('vr-mode-ui')) {
+        await scene.enterVR();
+      }
+      
+      // Esconde loading
+      document.getElementById('loading').style.opacity = '0';
+      setTimeout(() => {
+        document.getElementById('loading').style.display = 'none';
+      }, 1000);
+      
+    } catch (e) {
+      console.error("Erro ao iniciar:", e);
+      initFallback();
+    }
+  });
+
+  // Fallback de áudio
+  function initFallback() {
+    const audio = new Audio("foreveryoung.mp3");
+    audio.volume = 0.5;
+    audio.loop = true;
+
+    audioFallback.style.display = 'block';
+    startButton.style.display = 'none';
+
+    audioFallback.onclick = function() {
+      audio.play()
+        .then(() => {
+          this.style.display = 'none';
+          document.getElementById('loading').style.display = 'none';
+        })
+        .catch(e => console.error("Falha no fallback:", e));
+    };
+
+    audio.play().catch(e => console.log("Precisa de interação:", e));
+  }
+});
+
+// Componente para rotação automática das imagens
+AFRAME.registerComponent('image-rotator', {
+  schema: { 
+    speed: { type: 'number', default: 20000 }
+  },
+  init: function() {
+    const rotationY = this.el.getAttribute('rotation')?.y || 0;
+    this.el.setAttribute('animation__rotate', {
+      property: 'rotation',
+      to: `${rotationY} 360 0`,
+      from: `${rotationY} 0 0`,
+      dur: this.data.speed,
+      loop: true,
+      easing: 'linear'
+    });
+  }
+});
+
+// Componente para animação de flutuação
+AFRAME.registerComponent('float-animation', {
+  schema: { 
+    speed: {type: 'number', default: 10000}, 
+    distance: {type: 'number', default: 0.2} 
+  },
+  init: function() {
+    const originalY = this.el.getAttribute('position').y;
+    this.el.setAttribute('animation__float', {
+      property: 'position',
+      to: {x: this.el.getAttribute('position').x, y: originalY + this.data.distance, z: this.el.getAttribute('position').z},
+      from: {x: this.el.getAttribute('position').x, y: originalY - this.data.distance, z: this.el.getAttribute('position').z},
+      dir: 'alternate',
+      dur: this.data.speed,
+      loop: true,
+      easing: 'easeInOutSine'
+    });
+  }
+});
+
+// Outros componentes (mantidos do seu código original)
+AFRAME.registerComponent('look-direction-listener', {
+  init: function() {
+    const lookAroundDiv = document.getElementById('look-around');
+    const camera = document.querySelector('[camera]');
+    
+    this.tick = function() {
+      const rotation = camera.getAttribute('rotation');
+      if (rotation.x > 30) {
+        lookAroundDiv.style.opacity = '1';
+      } else {
+        lookAroundDiv.style.opacity = '0';
+      }
+    };
+  }
+});
+
+AFRAME.registerComponent('high-quality-img', {
+  init: function () {
+    this.el.setAttribute('material', {
+      shader: 'standard',
+      roughness: 0.05,
+      metalness: 0.05,
+      antialias: true,
+      anisotropy: 16
+    });
+  }
+});
+
+AFRAME.registerComponent('global-snow', {
+  schema: {
+    count: { default: 100 },
+    speed: { default: 3 },
+    size: { default: 0.02 },
+    areaSize: { default: 20 }
+  },
+  init: function() {
+    const el = this.el;
+    const data = this.data;
+    
+    for (let i = 0; i < data.count; i++) {
+      const snow = document.createElement('a-sphere');
+      
+      snow.setAttribute('position', {
+        x: (Math.random() - 0.5) * data.areaSize,
+        y: 10 + Math.random() * 10,
+        z: (Math.random() - 0.5) * data.areaSize
+      });
+      
+      snow.setAttribute('radius', data.size);
+      snow.setAttribute('color', 'white');
+      snow.setAttribute('opacity', 0.5 + Math.random() * 0.5);
+      
+      snow.setAttribute('animation', {
         property: 'position',
-        to: {x: el.getAttribute('position').x, y: originalY + this.data.distance, z: el.getAttribute('position').z},
-        from: {x: el.getAttribute('position').x, y: originalY - this.data.distance, z: el.getAttribute('position').z},
-        dir: 'alternate',
-        dur: this.data.speed,
+        to: {
+          x: snow.getAttribute('position').x + (Math.random() - 0.5) * 2,
+          y: -10,
+          z: snow.getAttribute('position').z + (Math.random() - 0.5) * 2
+        },
+        dur: (5000 + Math.random() * 5000) / data.speed,
+        loop: true,
+        easing: 'linear'
+      });
+      
+      snow.setAttribute('animation__blink', {
+        property: 'opacity',
+        to: 0.2,
+        from: 0.8,
+        dur: 2000 + Math.random() * 3000,
         loop: true,
         easing: 'easeInOutSine'
       });
-    }
-  });
-
-  AFRAME.registerComponent('high-quality-img', {
-    init: function () {
-      this.el.setAttribute('material', {
-        shader: 'standard',
-        roughness: 0.05,
-        metalness: 0.05,
-        antialias: true,
-        anisotropy: 16
-      });
-    }
-  });
-
-  AFRAME.registerComponent('global-snow', {
-    schema: {
-      count: { default: 100 },
-      speed: { default: 3 },
-      size: { default: 0.02 },
-      areaSize: { default: 20 }
-    },
-    init: function() {
-      const el = this.el;
-      const data = this.data;
       
-      for (let i = 0; i < data.count; i++) {
-        const snow = document.createElement('a-sphere');
-        
-        snow.setAttribute('position', {
-          x: (Math.random() - 0.5) * data.areaSize,
-          y: 10 + Math.random() * 10,
-          z: (Math.random() - 0.5) * data.areaSize
-        });
-        
-        snow.setAttribute('radius', data.size);
-        snow.setAttribute('color', 'white');
-        snow.setAttribute('opacity', 0.5 + Math.random() * 0.5);
-        
-        snow.setAttribute('animation', {
-          property: 'position',
-          to: {
-            x: snow.getAttribute('position').x + (Math.random() - 0.5) * 2,
-            y: -10,
-            z: snow.getAttribute('position').z + (Math.random() - 0.5) * 2
-          },
-          dur: (5000 + Math.random() * 5000) / data.speed,
-          loop: true,
-          easing: 'linear'
-        });
-        
-        snow.setAttribute('animation__blink', {
-          property: 'opacity',
-          to: 0.2,
-          from: 0.8,
-          dur: 2000 + Math.random() * 3000,
-          loop: true,
-          easing: 'easeInOutSine'
-        });
-        
-        el.appendChild(snow);
-      }
+      el.appendChild(snow);
+    }
+  }
+});
+
+// Aplica as animações após o carregamento completo
+document.querySelector('a-scene').addEventListener('loaded', function() {
+  // Rotações para todas as imagens (exceto pés, se existirem)
+  document.querySelectorAll('a-image').forEach(img => {
+    if (!img.closest('[fixed-feet]')) {
+      img.setAttribute('image-rotator', 'speed: 20000');
     }
   });
-
-  // =============================================
-  // INICIALIZAÇÃO FINAL
-  // =============================================
-
-  // Aplica float-animation aos grupos de década
+  
+  // Animação de flutuação para grupos de década
   document.querySelectorAll('.decade-group').forEach(group => {
     group.setAttribute('float-animation', 'speed: 15000; distance: 0.15');
   });
-
-  // Configura listener para imagens dinâmicas
-  document.querySelector('a-scene').addEventListener('object3dset', function(e) {
-    if (e.detail.object.el.tagName === 'A-IMAGE') {
-      e.detail.object.el.setAttribute('high-quality-img', '');
-      // Aplica rotação apenas se não for parte dos pés
-      if (!e.detail.object.el.closest('[fixed-feet]')) {
-        e.detail.object.el.setAttribute('image-rotator', 'speed: 20000');
-      }
-    }
-  });
-
-  console.log("✅ Script totalmente configurado!");
+  
+  console.log("✅ Animações aplicadas com sucesso!");
+});
 </script>
     <a-entity global-snow="color: lightblue; speed: 1; size: 0.01; count: 200"></a-entity>
   </a-scene>
-  <button id="audio-fallback">INICIAR</button>
+<button id="start-experience" class="play-icon-button">
+  <i class="fas fa-play"> START</i>
+</button>
+<button id="audio-fallback" style="display:none"></button> <!-- Mantemos escondido como fallback -->
+ 
 </body>
 </html>
