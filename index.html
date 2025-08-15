@@ -4,9 +4,11 @@
   <meta charset="utf-8">
   <title>Memories Live</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <!-- A-Frame -->
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-  <script src="https://unpkg.com/aframe-rounded-component@1.2.0/dist/aframe-rounded-component.min.js"></script>
+  <!-- Fonte personalizada -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
   <style>
@@ -14,8 +16,9 @@
       margin: 0;
       overflow: hidden;
       font-family: Arial, sans-serif;
+      background: #000;
     }
-    
+
     a-image {
       border: 3px solid rgba(255, 255, 255, 0.2);
       box-shadow: 
@@ -32,11 +35,7 @@
       filter: brightness(1.2) contrast(1.1);
       transform: scale(1.05);
     }
-    
-    a-image.blurred {
-      filter: contrast(1.2) brightness(1.1) saturate(1.3);
-    }
-    
+
     #loading {
       position: fixed;
       top: 0;
@@ -53,13 +52,13 @@
       font-size: 24px;
       transition: opacity 1s ease;
     }
-    
+
     #loading p {
       margin-top: 20px;
       font-size: 16px;
       opacity: 0.8;
     }
-    
+
     #look-around {
       position: absolute;
       bottom: 20px;
@@ -72,546 +71,525 @@
       pointer-events: none;
       z-index: 100;
     }
-    
+
     #look-around .arrow {
       font-size: 36px;
       margin-bottom: 10px;
       animation: rotate 4s infinite linear;
     }
-    
+
     @keyframes rotate {
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
     }
-    
-    .decade-title {
-      font-family: 'Arial', sans-serif;
-      text-shadow: 0 0 10px rgba(255,255,255,0.5);
-      width: 6 !important;
+
+    #start-experience {
+      font-family: Arial, Helvetica, sans-serif;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px 40px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      color: rgb(6, 247, 255);
+      border: 2px solid white;
+      border-radius: 50px;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
     }
-    
-    
-#start-experience {
-  font-family: Arial, Helvetica, sans-serif;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 20px 40px;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  color: rgb(6, 247, 255);
-  border: 2px solid white;
-  border-radius: 50px;
-  font-size: 24px;
-  font-weight: bold;
-  cursor: pointer;
-  z-index: 10000;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-}
 
-#start-experience:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: translate(-50%, -50%) scale(1.05);
-}
+    #start-experience:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translate(-50%, -50%) scale(1.05);
+    }
 
-#start-experience i {
-  font-size: 32px;
-}
+    #start-experience i {
+      font-size: 32px;
+    }
 
-#enterVR {
-  display: none; /* Esconde o botão padrão do A-Frame */
-  color: #0000000a;
-  
-}
-
- 
+    #enterVR {
+      display: none;
+    }
   </style>
 </head>
 <body>
 
+  <!-- Tela de carregamento -->
   <div id="loading">
-    <div></div>
+    <div>Carregando...</div>
+    <p>Por favor, aguarde</p>
   </div>
-  
+
+  <!-- Mensagem de ajuda -->
   <div id="look-around">
     <div class="arrow">↻</div>
     <div>Olhe ao redor para explorar</div>
   </div>
 
-  <canvas id="textCanvas" width="1024" height="512" style="display: none;"></canvas>
+  <!-- Cena A-Frame -->
+  <a-scene 
+    fog="type: exponential; color: #000; density: 0.0015"
+    loading-screen="dotsColor: white; backgroundColor: black"
+    vr-mode-ui="enterVRButton: #enterVR"
+    webxr="referenceSpaceType: local; optionalFeatures: local"
+    renderer="antialias: true; physicallyCorrectLights: true; useLegacyLights: false"
+    background="color: #000">
 
-  <a-scene fog="type: exponential; color: #000; density: 0.0015" 
-  loading-screen="dotsColor: white; backgroundColor: black"
-  vr-mode-ui="enterVRButton: #enterVR" 
-  webxr="optionalFeatures: seated"> 
+    <!-- Container para o efeito de neve -->
+    <a-entity id="snow-effect"></a-entity>
 
+    <!-- Assets -->
     <a-assets>
-      <audio id="bg-music" src="foreveryoung.mp3" preload="auto"></audio>
-       <img id="welcome-text-img" src="texto1.png">
-       <!-- <img id="feet-img" src="feeet.png">  -->
+      <!-- Imagens -->
+      <img id="welcome-text-img" src="texto1.png" crossorigin="anonymous">
+      <img id="img65" src="img65.jpg" crossorigin="anonymous">
+      <img id="img600" src="img600.jpg" crossorigin="anonymous">
+      <img id="img6066" src="img6066.jpg" crossorigin="anonymous">
+      <img id="img6002" src="img6002.jpg" crossorigin="anonymous">
+      <img id="img1969" src="img1969.jpeg" crossorigin="anonymous">
+      <img id="img6001" src="img6001.jpg" crossorigin="anonymous">
+      <img id="img1700" src="img1700.jpeg" crossorigin="anonymous">
+      <img id="img71" src="img71.jpg" crossorigin="anonymous">
+      <img id="img74" src="img74.jpg" crossorigin="anonymous">
+      <img id="img73" src="img73.jpg" crossorigin="anonymous">
+      <img id="img70" src="img70.jpg" crossorigin="anonymous">
+      <img id="img69" src="img69.jpg" crossorigin="anonymous">
+      <img id="img72" src="img72.jpg" crossorigin="anonymous">
+      <img id="img77" src="img77.jpg" crossorigin="anonymous">
+      <img id="img1800" src="img1800.jpeg" crossorigin="anonymous">
+      <img id="img79" src="img79.jpg" crossorigin="anonymous">
+      <img id="img793" src="img793.jpeg" crossorigin="anonymous">
+      <img id="img85" src="img85.jpg" crossorigin="anonymous">
+      <img id="img799" src="img799.jpeg" crossorigin="anonymous">
+      <img id="img80" src="img80.jpg" crossorigin="anonymous">
+      <img id="img1802" src="img1802.jpeg" crossorigin="anonymous">
+      <img id="img19899" src="img19899.jpeg" crossorigin="anonymous">
+      <img id="img90" src="img90.jpg" crossorigin="anonymous">
+      <img id="img87" src="img87.jpg" crossorigin="anonymous">
+      <img id="img960" src="img960.jpg" crossorigin="anonymous">
+      <img id="img96" src="img96.jpg" crossorigin="anonymous">
+      <img id="img1998" src="img1998.jpeg" crossorigin="anonymous">
+      <img id="img1995" src="img1995.jpeg" crossorigin="anonymous">
+      <img id="img980" src="img980.jpeg" crossorigin="anonymous">
+      <img id="img2009" src="img2009.jpg" crossorigin="anonymous">
+      <img id="img2001" src="img2001.jpg" crossorigin="anonymous">
+      <img id="img2004" src="img2004.jpeg" crossorigin="anonymous">
+      <img id="img1994" src="img1994.jpeg" crossorigin="anonymous">
+      <img id="img2005" src="img2005.jpeg" crossorigin="anonymous">
+      <img id="img20100" src="img20100.jpeg" crossorigin="anonymous">
+      <img id="img20121" src="img20121.jpeg" crossorigin="anonymous">
+      <img id="img20122" src="img20122.jpeg" crossorigin="anonymous">
+      <img id="img201000" src="img201000.jpeg" crossorigin="anonymous">
+      <img id="img2013" src="img2013.jpeg" crossorigin="anonymous">
+      <img id="img20101" src="img20101.jpeg" crossorigin="anonymous">
+      <img id="img2015" src="img2015.jpeg" crossorigin="anonymous">
+      <img id="img2020" src="img2020.jpg" crossorigin="anonymous">
+      <img id="img20242" src="img20242.jpeg" crossorigin="anonymous">
+      <img id="img20105" src="img20105.jpeg" crossorigin="anonymous">
+      <img id="img20240" src="img20240.jpeg" crossorigin="anonymous">
+      <img id="img2014" src="img2014.jpeg" crossorigin="anonymous">
+      <img id="img2025" src="img2025.jpg" crossorigin="anonymous">
+      <img id="img2023" src="img2023.jpeg" crossorigin="anonymous">
+      <img id="img202200" src="img202200.jpeg" crossorigin="anonymous">
+      <img id="img202441" src="img202441.jpeg" crossorigin="anonymous">
+      <img id="img20255" src="img20255.jpeg" crossorigin="anonymous">
+      <img id="img1408" src="img1408.jpeg" crossorigin="anonymous">
+
+      <!-- Áudio -->
+      <audio id="bg-music" src="foreveryoung.mp3" preload="auto" playsinline></audio>
+
+      <!-- Fonte MSDF -->
+      <img id="font-msdf" src="https://cdn.aframe.io/fonts/Roboto-msdf.png" crossorigin="anonymous">
     </a-assets>
 
-    <a-entity id="music-player" sound="src: #bg-music; autoplay: false; loop: true; volume: 0.5"></a-entity>
+    <!-- Céu -->
+    <a-sky src="bgsky.jpg" rotation="0 0 0"></a-sky>
 
-    <!-- Sky -->
-    <a-sky src="bgsky.jpg"></a-sky>
-    
-    <!-- Lights -->
+    <!-- Luzes -->
     <a-entity light="type: ambient; color: #556677; intensity: 0.8"></a-entity>
     <a-entity light="type: directional; color: #ffffff; intensity: 1.2" position="-1 2 1"></a-entity>
     <a-entity light="type: directional; color: #ffddbb; intensity: 0.5" position="1 1 -1"></a-entity>
-   
-  <a-entity id="rig" position="0 -0.5 0">
-  <a-entity id="main-camera" position="0 -0.5 0"
-            camera="active: true; fov: 70"
-            look-controls="pointerLockEnabled: true"
-            wasd-controls="enabled: false">
-  </a-entity>
-  </a-entity>
-  
-<!-- <a-entity position="0 -0.5 0" rotation="-85 0 0" fixed-feet class="feet-container">
-  <a-image src="#feet-img" width="0.99" height="0.9"
-  material="transparent: true; alphaTest: 0.5; opacity: 1;"></a-image>
-</a-entity> -->
 
-<a-plane 
-  src="#welcome-text-img" 
-  position="-2.5 1.8 -4" 
-  rotation="20 30 0"       
-  width="6" 
-  height="3"
-  material="transparent: true; opacity: 1; shader: flat; color: #FFFFFF"
-  class="welcome-message"
-  animation="property: position; to: -2.5 2 -4; dir: alternate; dur: 3000; loop: true; easing: easeInOutSine">
-</a-plane>
-    
+    <!-- Rig e Câmera -->
+    <a-entity id="rig" position="0 -0.5 0">
+      <a-entity 
+        id="main-camera"
+        camera="active: true; fov: 70"
+        look-controls="pointerLockEnabled: true"
+        wasd-controls="enabled: false">
+      </a-entity>
+    </a-entity>
+
+    <!-- Música -->
+    <a-entity id="music-player" sound="src: #bg-music; autoplay: false; loop: true; volume: 0.5"></a-entity>
+
+    <!-- Boas-vindas -->
+    <a-plane 
+      src="#welcome-text-img" 
+      position="-2.5 1.8 -4" 
+      rotation="20 30 0"       
+      width="6" 
+      height="3"
+      material="transparent: true; opacity: 1; shader: flat">
+    </a-plane>
+
+    <!-- DÉCADAS -->
     <!-- 1960s -->
-<a-entity class="decade-group" position="2.5 1.3 -5" rotation="0 -15 0">
-  <a-entity position="0 1.3 0" class="decade-title">
-    <a-entity text="value: 1960s (14.08.1965) — O início de tudo, os primeiros passos; align: center; width: 4.5; color: white;"></a-entity>
-  </a-entity>
-     
-      <a-image src="img65.jpg" width="3" height="2" radius="0.2" position="0 0 0"
+    <a-entity class="decade-group" position="2.5 1.3 -5" rotation="0 -15 0">
+      <a-entity position="0 1.3 0">
+        <a-entity text="value: 1960s (14.08.1965) — O início de tudo, os primeiros passos; align: center; width: 4.5; color: white;"></a-entity>
+      </a-entity>
+      <a-image src="#img65" width="3" height="2" radius="0.2" position="0 0 0"
                material="shader: standard; roughness: 0.1; metalness: 0.1"></a-image>
       <a-entity position="0 -1.5 0">
-        <a-entity position="-1.5 0 0"><a-image src="img600.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
-        <a-entity position="1 0 0"><a-image src="img6066.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
-        <a-entity position="0 -1 0"><a-image src="img6002.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
-        <a-entity position="1.5 -1.5 0"><a-image src="img1969.jpeg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
-        <a-entity position="-1 -2 0"><a-image src="img6001.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
-        <a-entity position="1 -2.5 0"><a-image src="img1700.jpeg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+        <a-entity position="-1.5 0 0"><a-image src="#img600" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+        <a-entity position="1 0 0"><a-image src="#img6066" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+        <a-entity position="0 -1 0"><a-image src="#img6002" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+        <a-entity position="1.5 -1.5 0"><a-image src="#img1969" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+        <a-entity position="-1 -2 0"><a-image src="#img6001" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+        <a-entity position="1 -2.5 0"><a-image src="#img1700" width="1.5" height="1" radius="0.1"></a-image></a-entity>
       </a-entity>
     </a-entity>
-    
+
     <!-- 1970s -->
-  <a-entity class="decade-group" position="6 2 -3" rotation="0 -70 0">
-  <a-entity position="0 1.4 0" class="decade-title">
-    <a-entity text="value: 1970s — Juventude, o brilho de novas descobertas; align: center; width: 4.5; color: white;"></a-entity>
-  </a-entity>
-      <a-image src="img71.jpg" width="3" height="2" radius="0.2" position="0 0 0"
+    <a-entity class="decade-group" position="6 2 -3" rotation="0 -70 0">
+      <a-entity position="0 1.4 0" class="decade-title">
+        <a-entity text="value: 1970s — Juventude, o brilho de novas descobertas; align: center; width: 4.5; color: white;"></a-entity>
+      </a-entity>
+      <a-image src="#img71" width="3" height="2" radius="0.2" position="0 0 0"
                material="shader: standard; roughness: 0.1; metalness: 0.1"></a-image>
       <a-entity position="0 -1.5 0">
-        <a-entity position="-1.5 0 0"><a-image src="img74.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
-        <a-entity position="1 0 0"><a-image src="img73.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
-        <a-entity position="0 -1 0"><a-image src="img70.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
-        <a-entity position="1.3 -1.5 0"><a-image src="img69.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
-        <a-entity position="-1 -1.5 0"><a-image src="img72.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+        <a-entity position="-1.5 0 0"><a-image src="#img74" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+        <a-entity position="1 0 0"><a-image src="#img73" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+        <a-entity position="0 -1 0"><a-image src="#img70" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+        <a-entity position="1.3 -1.5 0"><a-image src="#img69" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+        <a-entity position="-1 -1.5 0"><a-image src="#img72" width="1.5" height="1" radius="0.1"></a-image></a-entity>
       </a-entity>
     </a-entity>
-<!-- 1980s - Posição ajustada -->
-<a-entity class="decade-group" position="6 2.2 0.5" rotation="0 -100 0">
-  <!-- Título separado -->
-  <a-entity position="0 1.3 0" class="decade-title">
-    <a-entity text="value: 1980s — Descobrindo o amor e novos desafios; align: center; width: 4.5; color: white;"></a-entity>
-  </a-entity>
 
-  <!-- Conteúdo principal em outra entidade -->
-  <a-image src="img77.jpg" width="3" height="2" radius="0.2" position="0 0 0"
-           material="shader: standard; roughness: 0.1; metalness: 0.1"></a-image>
+    <!-- 1980s -->
+    <a-entity class="decade-group" position="6 2.2 0.5" rotation="0 -100 0">
+      <a-entity position="0 1.3 0" class="decade-title">
+        <a-entity text="value: 1980s — Descobrindo o amor e novos desafios; align: center; width: 4.5; color: white;"></a-entity>
+      </a-entity>
+      <a-image src="#img77" width="3" height="2" radius="0.2" position="0 0 0"
+               material="shader: standard; roughness: 0.1; metalness: 0.1"></a-image>
+      <a-entity position="0 -1.5 0">
+        <a-entity position="-1.5 0 0"><a-image src="#img1800" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+        <a-entity position="1.5 0 0"><a-image src="#img79" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+        <a-entity position="0 -0.2 0"><a-image src="#img793" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+        <a-entity position="-1 -1 0"><a-image src="#img85" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+        <a-entity position="1.1 -1 0"><a-image src="#img799" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+        <a-entity position="-1 -2.3 0"><a-image src="#img80" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+        <a-entity position="1 -2.2 0"><a-image src="#img1802" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+      </a-entity>
+    </a-entity>
 
-  <!-- Imagens secundárias -->
-  <a-entity position="0 -1.5 0">
-    <a-entity position="-1.5 0 0"><a-image src="img1800.jpeg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
-    <a-entity position="1.5 0 0"><a-image src="img79.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
-    <a-entity position="0 -0.2 0"><a-image src="img793.jpeg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
-    <a-entity position="-1 -1 0"><a-image src="img85.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
-    <a-entity position="1.1 -1 0"><a-image src="img799.jpeg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
-    <a-entity position="-1 -2.3 0"><a-image src="img80.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
-    <a-entity position="1 -2.2 0"><a-image src="img1802.jpeg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
-  </a-entity>
-</a-entity>
-    
-<!-- 1990s - Posição ajustada -->
-<a-entity class="decade-group" position="5 2.6 4" rotation="0 -130 0">
-  <!-- Título em uma entidade separada -->
-  <a-entity position="0 1.5 0" class="decade-title">
-    <a-entity text="value: 1990s — Plantando sementes, explorando o mundo; align: center; width: 4.5; color: white;"></a-entity>
-  </a-entity>
+    <!-- 1990s -->
+    <a-entity class="decade-group" position="5 2.6 4" rotation="0 -130 0">
+      <a-entity position="0 1.5 0" class="decade-title">
+        <a-entity text="value: 1990s — Plantando sementes, explorando o mundo; align: center; width: 4.5; color: white;"></a-entity>
+      </a-entity>
+      <a-image src="#img19899" width="3" height="2" radius="0.2" position="0 0 0"
+               material="shader: standard; roughness: 0.1; metalness: 0.1"></a-image>
+      <a-entity position="0 -1.5 0">
+        <a-entity position="-1.3 0 0"><a-image src="#img90" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+        <a-entity position="1.5 0 0"><a-image src="#img87" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+        <a-entity position="0 -1 0"><a-image src="#img960" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+        <a-entity position="1.3 -1.5 0"><a-image src="#img96" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+        <a-entity position="-1 -2 0"><a-image src="#img1998" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+        <a-entity position="1 -2.5 0"><a-image src="#img1995" width="1.5" height="1" radius="0.1"></a-image></a-entity>
+      </a-entity>
+    </a-entity>
 
-  <a-image src="img19899.jpeg" width="3" height="2" radius="0.2" position="0 0 0"
-           material="shader: standard; roughness: 0.1; metalness: 0.1"></a-image>
-  <a-entity position="0 -1.5 0">
-    <a-entity position="-1.3 0 0"><a-image src="img90.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
-    <a-entity position="1.5 0 0"><a-image src="img87.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
-    <a-entity position="0 -1 0"><a-image src="img960.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
-    <a-entity position="1.3 -1.5 0"><a-image src="img96.jpg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
-    <a-entity position="-1 -2 0"><a-image src="img1998.jpeg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
-    <a-entity position="1 -2.5 0"><a-image src="img1995.jpeg" width="1.5" height="1" radius="0.1"></a-image></a-entity>
-  </a-entity>
-</a-entity>
     <!-- 2000s -->
-<!-- 2000s (135 degrees) - MODIFICADO -->
-<a-entity class="decade-group" position="1.5 1.9 6" rotation="0 -170 0">
-  <a-entity position="0 2.5 0" class="decade-title">
-    <a-entity text="value: 2000s — Construindo alicerces, fortalecendo raizes; align: center; width: 5; color: white;"></a-entity>
-  </a-entity>
-  <a-image src="img980.jpeg" width="4" height="2.5" radius="0.2" position="0 0 0"
-           material="shader: standard; roughness: 0.05; metalness: 0.05; antialias: true"></a-image>
-  <a-entity position="0 -1.8 0">
-    <a-entity position="-1.5 0 0"><a-image src="img2009.jpg" width="2" height="1.3" radius="0.1"
-              material="shader: standard; roughness: 0.1; metalness: 0.1; antialias: true"></a-image></a-entity>
-    <a-entity position="1.5 0 0"><a-image src="img2001.jpg" width="2" height="1.3" radius="0.1"
-              material="shader: standard; roughness: 0.1; metalness: 0.1; antialias: true"></a-image></a-entity>
-    <a-entity position="0 -1.2 0"><a-image src="img2004.jpeg" width="2" height="1.3" radius="0.1"
-              material="shader: standard; roughness: 0.1; metalness: 0.1; antialias: true"></a-image></a-entity>
-    <a-entity position="-1.5 -1.5 0"><a-image src="img1994.jpeg" width="2" height="1.3" radius="0.1"
-              material="shader: standard; roughness: 0.1; metalness: 0.1; antialias: true"></a-image></a-entity>
-    <a-entity position="1.5 -1.5 0"><a-image src="img2005.jpeg" width="2" height="1.3" radius="0.1"
-              material="shader: standard; roughness: 0.1; metalness: 0.1; antialias: true"></a-image></a-entity>
-  </a-entity>
-</a-entity>
-
-<!-- 2010s - MODIFICADO -->
-<a-entity class="decade-group" position="-3.5 2 6" rotation="0 -190 0">
-  <a-entity position="0 3 0" class="decade-title">
-    <a-entity text="value: 2010s — Realizando sonhos, celebrando conquistas; align: center; width: 5.5; color: white;"></a-entity>
-  </a-entity>
-  <a-image src="img20100.jpeg" width="4" height="2.5" radius="0.2" position="0 1 0"
-           material="shader: standard; roughness: 0.05; metalness: 0.05; antialias: true"></a-image>
-  <a-entity position="0 -1.8 0">
-    <a-entity position="-2 0.5 0"><a-image src="img20121.jpeg" width="2" height="1.3" radius="0.1"
-              material="shader: standard; roughness: 0.1; metalness: 0.1; antialias: true"></a-image></a-entity>
-    <a-entity position="2 0.5 0"><a-image src="img20122.jpeg" width="2" height="1.3" radius="0.1"
-              material="shader: standard; roughness: 0.1; metalness: 0.1; antialias: true"></a-image></a-entity>
-    <a-entity position="0 0.8 0"><a-image src="img201000.jpeg" width="2" height="1.3" radius="0.1"
-              material="shader: standard; roughness: 0.1; metalness: 0.1; antialias: true"></a-image></a-entity>
-    <a-entity position="0 -1 0"><a-image src="img2013.jpeg" width="2" height="1.3" radius="0.1"
-              material="shader: standard; roughness: 0.1; metalness: 0.1; antialias: true"></a-image></a-entity>
-    <a-entity position="-2 -1.5 0"><a-image src="img20101.jpeg" width="2" height="1.3" radius="0.1"
-              material="shader: standard; roughness: 0.1; metalness: 0.1; antialias: true"></a-image></a-entity>
-    <a-entity position="2 -1 0"><a-image src="img2015.jpeg" width="2" height="1.3" radius="0.1"
-              material="shader: standard; roughness: 0.1; metalness: 0.1; antialias: true"></a-image></a-entity>
-  </a-entity>
-</a-entity>
-
-<!-- 2020s - MODIFICADO -->
-<a-entity class="decade-group" position="-10 2.5 3" rotation="0 -260 0">
-  <a-entity position="0 5.5 0" class="decade-title">
-    <a-entity text="value: 2020s — Colhendo os melhores frutos de tudo que plantou, vivendo 60 anos de uma linda jornada; 
-              align: center; width: 7; color: gold;"></a-entity>
-  </a-entity>
-  <!-- Imagem principal (central) -->
-  <a-image 
-    src="img2020.jpg" 
-    width="4" 
-    height="3" 
-    position="0 3 0"
-    material="shader: standard; roughness: 0.05; metalness: 0.05; antialias: true; anisotropy: 16">
-  </a-image>
-
-  <!-- Grupo de imagens secundárias - disposição em grade espaçada -->
-  <a-entity position="0 -1.5 0">
-    
-    <!-- Linha superior -->
-    <a-entity position="-3.5 3 0">
-      <a-image src="img20242.jpeg" width="2.8" height="2.2" material="shader: standard; anisotropy: 16"></a-image>
-    </a-entity>
-    <a-entity position="0 1.8 0">
-      <a-image src="img20105.jpeg" width="2.8" height="2.2" material="shader: standard; anisotropy: 16"></a-image>
-    </a-entity>
-    <a-entity position="4.5 3 0">
-      <a-image src="img20240.jpeg" width="2.8" height="2.2" material="shader: standard; anisotropy: 16"></a-image>
+    <a-entity class="decade-group" position="1.5 1.9 6" rotation="0 -170 0">
+      <a-entity position="0 2.5 0" class="decade-title">
+        <a-entity text="value: 2000s — Construindo alicerces, fortalecendo raizes; align: center; width: 5; color: white;"></a-entity>
+      </a-entity>
+      <a-image src="#img980" width="4" height="2.5" radius="0.2" position="0 0 0"
+               material="shader: standard; roughness: 0.05; metalness: 0.05"></a-image>
+      <a-entity position="0 -1.8 0">
+        <a-entity position="-1.5 0 0"><a-image src="#img2009" width="2" height="1.3" radius="0.1"
+                  material="shader: standard; roughness: 0.1; metalness: 0.1"></a-image></a-entity>
+        <a-entity position="1.5 0 0"><a-image src="#img2001" width="2" height="1.3" radius="0.1"
+                  material="shader: standard; roughness: 0.1; metalness: 0.1"></a-image></a-entity>
+        <a-entity position="0 -1.2 0"><a-image src="#img2004" width="2" height="1.3" radius="0.1"
+                  material="shader: standard; roughness: 0.1; metalness: 0.1"></a-image></a-entity>
+        <a-entity position="-1.5 -1.5 0"><a-image src="#img1994" width="2" height="1.3" radius="0.1"
+                  material="shader: standard; roughness: 0.1; metalness: 0.1"></a-image></a-entity>
+        <a-entity position="1.5 -1.5 0"><a-image src="#img2005" width="2" height="1.3" radius="0.1"
+                  material="shader: standard; roughness: 0.1; metalness: 0.1"></a-image></a-entity>
+      </a-entity>
     </a-entity>
 
-    <!-- Linha do meio -->
-    
-    <a-entity position="-3.5 0 0">
-      <a-image src="img2014.jpeg" width="2.8" height="2.2" material="shader: standard; anisotropy: 16"></a-image>
-    </a-entity>
-    <a-entity position="0 -1 0">
-      <a-image src="img2025.jpg" width="3" height="3" material="shader: standard; anisotropy: 16"></a-image>
-    </a-entity>
-    <a-entity position="4.5 0.5 0">
-      <a-image src="img2023.jpeg" width="2.8" height="2.2" material="shader: standard; anisotropy: 16"></a-image>
+    <!-- 2010s -->
+    <a-entity class="decade-group" position="-3.5 2 6" rotation="0 -190 0">
+      <a-entity position="0 3 0" class="decade-title">
+        <a-entity text="value: 2010s — Realizando sonhos, celebrando conquistas; align: center; width: 5.5; color: white;"></a-entity>
+      </a-entity>
+      <a-image src="#img20100" width="4" height="2.5" radius="0.2" position="0 1 0"
+               material="shader: standard; roughness: 0.05; metalness: 0.05"></a-image>
+      <a-entity position="0 -1.8 0">
+        <a-entity position="-2 0.5 0"><a-image src="#img20121" width="2" height="1.3" radius="0.1"
+                  material="shader: standard; roughness: 0.1; metalness: 0.1"></a-image></a-entity>
+        <a-entity position="2 0.5 0"><a-image src="#img20122" width="2" height="1.3" radius="0.1"
+                  material="shader: standard; roughness: 0.1; metalness: 0.1"></a-image></a-entity>
+        <a-entity position="0 0.8 0"><a-image src="#img201000" width="2" height="1.3" radius="0.1"
+                  material="shader: standard; roughness: 0.1; metalness: 0.1"></a-image></a-entity>
+        <a-entity position="0 -1 0"><a-image src="#img2013" width="2" height="1.3" radius="0.1"
+                  material="shader: standard; roughness: 0.1; metalness: 0.1"></a-image></a-entity>
+        <a-entity position="-2 -1.5 0"><a-image src="#img20101" width="2" height="1.3" radius="0.1"
+                  material="shader: standard; roughness: 0.1; metalness: 0.1"></a-image></a-entity>
+        <a-entity position="2 -1 0"><a-image src="#img2015" width="2" height="1.3" radius="0.1"
+                  material="shader: standard; roughness: 0.1; metalness: 0.1"></a-image></a-entity>
+      </a-entity>
     </a-entity>
 
-    <!-- Linha inferior -->
-    <a-entity position="-3.5 -2.8 0">
-      <a-image src="img202200.jpeg" width="2.8" height="2.2" material="shader: standard; anisotropy: 16"></a-image>
+    <!-- 2020s -->
+    <a-entity class="decade-group" position="-10 2.5 3" rotation="0 -260 0">
+      <a-entity position="0 5.5 0" class="decade-title">
+        <a-entity text="value: 2020s — Colhendo os melhores frutos de tudo que plantou, vivendo 60 anos de uma linda jornada; align: center; width: 7; color: gold;"></a-entity>
+      </a-entity>
+      <a-image src="#img2020" width="4" height="3" position="0 3 0"
+               material="shader: standard; roughness: 0.05; metalness: 0.05; anisotropy: 16"></a-image>
+      <a-entity position="0 -1.5 0">
+        <a-entity position="-3.5 3 0"><a-image src="#img20242" width="2.8" height="2.2" material="shader: standard; anisotropy: 16"></a-image></a-entity>
+        <a-entity position="0 1.8 0"><a-image src="#img20105" width="2.8" height="2.2" material="shader: standard; anisotropy: 16"></a-image></a-entity>
+        <a-entity position="4.5 3 0"><a-image src="#img20240" width="2.8" height="2.2" material="shader: standard; anisotropy: 16"></a-image></a-entity>
+        <a-entity position="-3.5 0 0"><a-image src="#img2014" width="2.8" height="2.2" material="shader: standard; anisotropy: 16"></a-image></a-entity>
+        <a-entity position="0 -1 0"><a-image src="#img2025" width="3" height="3" material="shader: standard; anisotropy: 16"></a-image></a-entity>
+        <a-entity position="4.5 0.5 0"><a-image src="#img2023" width="2.8" height="2.2" material="shader: standard; anisotropy: 16"></a-image></a-entity>
+        <a-entity position="-3.5 -2.8 0"><a-image src="#img202200" width="2.8" height="2.2" material="shader: standard; anisotropy: 16"></a-image></a-entity>
+        <a-entity position="0 -3.8 0"><a-image src="#img202441" width="2.8" height="2.2" material="shader: standard; anisotropy: 16"></a-image></a-entity>
+        <a-entity position="4.5 -2 0"><a-image src="#img20255" width="2.8" height="2.2" material="shader: standard; anisotropy: 16"></a-image></a-entity>
+        <a-entity position="4.5 -4.5 0"><a-image src="#img1408" width="2.8" height="2.2" material="shader: standard; anisotropy: 16"></a-image></a-entity>
+      </a-entity>
     </a-entity>
-    <a-entity position="0 -3.8 0">
-      <a-image src="img202441.jpeg" width="2.8" height="2.2" material="shader: standard; anisotropy: 16"></a-image>
-    </a-entity>
-    <a-entity position="4.5 -2 0">
-      <a-image src="img20255.jpeg" width="2.8" height="2.2" material="shader: standard; anisotropy: 16"></a-image>
-    </a-entity>
-<a-entity position="4.5 -4.5 0">
-      <a-image src="img1408.jpeg" width="2.8" height="2.2" material="shader: standard; anisotropy: 16"></a-image>
-    </a-entity>
-  </a-entity>
 
-</a-entity>
-
-    
     <!-- Mensagem inferior -->
     <a-entity position="0 -3 0" rotation="-90 0 0">
       <a-ring color="white" radius-inner="1" radius-outer="1.3" opacity="0.7"
                animation="property: rotation; to: 0 0 360; loop: true; dur: 10000; easing: linear"></a-ring>
       <a-text value="Look around" align="center" width="4" color="white" position="0 0.1 0"
               font="https://cdn.aframe.io/fonts/Roboto-msdf.json" shader="msdf"></a-text>
+              
     </a-entity>
-    <a-plane position="0 -4 0" rotation="-90 0 0" width="15" height="15" color="#000" opacity="1"></a-plane>
- 
+     <a-plane position="0 -4 0" rotation="-90 0 0" width="15" height="15" color="#000" opacity="0.8"></a-plane>
+  </a-scene>
 
-    <!-- Scripts -->
- 
-<script>
-  // 1. Configuração inicial do som (após o DOM carregar)
-document.addEventListener('DOMContentLoaded', function() {
-  const scene = document.querySelector('a-scene');
-  const musicPlayer = document.getElementById('music-player');
-  
-  // Detecta Oculus Browser e usa OGG se necessário
-  const isOculus = navigator.userAgent.match(/OculusBrowser|Quest/i);
-  if (isOculus) {
-    musicPlayer.setAttribute('sound', 'src', '#bg-music-ogg');
-  }
+  <!-- Botão de início -->
+  <button id="start-experience">
+    <i class="fas fa-play"></i> INICIAR EXPERIÊNCIA
+  </button>
 
-  // Botão START
-  document.getElementById('start-experience').addEventListener('click', function() {
-    const sound = musicPlayer.components.sound;
-    sound.stopSound();
-    sound.playSound(); // Força o play no clique
-    
-    // Resto do código...
-  });
-
-  // Corrige áudio no VR
-  scene.addEventListener('enter-vr', () => {
-    setTimeout(() => {
-      musicPlayer.components.sound.stopSound();
-      musicPlayer.components.sound.playSound();
-    }, 300);
-  });
-});
-// Configuração inicial
-document.addEventListener('DOMContentLoaded', function() {
-  const scene = document.querySelector('a-scene');
-  const startButton = document.getElementById('start-experience');
-  const audioFallback = document.getElementById('audio-fallback');
-  const musicPlayer = document.getElementById('music-player');
-  
-  // Esconde elementos inicialmente
-  audioFallback.style.display = 'none';
-
-  // Configuração do VR
-  scene.addEventListener('enter-vr', () => {
-    const rig = document.getElementById('rig');
-    rig.setAttribute('position', '0 -0.5 0');
-  });
-
-  // Configuração do botão principal
-  startButton.addEventListener('click', async function() {
-    try {
-      // Tenta iniciar a música
-      musicPlayer.setAttribute('sound', 'volume', 0.5);
-      await musicPlayer.components.sound.playSound();
-      startButton.style.display = 'none';
+  <!-- Script principal -->
+  <script>
+  // 1. REGISTRAR COMPONENTES
+  AFRAME.registerComponent('image-rotator', {
+    schema: { 
+      speed: { type: 'number', default: 20000 },
+      axis: { type: 'string', default: 'y' } // Adicionado eixo de rotação configurável
+    },
+    init: function() {
+      const rotation = this.el.getAttribute('rotation') || {x: 0, y: 0, z: 0};
+      const axis = this.data.axis;
       
-      // Entra no VR
-      if (scene.hasAttribute('vr-mode-ui')) {
-        await scene.enterVR();
+      // Cria objeto de animação baseado no eixo especificado
+      const animationProps = {
+        property: 'rotation',
+        dur: this.data.speed,
+        loop: true,
+        easing: 'linear'
+      };
+      
+      if (axis === 'y') {
+        animationProps.to = `${rotation.x} ${rotation.y + 360} ${rotation.z}`;
+        animationProps.from = `${rotation.x} ${rotation.y} ${rotation.z}`;
+      } else if (axis === 'x') {
+        animationProps.to = `${rotation.x + 360} ${rotation.y} ${rotation.z}`;
+        animationProps.from = `${rotation.x} ${rotation.y} ${rotation.z}`;
+      } else if (axis === 'z') {
+        animationProps.to = `${rotation.x} ${rotation.y} ${rotation.z + 360}`;
+        animationProps.from = `${rotation.x} ${rotation.y} ${rotation.z}`;
       }
       
-      // Esconde loading
-      document.getElementById('loading').style.opacity = '0';
-      setTimeout(() => {
-        document.getElementById('loading').style.display = 'none';
-      }, 1000);
-      
-    } catch (e) {
-      console.error("Erro ao iniciar:", e);
-      initFallback();
+      this.el.setAttribute('animation__rotate', animationProps);
     }
   });
 
-  // Fallback de áudio
-  function initFallback() {
-    const audio = new Audio("foreveryoung.mp3");
-    audio.volume = 0.5;
-    audio.loop = true;
-
-    audioFallback.style.display = 'block';
-    startButton.style.display = 'none';
-
-    audioFallback.onclick = function() {
-      audio.play()
-        .then(() => {
-          this.style.display = 'none';
-          document.getElementById('loading').style.display = 'none';
-        })
-        .catch(e => console.error("Falha no fallback:", e));
-    };
-
-    audio.play().catch(e => console.log("Precisa de interação:", e));
-  }
-});
-
-// Componente para rotação automática das imagens
-AFRAME.registerComponent('image-rotator', {
-  schema: { 
-    speed: { type: 'number', default: 20000 }
-  },
-  init: function() {
-    const rotationY = this.el.getAttribute('rotation')?.y || 0;
-    this.el.setAttribute('animation__rotate', {
-      property: 'rotation',
-      to: `${rotationY} 360 0`,
-      from: `${rotationY} 0 0`,
-      dur: this.data.speed,
-      loop: true,
-      easing: 'linear'
-    });
-  }
-});
-
-// Componente para animação de flutuação
-AFRAME.registerComponent('float-animation', {
-  schema: { 
-    speed: {type: 'number', default: 10000}, 
-    distance: {type: 'number', default: 0.2} 
-  },
-  init: function() {
-    const originalY = this.el.getAttribute('position').y;
-    this.el.setAttribute('animation__float', {
-      property: 'position',
-      to: {x: this.el.getAttribute('position').x, y: originalY + this.data.distance, z: this.el.getAttribute('position').z},
-      from: {x: this.el.getAttribute('position').x, y: originalY - this.data.distance, z: this.el.getAttribute('position').z},
-      dir: 'alternate',
-      dur: this.data.speed,
-      loop: true,
-      easing: 'easeInOutSine'
-    });
-  }
-});
-
-// Outros componentes (mantidos do seu código original)
-AFRAME.registerComponent('look-direction-listener', {
-  init: function() {
-    const lookAroundDiv = document.getElementById('look-around');
-    const camera = document.querySelector('[camera]');
-    
-    this.tick = function() {
-      const rotation = camera.getAttribute('rotation');
-      if (rotation.x > 30) {
-        lookAroundDiv.style.opacity = '1';
-      } else {
-        lookAroundDiv.style.opacity = '0';
-      }
-    };
-  }
-});
-
-AFRAME.registerComponent('high-quality-img', {
-  init: function () {
-    this.el.setAttribute('material', {
-      shader: 'standard',
-      roughness: 0.05,
-      metalness: 0.05,
-      antialias: true,
-      anisotropy: 16
-    });
-  }
-});
-
-AFRAME.registerComponent('global-snow', {
-  schema: {
-    count: { default: 100 },
-    speed: { default: 3 },
-    size: { default: 0.02 },
-    areaSize: { default: 20 }
-  },
-  init: function() {
-    const el = this.el;
-    const data = this.data;
-    
-    for (let i = 0; i < data.count; i++) {
-      const snow = document.createElement('a-sphere');
-      
-      snow.setAttribute('position', {
-        x: (Math.random() - 0.5) * data.areaSize,
-        y: 10 + Math.random() * 10,
-        z: (Math.random() - 0.5) * data.areaSize
-      });
-      
-      snow.setAttribute('radius', data.size);
-      snow.setAttribute('color', 'white');
-      snow.setAttribute('opacity', 0.5 + Math.random() * 0.5);
-      
-      snow.setAttribute('animation', {
+  AFRAME.registerComponent('float-animation', {
+    schema: { 
+      speed: { type: 'number', default: 10000 }, 
+      distance: { type: 'number', default: 0.2 } 
+    },
+    init: function() {
+      const pos = this.el.getAttribute('position');
+      const originalY = pos.y;
+      this.el.setAttribute('animation__float', {
         property: 'position',
-        to: {
-          x: snow.getAttribute('position').x + (Math.random() - 0.5) * 2,
-          y: -10,
-          z: snow.getAttribute('position').z + (Math.random() - 0.5) * 2
-        },
-        dur: (5000 + Math.random() * 5000) / data.speed,
-        loop: true,
-        easing: 'linear'
-      });
-      
-      snow.setAttribute('animation__blink', {
-        property: 'opacity',
-        to: 0.2,
-        from: 0.8,
-        dur: 2000 + Math.random() * 3000,
+        to: { x: pos.x, y: originalY + this.data.distance, z: pos.z },
+        from: { x: pos.x, y: originalY - this.data.distance, z: pos.z },
+        dir: 'alternate',
+        dur: this.data.speed,
         loop: true,
         easing: 'easeInOutSine'
       });
-      
-      el.appendChild(snow);
     }
-  }
-});
+  });
 
-// Aplica as animações após o carregamento completo
-document.querySelector('a-scene').addEventListener('loaded', function() {
-  // Rotações para todas as imagens (exceto pés, se existirem)
-  document.querySelectorAll('a-image').forEach(img => {
-    if (!img.closest('[fixed-feet]')) {
-      img.setAttribute('image-rotator', 'speed: 20000');
+  AFRAME.registerComponent('look-direction-listener', {
+    init: function() {
+      const lookAroundDiv = document.getElementById('look-around');
+      const camera = this.el;
+      this.tick = function() {
+        const rotation = camera.getAttribute('rotation');
+        if (rotation.x > 30) {
+          lookAroundDiv.style.opacity = '1';
+        } else {
+          lookAroundDiv.style.opacity = '0';
+        }
+      };
     }
   });
-  
-  // Animação de flutuação para grupos de década
-  document.querySelectorAll('.decade-group').forEach(group => {
-    group.setAttribute('float-animation', 'speed: 15000; distance: 0.15');
+
+  AFRAME.registerComponent('global-snow', {
+    schema: {
+      count: { default: 100 },
+      speed: { default: 3 },
+      size: { default: 0.02 },
+      areaSize: { default: 20 }
+    },
+    init: function() {
+      const el = this.el;
+      const data = this.data;
+      
+      // Cria um container para os flocos de neve
+      const snowContainer = document.createElement('a-entity');
+      snowContainer.setAttribute('position', '0 0 0');
+      
+      for (let i = 0; i < data.count; i++) {
+        const snow = document.createElement('a-sphere');
+        const size = data.size * (0.5 + Math.random());
+        const xPos = (Math.random() - 0.5) * data.areaSize;
+        const zPos = (Math.random() - 0.5) * data.areaSize;
+        const startY = 10 + Math.random() * 10;
+        const duration = (5000 + Math.random() * 5000) / data.speed;
+        
+        snow.setAttribute('position', {
+          x: xPos,
+          y: startY,
+          z: zPos
+        });
+        snow.setAttribute('radius', size);
+        snow.setAttribute('color', 'white');
+        snow.setAttribute('opacity', 0.5 + Math.random() * 0.5);
+        snow.setAttribute('animation', {
+          property: 'position',
+          to: { x: xPos + (Math.random() - 0.5) * 2, y: -10, z: zPos + (Math.random() - 0.5) * 2 },
+          dur: duration,
+          loop: true,
+          easing: 'linear'
+        });
+        snow.setAttribute('animation__blink', {
+          property: 'opacity',
+          to: 0.2,
+          from: 0.8,
+          dur: 2000 + Math.random() * 3000,
+          loop: true,
+          easing: 'easeInOutSine'
+        });
+        
+        snowContainer.appendChild(snow);
+      }
+      
+      el.appendChild(snowContainer);
+    }
   });
-  
-  console.log("✅ Animações aplicadas com sucesso!");
+
+  // 2. INICIAR EXPERIÊNCIA
+  document.addEventListener('DOMContentLoaded', function () {
+    const scene = document.querySelector('a-scene');
+    const startButton = document.getElementById('start-experience');
+    const musicPlayer = document.getElementById('music-player');
+    const rig = document.getElementById('rig');
+    const loadingEl = document.getElementById('loading');
+
+    // Detectar Oculus
+    const isOculus = /OculusBrowser|Quest|Meta Quest/i.test(navigator.userAgent);
+    if (isOculus) {
+      musicPlayer.setAttribute('sound', 'src', '#bg-music-ogg');
+    }
+
+    startButton.addEventListener('click', async function () {
+      try {
+        await musicPlayer.components.sound.playSound();
+        startButton.style.display = 'none';
+
+        if (scene.hasLoaded) {
+          await scene.enterVR();
+        } else {
+          scene.addEventListener('loaded', () => scene.enterVR(), { once: true });
+        }
+
+        rig.setAttribute('position', '0 -0.5 0');
+
+        setTimeout(() => {
+          musicPlayer.components.sound.stopSound();
+          musicPlayer.components.sound.playSound();
+        }, 500);
+
+        loadingEl.style.opacity = '0';
+        setTimeout(() => loadingEl.style.display = 'none', 1000);
+
+      } catch (err) {
+        console.error('Erro:', err);
+        alert('Erro ao iniciar.');
+      }
+    });
+
+    // 3. APLICAR COMPONENTES APÓS CENA CARREGAR
+    scene.addEventListener('loaded', function () {
+      console.log('Cena carregada - aplicando efeitos');
+      
+      // Neve - agora usando o elemento snow-effect que existe na cena
+      const snowEffect = document.querySelector('#snow-effect');
+      snowEffect.setAttribute('global-snow', { 
+        count: 200, 
+        speed: 1, 
+        size: 0.01, 
+        areaSize: 20 
+      });
+      console.log('Efeito de neve aplicado');
+
+      // Rotação para TODAS as imagens
+document.querySelectorAll('a-image').forEach(img => {
+  img.setAttribute('image-rotator', {
+    speed: 30000,
+    axis: 'y' // Rotação no eixo Y (horizontal)
+  });
 });
+      console.log('Rotação aplicada às imagens principais');
+
+      // Flutuação dos grupos
+      document.querySelectorAll('.decade-group').forEach(group => {
+        group.setAttribute('float-animation', 'speed: 15000; distance: 0.15');
+      });
+      console.log('Animação de flutuação aplicada aos grupos');
+
+      // Detector de olhar para cima
+      rig.setAttribute('look-direction-listener', '');
+      console.log('Listener de direção do olhar aplicado');
+    });
+  });
 </script>
-    <a-entity global-snow="color: lightblue; speed: 1; size: 0.01; count: 200"></a-entity>
-  </a-scene>
-<button id="start-experience" class="play-icon-button">
-  <i class="fas fa-play"> START</i>
-</button>
-<button id="audio-fallback" style="display:none"></button> <!-- Mantemos escondido como fallback -->
- 
 </body>
 </html>
