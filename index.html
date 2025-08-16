@@ -118,16 +118,7 @@
     #enterVR {
       display: none;
     }
-    .start-hint {
-  transition: opacity 1s ease;
-  animation: pulse 2s infinite ease-in-out;
-}
 
-@keyframes pulse {
-  0% { opacity: 0.7; }
-  50% { opacity: 1; }
-  100% { opacity: 0.7; }
-}
   </style>
 </head>
 <body>
@@ -159,7 +150,7 @@
     <!-- Assets -->
     <a-assets>
       <!-- Imagens -->
-      <img id="welcome-text-img" src="texto1.png" crossorigin="anonymous">
+      <img id="welcome-text-img" src="texto0.png" crossorigin="anonymous">
       <img id="img65" src="img65.jpg" crossorigin="anonymous">
       <img id="img600" src="img600.jpg" crossorigin="anonymous">
       <img id="img6066" src="img6066.jpg" crossorigin="anonymous">
@@ -214,11 +205,16 @@
       <img id="img1408" src="img1408.jpeg" crossorigin="anonymous">
 <!-- Áudio - Nova versão corrigida -->
 <audio id="bg-music" src="foreveryoung.mp3" preload="auto"></audio>
-
+ <img id="hand-emoji" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/261d.png" crossorigin="anonymous">
       <!-- Fonte MSDF -->
       <img id="font-msdf" src="https://cdn.aframe.io/fonts/Roboto-msdf.png" crossorigin="anonymous">
-    </a-assets>
 
+    </a-assets>
+  
+<!-- Música (coloque isso após o fechamento de </a-assets>) -->
+<a-entity id="music-player" 
+          sound="src: #bg-music; autoplay: false; loop: true; volume: 0.5; positional: false">
+</a-entity>
     <!-- Céu -->
     <a-sky src="bgsky.jpg" rotation="0 0 0"></a-sky>
 
@@ -412,28 +408,17 @@
               font="https://cdn.aframe.io/fonts/Roboto-msdf.json" shader="msdf"></a-text>
     </a-entity>
     
-    <!-- INDICADOR "COMECE POR AQUI" - MOVIDO PARA FORA DE a-assets -->
-    <a-entity class="start-hint" position="-1 -1 -2" rotation="0 0 0">
-      <a-text 
-        value="Comece por aqui" 
-        align="center" 
-        color="#ffffff" 
-        position="0 0.4 0" 
-        scale="1 1 1"
-        opacity="0.8">
-      </a-text>
-      <a-entity 
-        position="0 0 0"
-        animation="property: position; to: 0 -0.5 0; dir: alternate; loop: true; dur: 2000; easing: easeInOutSine">
-        <a-entity 
-          position="0 1 0" 
-          rotation="0 0 45"
-          material="color: #00ffff "
-          geometry="primitive: cone; height: 0.3; radiusBottom: 0.1">
-        </a-entity>
-      </a-entity>
-    </a-entity>
-
+<!-- Substitua o elemento da mão por este código: -->
+<a-entity class="hand-pointer" position="-1.5 0 -2">
+  <a-image 
+    src="#hand-emoji" 
+    width="0.5" 
+    height="0.5"
+    transparent="true"
+    animation__float="property: position; to: -1.5 1.2 -2; dir: alternate; loop: true; dur: 1500; easing: easeInOutSine"
+    animation__rotate="property: rotation; to: 0 0 10; dir: alternate; loop: true; dur: 2000; easing: easeInOutSine">
+  </a-image>
+</a-entity>
     <a-plane position="0 -4 0" rotation="-90 0 0" width="15" height="15" color="#000" opacity="0.8"></a-plane>
   
   </a-scene>
